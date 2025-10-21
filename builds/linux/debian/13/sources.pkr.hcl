@@ -26,29 +26,6 @@ source "proxmox-iso" "debian_13_base" {
     unmount      = true
   }
 
-  // cd files
-  /*
-  additional_iso_files {
-    type             = "sata"
-    iso_storage_pool = "packer_iso"
-    cd_content = {
-      "user-data" = templatefile("${abspath(path.root)}/data/user-data.pkrtpl.hcl", {
-        guest_os_language   = var.guest_os_language
-        guest_os_keyboard   = var.guest_os_keyboard
-        guest_os_timezone   = var.guest_os_timezone
-        username            = var.username
-        password            = var.password
-        id                  = local.short_id
-        additional_packages = var.additional_packages
-      })
-      "meta-data" = templatefile("${abspath(path.root)}/data/meta-data.pkrtpl.hcl", {
-        instance_id = "ci-${local.short_id}"
-        hostname    = "debian-${local.short_id}"
-      })
-    }
-  }
-  */
-
   // disk settings
   disks {
     type         = "scsi"
