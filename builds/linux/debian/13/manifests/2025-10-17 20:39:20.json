@@ -1,0 +1,20 @@
+{
+  "builds": [
+    {
+      "name": "debian_12_base",
+      "builder_type": "proxmox-iso",
+      "files": null,
+      "artifact_id": "106",
+      "packer_run_uuid": "42ced201-2c77-6943-8bb2-b68afbc9c26a",
+      "custom_data": {
+        "author": "Ralph Brynard \u003cralph.brynard@gmail.com\u003e",
+        "build_date": "2025-10-17 20:39 UTC",
+        "build_username": "packer",
+        "build_version": "9bdc8bf53a95c0b87a9686e06df3486e39a698e4",
+        "committer": "Ralph Brynard \u003cralph.brynard@gmail.com\u003e",
+        "timestamp": "2025-10-03T17:28:26Z"
+      }
+    }
+  ],
+  "last_run_uuid": "42ced201-2c77-6943-8bb2-b68afbc9c26a"
+}

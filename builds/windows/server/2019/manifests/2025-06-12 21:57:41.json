@@ -1,0 +1,20 @@
+{
+  "builds": [
+    {
+      "name": "windows_server_2k19_data_center_base",
+      "builder_type": "proxmox-iso",
+      "files": null,
+      "artifact_id": "100",
+      "packer_run_uuid": "77881738-a594-16a4-bd92-0a1a6e22d3f6",
+      "custom_data": {
+        "author": "Ralph Brynard \u003cralph.brynard@gmail.com\u003e",
+        "build_date": "2025-06-12 21:57 UTC",
+        "build_username": "packer",
+        "build_version": "ded5c68da11d2131da3a24c8cc13deb9d6944664",
+        "committer": "Ralph Brynard \u003cralph.brynard@gmail.com\u003e",
+        "timestamp": "2025-06-12T21:57:27Z"
+      }
+    }
+  ],
+  "last_run_uuid": "77881738-a594-16a4-bd92-0a1a6e22d3f6"
+}

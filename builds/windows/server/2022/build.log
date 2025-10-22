@@ -1,0 +1,264 @@
+2025/06/13 16:51:32 [INFO] Packer version: 1.12.0 [go1.22.9 darwin amd64]
+2025/06/13 16:51:32 Old default config directory found: /Users/ralph.brynard/.packer.d
+2025/06/13 16:51:32 [INFO] PACKER_CONFIG env var not set; checking the default config file path
+2025/06/13 16:51:32 [INFO] PACKER_CONFIG env var set; attempting to open config file: /Users/ralph.brynard/.packerconfig
+2025/06/13 16:51:32 [WARN] Config file doesn't exist: /Users/ralph.brynard/.packerconfig
+2025/06/13 16:51:32 Old default config directory found: /Users/ralph.brynard/.packer.d
+2025/06/13 16:51:32 [INFO] Setting cache directory: /Users/ralph.brynard/.cache/packer
+2025/06/13 16:51:32 Old default config directory found: /Users/ralph.brynard/.packer.d
+2025/06/13 16:51:32 [TRACE] listing potential installations for "github.com/hashicorp/proxmox" that match ">= 1.1.3". plugingetter.ListInstallationsOptions{PluginDirectory:"/Users/ralph.brynard/.packer.d/plugins", BinaryInstallationOptions:plugingetter.BinaryInstallationOptions{APIVersionMajor:"5", APIVersionMinor:"0", OS:"darwin", ARCH:"amd64", Ext:"", Checksummers:[]plugingetter.Checksummer{plugingetter.Checksummer{Type:"sha256", Hash:(*sha256.digest)(0xc000a75000)}}, ReleasesOnly:false}}
+2025/06/13 16:51:32 [TRACE] Found the following "github.com/hashicorp/proxmox" installations: [{/Users/ralph.brynard/.packer.d/plugins/github.com/hashicorp/proxmox/packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 v1.2.2 x5.0}]
+2025/06/13 16:51:32 [INFO] found external [-packer-default-plugin-name- clone iso] builders from proxmox plugin
+2025/06/13 16:51:32 plugin "/Users/ralph.brynard/.packer.d/plugins/github.com/hashicorp/proxmox/packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64" does not support Protobuf, forcing use of Gob
+2025/06/13 16:51:32 [TRACE] listing potential installations for "github.com/rgl/windows-update" that match ">= 0.14.3". plugingetter.ListInstallationsOptions{PluginDirectory:"/Users/ralph.brynard/.packer.d/plugins", BinaryInstallationOptions:plugingetter.BinaryInstallationOptions{APIVersionMajor:"5", APIVersionMinor:"0", OS:"darwin", ARCH:"amd64", Ext:"", Checksummers:[]plugingetter.Checksummer{plugingetter.Checksummer{Type:"sha256", Hash:(*sha256.digest)(0xc000a75000)}}, ReleasesOnly:false}}
+2025/06/13 16:51:32 [TRACE] Found the following "github.com/rgl/windows-update" installations: [{/Users/ralph.brynard/.packer.d/plugins/github.com/rgl/windows-update/packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 v0.16.10 x5.0}]
+2025/06/13 16:51:33 found external [-packer-default-plugin-name-] provisioner from windows-update plugin
+2025/06/13 16:51:33 [TRACE] listing potential installations for "github.com/ethanmdavidson/git" that match ">= 0.4.3". plugingetter.ListInstallationsOptions{PluginDirectory:"/Users/ralph.brynard/.packer.d/plugins", BinaryInstallationOptions:plugingetter.BinaryInstallationOptions{APIVersionMajor:"5", APIVersionMinor:"0", OS:"darwin", ARCH:"amd64", Ext:"", Checksummers:[]plugingetter.Checksummer{plugingetter.Checksummer{Type:"sha256", Hash:(*sha256.digest)(0xc000a75000)}}, ReleasesOnly:false}}
+2025/06/13 16:51:33 [TRACE] Found the following "github.com/ethanmdavidson/git" installations: [{/Users/ralph.brynard/.packer.d/plugins/github.com/ethanmdavidson/git/packer-plugin-git_v0.6.4_x5.0_darwin_amd64 v0.6.4 x5.0}]
+2025/06/13 16:51:33 found external [commit repository tree] datasource from git plugin
+2025/06/13 16:51:33 [TRACE] listing potential installations for <nil> that match "". plugingetter.ListInstallationsOptions{PluginDirectory:"/Users/ralph.brynard/.packer.d/plugins", BinaryInstallationOptions:plugingetter.BinaryInstallationOptions{APIVersionMajor:"5", APIVersionMinor:"0", OS:"darwin", ARCH:"amd64", Ext:"", Checksummers:[]plugingetter.Checksummer{plugingetter.Checksummer{Type:"sha256", Hash:(*sha256.digest)(0xc000688180)}}, ReleasesOnly:false}}
+2025/06/13 16:51:33 found external [commit repository tree] datasource from git plugin
+2025/06/13 16:51:33 [INFO] found external [-packer-default-plugin-name- clone iso] builders from proxmox plugin
+2025/06/13 16:51:33 found external [-packer-default-plugin-name-] datasource from sshkey plugin
+2025/06/13 16:51:33 [INFO] found external [clone iso supervisor] builders from vsphere plugin
+2025/06/13 16:51:33 [INFO] found external [-packer-default-plugin-name- template] post-processors from vsphere plugin
+2025/06/13 16:51:34 found external [-packer-default-plugin-name-] provisioner from windows-update plugin
+2025/06/13 16:51:34 found external [-packer-default-plugin-name- local] provisioner from ansible plugin
+2025/06/13 16:51:34 [TRACE] validateValue: not active for token_secret, so skipping
+2025/06/13 16:51:34 [TRACE] validateValue: not active for pool, so skipping
+2025/06/13 16:51:34 [TRACE] validateValue: not active for username, so skipping
+2025/06/13 16:51:34 [TRACE] validateValue: not active for password, so skipping
+2025/06/13 16:51:34 [TRACE] validateValue: not active for build_key, so skipping
+2025/06/13 16:51:34 [TRACE] validateValue: not active for proxmox_host, so skipping
+2025/06/13 16:51:34 [TRACE] validateValue: not active for token_id, so skipping
+2025/06/13 16:51:34 [TRACE] validateValue: not active for node, so skipping
+2025/06/13 16:51:34 [TRACE] validateValue: not active for insecure_tls, so skipping
+2025/06/13 16:51:34 [INFO] Starting external plugin /Users/ralph.brynard/.packer.d/plugins/github.com/ethanmdavidson/git/packer-plugin-git_v0.6.4_x5.0_darwin_amd64 start datasource commit
+2025/06/13 16:51:34 Starting plugin: /Users/ralph.brynard/.packer.d/plugins/github.com/ethanmdavidson/git/packer-plugin-git_v0.6.4_x5.0_darwin_amd64 []string{"/Users/ralph.brynard/.packer.d/plugins/github.com/ethanmdavidson/git/packer-plugin-git_v0.6.4_x5.0_darwin_amd64", "start", "datasource", "commit"}
+2025/06/13 16:51:34 Waiting for RPC address for: /Users/ralph.brynard/.packer.d/plugins/github.com/ethanmdavidson/git/packer-plugin-git_v0.6.4_x5.0_darwin_amd64
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Plugin address: unix /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer-plugin3071609978
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Waiting for connection...
+2025/06/13 16:51:34 Received unix RPC address for /Users/ralph.brynard/.packer.d/plugins/github.com/ethanmdavidson/git/packer-plugin-git_v0.6.4_x5.0_darwin_amd64: addr is /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer-plugin3071609978
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Serving a plugin connection...
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 [TRACE] starting datasource commit
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 [DEBUG] - common: sending ConfigSpec as gob
+2025/06/13 16:51:34 [DEBUG] - common: receiving ConfigSpec as gob
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 [DEBUG] - common: sending ConfigSpec as gob
+2025/06/13 16:51:34 [DEBUG] - common: receiving ConfigSpec as gob
+2025/06/13 16:51:34 [INFO] (telemetry) Starting datasource git-commit
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Starting execution
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Finding repository from '.' (/Users/ralph.brynard/Desktop/packer/builds/windows/server/2022)
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Repo opened
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Hash found: '589c387ed20d17c7fb9a21d788723b6efd8e8e7f'
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Branches found
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Commit found: 'commit 589c387ed20d17c7fb9a21d788723b6efd8e8e7f
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: Author: Ralph Brynard <ralph.brynard@gmail.com>
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: Date:   Fri Jun 13 16:21:11 2025 -0500
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin:     No changes detected.
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: '
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 output.Hash: '589c387ed20d17c7fb9a21d788723b6efd8e8e7f'
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Adding branch 'develop'
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Adding branch 'feature/server2022'
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Not in branch 'hotfix/boot_order' (00b6d37011a545e14185ef05e7a207d3892aa222)
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Not in branch 'main' (968fe3ef4e8d44ca459ed3124c0e132b9942da51)
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 len(output.Branches): '2'
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 output.Author: 'Ralph Brynard <ralph.brynard@gmail.com>'
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 output.Committer: 'Ralph Brynard <ralph.brynard@gmail.com>'
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 output.Timestamp: '2025-06-13T21:21:11Z'
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 len(output.PGPSignature): '0'
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 len(output.Message): '21'
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 output.TreeHash: '3e15022db111febd20532e90d15ad094d06b06cb'
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Adding parent hash: 'b0ae5ca536893e7307f99bd92169828a43caf04a'
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 len(output.ParentHashes): '1'
+2025/06/13 16:51:34 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 [DEBUG] - datasource: sending Execute as gob
+2025/06/13 16:51:34 [DEBUG] - datasource: receiving Execute as gob
+2025/06/13 16:51:34 [INFO] (telemetry) ending git-commit
+2025/06/13 16:51:34 [INFO] Starting external plugin /Users/ralph.brynard/.packer.d/plugins/github.com/hashicorp/proxmox/packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 start builder iso
+2025/06/13 16:51:34 Starting plugin: /Users/ralph.brynard/.packer.d/plugins/github.com/hashicorp/proxmox/packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 []string{"/Users/ralph.brynard/.packer.d/plugins/github.com/hashicorp/proxmox/packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64", "start", "builder", "iso"}
+2025/06/13 16:51:34 Waiting for RPC address for: /Users/ralph.brynard/.packer.d/plugins/github.com/hashicorp/proxmox/packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Plugin address: unix /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer-plugin3266505596
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Waiting for connection...
+2025/06/13 16:51:34 Received unix RPC address for /Users/ralph.brynard/.packer.d/plugins/github.com/hashicorp/proxmox/packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64: addr is /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer-plugin3266505596
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Serving a plugin connection...
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 [TRACE] starting builder iso
+2025/06/13 16:51:34 [DEBUG] - common: receiving ConfigSpec as gob
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 CPU type not set, using default 'kvm64'
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 OS not set, using default 'other'
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Disk 0 format not set, using default 'raw'
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Disk 0 cache mode not set, using default 'none'
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Cloud-Init disk type not set, using default 'ide'
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 NIC 0 model not set, using default 'e1000'
+2025/06/13 16:51:34 [DEBUG] - common: receiving ConfigSpec as gob
+2025/06/13 16:51:34 [INFO] Starting external plugin /usr/local/bin/packer execute packer-post-processor-manifest
+2025/06/13 16:51:34 Starting plugin: /usr/local/bin/packer []string{"/usr/local/bin/packer", "execute", "packer-post-processor-manifest"}
+2025/06/13 16:51:34 Waiting for RPC address for: /usr/local/bin/packer
+2025/06/13 16:51:34 packer-post-processor-manifest plugin: [INFO] Packer version: 1.12.0 [go1.22.9 darwin amd64]
+2025/06/13 16:51:34 packer-post-processor-manifest plugin: Old default config directory found: /Users/ralph.brynard/.packer.d
+2025/06/13 16:51:34 packer-post-processor-manifest plugin: [INFO] PACKER_CONFIG env var not set; checking the default config file path
+2025/06/13 16:51:34 packer-post-processor-manifest plugin: [INFO] PACKER_CONFIG env var set; attempting to open config file: /Users/ralph.brynard/.packerconfig
+2025/06/13 16:51:34 packer-post-processor-manifest plugin: [WARN] Config file doesn't exist: /Users/ralph.brynard/.packerconfig
+2025/06/13 16:51:34 packer-post-processor-manifest plugin: Old default config directory found: /Users/ralph.brynard/.packer.d
+2025/06/13 16:51:34 packer-post-processor-manifest plugin: [INFO] Setting cache directory: /Users/ralph.brynard/.cache/packer
+2025/06/13 16:51:34 packer-post-processor-manifest plugin: Old default config directory found: /Users/ralph.brynard/.packer.d
+2025/06/13 16:51:34 packer-post-processor-manifest plugin: Plugin address: unix /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer-plugin644420503
+2025/06/13 16:51:34 packer-post-processor-manifest plugin: Waiting for connection...
+2025/06/13 16:51:34 Received unix RPC address for /usr/local/bin/packer: addr is /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer-plugin644420503
+2025/06/13 16:51:34 packer-post-processor-manifest plugin: Serving a plugin connection...
+2025/06/13 16:51:34 packer-post-processor-manifest plugin: [DEBUG] - common: sending ConfigSpec as gob
+2025/06/13 16:51:34 [DEBUG] - common: receiving ConfigSpec as gob
+2025/06/13 16:51:34 packer-post-processor-manifest plugin: [DEBUG] - common: sending ConfigSpec as gob
+2025/06/13 16:51:34 [DEBUG] - common: receiving ConfigSpec as gob
+2025/06/13 16:51:34 ui: [1;32mwindows_server_2k22.proxmox-iso.windows_server_2k22_data_center_base: output will be in this color.[0m
+2025/06/13 16:51:34 ui: 
+2025/06/13 16:51:34 Build debug mode: false
+2025/06/13 16:51:34 Force build: false
+2025/06/13 16:51:34 On error: ask
+2025/06/13 16:51:34 Waiting on builds to complete...
+2025/06/13 16:51:34 Starting build run: windows_server_2k22.proxmox-iso.windows_server_2k22_data_center_base
+2025/06/13 16:51:34 Running builder: proxmox-iso
+2025/06/13 16:51:34 [INFO] (telemetry) Starting builder proxmox-iso.windows_server_2k22_data_center_base
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 using token auth
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 No CD files specified. CD disk will not be made.
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 No URLs were provided to Step Download. Continuing...
+2025/06/13 16:51:34 ui: [1;32m==> windows_server_2k22.proxmox-iso.windows_server_2k22_data_center_base: Creating CD disk...[0m
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 CD label is set to 2k22_drivers
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 CD path: /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer1284140430.iso
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Wrote 12307 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer_to_cdrom37515588/drivers/vioscsi.cat
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Wrote 3187 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer_to_cdrom37515588/drivers/vioscsi.inf
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Wrote 765952 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer_to_cdrom37515588/drivers/vioscsi.pdb
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Wrote 78016 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer_to_cdrom37515588/drivers/vioscsi.sys
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Wrote 12298 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer_to_cdrom37515588/drivers/vioser.cat
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Wrote 2607 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer_to_cdrom37515588/drivers/vioser.inf
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Wrote 1142784 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer_to_cdrom37515588/drivers/vioser.pdb
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Wrote 92352 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer_to_cdrom37515588/drivers/vioser.sys
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Wrote 12304 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer_to_cdrom37515588/drivers/viostor.cat
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Wrote 2981 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer_to_cdrom37515588/drivers/viostor.inf
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Wrote 684032 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer_to_cdrom37515588/drivers/viostor.pdb
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Wrote 64704 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer_to_cdrom37515588/drivers/viostor.sys
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Wrote 4669 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer_to_cdrom37515588/scripts/windows-init.ps1
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Wrote 6765 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer_to_cdrom37515588/scripts/windows-prepare.ps1
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 Executing: /usr/bin/hdiutil [makehybrid -o /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer1284140430.iso -hfs -joliet -iso -default-volume-name 2k22_drivers /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer_to_cdrom37515588]
+2025/06/13 16:51:34 ui: [0;32m    windows_server_2k22.proxmox-iso.windows_server_2k22_data_center_base: Creating hybrid image...[0m
+2025/06/13 16:51:34 ui: [0;32m    windows_server_2k22.proxmox-iso.windows_server_2k22_data_center_base: Done copying paths from CD_dirs[0m
+2025/06/13 16:51:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:34 No URLs were provided to Step Download. Continuing...
+2025/06/13 16:51:36 ui: [0;32m    windows_server_2k22.proxmox-iso.windows_server_2k22_data_center_base: Uploaded ISO to packer_iso:iso/packer1284140430.iso[0m
+2025/06/13 16:51:36 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:36 Mapping Disk to scsi0
+2025/06/13 16:51:36 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:36 Mapping ISO to scsi1
+2025/06/13 16:51:36 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:36 Mapping ISO to sata0
+2025/06/13 16:51:36 ui: [1;32m==> windows_server_2k22.proxmox-iso.windows_server_2k22_data_center_base: Creating VM[0m
+2025/06/13 16:51:36 ui: [1;32m==> windows_server_2k22.proxmox-iso.windows_server_2k22_data_center_base: No VM ID given, getting next free from Proxmox[0m
+2025/06/13 16:51:38 ui: [1;32m==> windows_server_2k22.proxmox-iso.windows_server_2k22_data_center_base: Starting VM[0m
+2025/06/13 16:51:40 ui: [1;32m==> windows_server_2k22.proxmox-iso.windows_server_2k22_data_center_base: Waiting 5s for boot[0m
+2025/06/13 16:51:45 ui: [1;32m==> windows_server_2k22.proxmox-iso.windows_server_2k22_data_center_base: Typing the boot command[0m
+2025/06/13 16:51:48 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:48 [DEBUG] Unable to get address during connection step: 500 QEMU guest agent is not running
+2025/06/13 16:51:48 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:48 Waiting for WinRM, up to timeout: 10m0s
+2025/06/13 16:51:48 ui: [1;32m==> windows_server_2k22.proxmox-iso.windows_server_2k22_data_center_base: Waiting for WinRM to become available...[0m
+2025/06/13 16:51:51 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:51 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:51:59 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:51:59 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:52:08 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:52:08 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:52:16 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:52:16 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:52:24 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:52:24 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:52:32 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:52:32 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:52:40 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:52:40 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:52:48 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:52:48 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:52:56 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:52:56 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:53:04 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:53:04 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:53:12 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:53:12 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:53:20 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:53:20 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:53:28 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:53:28 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:53:36 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:53:36 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:53:44 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:53:44 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:53:52 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:53:52 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:54:00 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:54:00 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:54:08 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:54:08 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:54:16 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:54:16 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:54:24 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:54:24 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:54:32 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:54:32 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:54:40 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:54:40 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:54:48 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:54:48 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:54:56 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:54:56 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:55:04 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:55:04 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:55:12 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:55:12 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:55:20 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:55:20 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:55:28 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:55:28 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:55:36 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:55:36 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:55:44 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:55:44 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:55:52 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:55:52 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:56:00 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:56:00 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:56:08 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:56:08 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:56:16 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:56:16 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:56:24 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:56:24 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:56:32 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:56:32 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:56:40 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:56:40 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:56:49 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:56:49 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:56:57 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:56:57 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:57:05 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:57:05 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:57:13 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:57:13 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:57:21 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:57:21 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:57:29 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:57:29 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:57:37 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:57:37 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:57:45 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:57:45 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:57:53 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:57:53 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:58:01 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:58:01 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:58:09 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:58:09 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:58:17 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:58:17 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:58:25 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:58:25 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:58:33 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:58:33 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:58:41 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:58:41 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:58:49 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:58:49 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:58:57 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:58:57 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:59:05 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:59:05 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:59:13 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:59:13 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:59:21 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:59:21 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:59:29 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:59:29 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:59:37 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:59:37 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:59:45 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:59:45 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 16:59:53 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 16:59:53 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 17:00:01 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 17:00:01 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 17:00:09 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 17:00:09 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 17:00:17 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 17:00:17 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 17:00:25 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 17:00:25 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 17:00:34 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 17:00:34 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 17:00:42 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 17:00:42 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 17:00:50 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 17:00:50 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 17:00:58 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 17:00:58 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 17:01:06 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 17:01:06 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 17:01:14 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 17:01:14 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 17:01:22 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 17:01:22 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 17:01:30 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 17:01:30 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 17:01:38 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 17:01:38 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 17:01:46 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 17:01:46 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/06/13 17:01:48 ui error: [1;31m==> windows_server_2k22.proxmox-iso.windows_server_2k22_data_center_base: Timeout waiting for WinRM.[0m
+2025/06/13 17:01:48 packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 plugin: 2025/06/13 17:01:48 [INFO] WinRM wait cancelled. Exiting loop.
+2025/06/13 17:01:48 ui error: [1;31m==> windows_server_2k22.proxmox-iso.windows_server_2k22_data_center_base: Timeout waiting for WinRM.[0m
+2025/06/13 17:01:48 ui: [1;32m==> windows_server_2k22.proxmox-iso.windows_server_2k22_data_center_base: Step "StepConnect" failed[0m
+2025/06/13 17:01:48 ui: ask: [1;32m==> windows_server_2k22.proxmox-iso.windows_server_2k22_data_center_base: [c] Clean up and exit, [a] abort without cleanup, or [r] retry step (build may fail even if retry succeeds)?[0m
+2025/06/16 09:08:46 ui error: [1;31m==> windows_server_2k22.proxmox-iso.windows_server_2k22_data_center_base: Timeout waiting for WinRM.[0m
+2025/06/16 09:08:46 ui error: [1;31m==> windows_server_2k22.proxmox-iso.windows_server_2k22_data_center_base: Step "StepConnect" failed, aborting...[0m
+2025/06/16 09:08:46 ui error: [1;31m==> windows_server_2k22.proxmox-iso.windows_server_2k22_data_center_base: aborted: skipping cleanup of step "stepTypeBootCommand"[0m
+2025/06/16 09:08:46 ui error: [1;31m==> windows_server_2k22.proxmox-iso.windows_server_2k22_data_center_base: aborted: skipping cleanup of step "StepHTTPServer"[0m
+2025/06/16 09:08:46 ui error: [1;31m==> windows_server_2k22.proxmox-iso.windows_server_2k22_data_center_base: aborted: skipping cleanup of step "stepStartVM"[0m
+2025/06/16 09:08:46 ui error: [1;31m==> windows_server_2k22.proxmox-iso.windows_server_2k22_data_center_base: aborted: skipping cleanup of step "stepUploadISO"[0m
+2025/06/16 09:08:46 ui error: [1;31m==> windows_server_2k22.proxmox-iso.windows_server_2k22_data_center_base: aborted: skipping cleanup of step "StepDownload"[0m
+2025/06/16 09:08:46 ui error: [1;31m==> windows_server_2k22.proxmox-iso.windows_server_2k22_data_center_base: aborted: skipping cleanup of step "StepCreateCD"[0m
+2025/06/16 09:08:46 ui error: [1;31m==> windows_server_2k22.proxmox-iso.windows_server_2k22_data_center_base: aborted: skipping cleanup of step "stepUploadISO"[0m
+2025/06/16 09:08:46 ui error: [1;31m==> windows_server_2k22.proxmox-iso.windows_server_2k22_data_center_base: aborted: skipping cleanup of step "StepDownload"[0m
+2025/06/16 09:08:46 ui error: [1;31m==> windows_server_2k22.proxmox-iso.windows_server_2k22_data_center_base: aborted: skipping cleanup of step "StepCreateCD"[0m
+2025/06/16 09:08:46 [INFO] (telemetry) ending proxmox-iso.windows_server_2k22_data_center_base
+2025/06/16 09:08:46 ui error: [1;31mBuild 'windows_server_2k22.proxmox-iso.windows_server_2k22_data_center_base' errored after 1 hour 8 minutes: Timeout waiting for WinRM.[0m
+2025/06/16 09:08:46 ui: 
+==> Wait completed after 1 hour 8 minutes
+2025/06/16 09:08:46 machine readable: error-count []string{"1"}
+2025/06/16 09:08:46 ui error: 
+==> Some builds didn't complete successfully and had errors:
+2025/06/16 09:08:46 machine readable: windows_server_2k22.proxmox-iso.windows_server_2k22_data_center_base,error []string{"Timeout waiting for WinRM."}
+2025/06/16 09:08:46 ui error: --> windows_server_2k22.proxmox-iso.windows_server_2k22_data_center_base: Timeout waiting for WinRM.
+2025/06/16 09:08:46 ui: 
+==> Builds finished but no artifacts were created.
+2025/06/16 09:08:46 [INFO] (telemetry) Finalizing.
+2025/06/16 09:08:47 waiting for all plugin processes to complete...
+2025/06/16 09:08:47 /Users/ralph.brynard/.packer.d/plugins/github.com/hashicorp/proxmox/packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64: plugin process exited
+2025/06/16 09:08:47 /usr/local/bin/packer: plugin process exited
+2025/06/16 09:08:47 /Users/ralph.brynard/.packer.d/plugins/github.com/ethanmdavidson/git/packer-plugin-git_v0.6.4_x5.0_darwin_amd64: plugin process exited

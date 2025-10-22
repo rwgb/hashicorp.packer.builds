@@ -1,0 +1,28 @@
+name: Packer Build | Debian 13
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - build/debian13
+    paths:
+      - 'builds/linux/debian/13/**'
+
+jobs:
+  build:
+    name: Build Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Packer
+        uses: hashicorp/setup-packer@main
+        id: setup
+
+      - name: Run Packer
+        id: build
+        run: |
+          cd builds/linux/debian/13
+          packer init .
+          packer build .
