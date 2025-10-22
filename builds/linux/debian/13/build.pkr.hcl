@@ -5,13 +5,12 @@ packer {
       version = ">= 1.1.3"
       source  = "github.com/hashicorp/proxmox"
     }
-    // commenting out sshkey plugin. Will use another method for generating ephemeral ssh keys
-    /*
+
     sshkey = {
       version = ">= 1.0.1"
       source  = "github.com/ivoronin/sshkey"
     }
-    */
+
     git = {
       source  = "github.com/ethanmdavidson/git"
       version = ">= 0.4.3"
@@ -39,9 +38,12 @@ locals {
 
 data "git-commit" "build" {}
 
+data "sshkey" "install" {}
+
 locals {
   build_by          = "Built by: Hashicorp Packer ${packer.version}"
   build_date        = formatdate("YYYY-MM-DD hh:mm ZZZ", timestamp())
+  ssh_public_key    = data.sshkey.install.public_key
   build_version     = data.git-commit.build.hash
   build_description = "Version: ${local.build_version}\nBuilt on: ${local.build_date}\n${local.build_by}"
   manifest_path     = "./manifests/"
