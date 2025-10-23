@@ -7,7 +7,14 @@ on:
       - build/debian13
     paths:
       - 'builds/linux/debian/13/**'
-
+env:
+  PACKER_LOG: "1"
+  PACKER_LOG_PATH: "packer-build-debian13.log"
+  POOL: ${secrets.POOL}
+  PROXMOX_HOST: ${secrets.PROXMOX_HOST}
+  TOKEN_SECRET: ${secrets.TOKEN_SECRET}
+  TOKEN_ID: ${secrets.TOKEN_ID}
+  NODE: ${secrets.NODE}
 jobs:
   build:
     name: Build Image
