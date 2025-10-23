@@ -10,11 +10,11 @@ on:
 env:
   PACKER_LOG: "1"
   PACKER_LOG_PATH: "packer-build-debian13.log"
-  POOL: ${secrets.POOL}
-  PROXMOX_HOST: ${secrets.PROXMOX_HOST}
-  TOKEN_SECRET: ${secrets.TOKEN_SECRET}
-  TOKEN_ID: ${secrets.TOKEN_ID}
-  NODE: ${secrets.NODE}
+  POOL: ${{ secrets.POOL }}
+  PROXMOX_HOST: ${{ secrets.PROXMOX_HOST }}
+  TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
+  TOKEN_ID: ${{ secrets.TOKEN_ID }}
+  NODE: ${{ secrets.NODE }}
 jobs:
   build:
     name: Build Image
@@ -38,9 +38,10 @@ jobs:
           
           cd builds/linux/debian/13
           packer init .
-          packer build -var "proxmox_host=${env.PROXMOX_HOST}" \
-                       -var "token_id=${env.TOKEN_ID}" \
-                       -var "token_secret=${env.TOKEN_SECRET}" \
-                       -var "node=${env.NODE}" \
-                       -var "pool=${env.POOL}" \
-                       .
+          packer build \
+            -var="proxmox_host=${{ secrets.PROXMOX_HOST }}" \
+            -var="token_id=${{ secrets.TOKEN_ID }}" \
+            -var="token_secret=${{ secrets.TOKEN_SECRET }}" \
+            -var="node=${{ secrets.NODE }}" \
+            -var="pool=${{ secrets.POOL }}" \
+            .
