@@ -1,0 +1,9 @@
+# act configuration file
+# Map self-hosted runner to a medium Ubuntu image
+-P self-hosted=catthehacker/ubuntu:act-latest
+
+# Alternative: use the full Ubuntu image for better compatibility
+# -P self-hosted=catthehacker/ubuntu:full-latest
+
+# If you need secrets, uncomment and configure:
+# -s GITHUB_TOKEN=your_token_here
