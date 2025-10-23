@@ -1,3 +1,33 @@
-**.auto.pkrvars.hcl
-**.actrc
-**.secrets
+# Packer variable files with secrets
+*.auto.pkrvars.hcl
+local.pkrvars.hcl
+secrets.pkrvars.hcl
+
+# Act configuration and secrets
+.actrc
+.secrets
+
+# Packer logs
+packer-*.log
+*.log
+
+# Build artifacts
+crash.log
+packer_cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.temp
+.terraform/
+.terraform.lock.hcl
