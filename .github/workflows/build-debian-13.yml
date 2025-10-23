@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for all branches and tags
 
       - name: Setup Packer
         uses: hashicorp/setup-packer@main
@@ -23,6 +25,10 @@ jobs:
       - name: Run Packer
         id: build
         run: |
+          # Verify git repository is accessible
+          git status
+          git log -1 --oneline
+          
           cd builds/linux/debian/13
           packer init .
           packer build .

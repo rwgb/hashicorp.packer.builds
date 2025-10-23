@@ -37,12 +37,19 @@ locals {
   }
 }
 
-data "git-commit" "build" {}
+# Use Git datasource with fallback for CI environments
+data "git-commit" "build" {
+  path = "${path.root}/../../../"  # Point to repository root
+}
 
 locals {
   build_by          = "Built by: Hashicorp Packer ${packer.version}"
   build_date        = formatdate("YYYY-MM-DD hh:mm ZZZ", timestamp())
-  build_version     = data.git-commit.build.hash
+  # Fallback to environment variable if git-commit fails
+  build_version     = try(data.git-commit.build.hash, env("GITHUB_SHA"), "unknown")
+  git_author        = try(data.git-commit.build.author, env("GITHUB_ACTOR"), "unknown")
+  git_committer     = try(data.git-commit.build.committer, env("GITHUB_ACTOR"), "unknown")
+  git_timestamp     = try(data.git-commit.build.timestamp, timestamp(), "unknown")
   build_description = "Version: ${local.build_version}\nBuilt on: ${local.build_date}\n${local.build_by}"
   manifest_path     = "./manifests/"
   manifest_date     = formatdate("YYYY-MM-DD hh:mm:ss", timestamp())
@@ -63,9 +70,9 @@ build {
       build_username = var.username
       build_date     = local.build_date
       build_version  = local.build_version
-      author         = "${data.git-commit.build.author}"
-      committer      = "${data.git-commit.build.committer}"
-      timestamp      = "${data.git-commit.build.timestamp}"
+      author         = local.git_author
+      committer      = local.git_committer
+      timestamp      = local.git_timestamp
     }
   }
 }
