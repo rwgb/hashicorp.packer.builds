@@ -38,4 +38,9 @@ jobs:
           
           cd builds/linux/debian/13
           packer init .
-          packer build .
+          packer build -var "proxmox_host=${{ env.PROXMOX_HOST }}" \
+                       -var "token_id=${{ env.TOKEN_ID }}" \
+                       -var "token_secret=${{ env.TOKEN_SECRET }}" \
+                       -var "node=${{ env.NODE }}" \
+                       -var "pool=${{ env.POOL }}" \
+                       .
