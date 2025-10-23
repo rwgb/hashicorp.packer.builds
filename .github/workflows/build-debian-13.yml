@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - build/debian13
+      - main
     paths:
       - 'builds/linux/debian/13/**'
 
