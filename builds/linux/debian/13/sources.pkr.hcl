@@ -55,7 +55,7 @@ source "proxmox-iso" "debian_13_base" {
   communicator         = "ssh"
   ssh_username         = var.username
   ssh_password         = var.password
-  ssh_private_key_file = var.build_key
+  ssh_private_key_file = data.sshkey.install.private_key_path
   ssh_timeout          = "20m"
 
   // http content
