@@ -52,7 +52,7 @@ The script will:
 
 ### What It Creates
 
-1. **Proxmox Role**: `PVEPackerRole`
+1. **Proxmox Role**: `PackerRole`
    - VM.Config.Disk
    - VM.Config.CPU
    - VM.Config.Memory
@@ -69,7 +69,7 @@ The script will:
    - VM.Monitor
 
 2. **Proxmox User**: `packer@pve`
-   - Assigned the `PVEPackerRole`
+   - Assigned the `PackerRole`
    - No password (API token only)
 
 3. **API Token**: `packer@pve!packer-token`
@@ -200,7 +200,7 @@ pveum user token remove packer@pve packer-token
 pveum user delete packer@pve
 
 # Optionally remove role (if no other users use it)
-pveum role delete PVEPackerRole
+pveum role delete PackerRole
 ```
 
 ### Environment Variables

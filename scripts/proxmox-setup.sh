@@ -7,7 +7,7 @@ set -euo pipefail
 
 # Configuration
 PACKER_USER="packer"
-PACKER_ROLE="PVEPackerRole"
+PACKER_ROLE="PackerRole"
 PACKER_TOKEN_NAME="packer-token"
 PROXMOX_USER="${PROXMOX_USER:-root}"
 SSH_CONFIG="${HOME}/.ssh/config"
@@ -142,7 +142,7 @@ API_INFO=$(ssh "$SSH_TARGET" bash <<'EOFREMOTE'
 set -euo pipefail
 
 PACKER_USER="packer"
-PACKER_ROLE="PVEPackerRole"
+PACKER_ROLE="PackerRole"
 PACKER_TOKEN_NAME="packer-token"
 
 # Create role with minimum required privileges
