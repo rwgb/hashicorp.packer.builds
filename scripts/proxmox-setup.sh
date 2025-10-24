@@ -183,6 +183,7 @@ print_info "Creating Packer user on Proxmox host..."
 echo ""
 
 # SSH to Proxmox and create role, user, and API token
+set +e  # Temporarily disable exit on error to capture output
 API_INFO=$(ssh "$SSH_TARGET" bash <<'EOFREMOTE'
 set -euo pipefail
 
@@ -254,7 +255,11 @@ echo "[5/5] Creating new API token..."
 TOKEN_OUTPUT=$(pveum user token add ${PACKER_USER}@pve ${PACKER_TOKEN_NAME} --privsep 0 2>&1)
 
 # Extract the secret from output (handles different Proxmox versions)
-API_SECRET=$(echo "$TOKEN_OUTPUT" | grep -oP '(?<=value:\s).*' || echo "$TOKEN_OUTPUT" | grep -oP '(?<=token: ).*' || echo "")
+# Proxmox 8.x outputs a table format, older versions use simple key: value
+API_SECRET=$(echo "$TOKEN_OUTPUT" | awk -F'│' '$2 ~ /^ value[ \t]*$/ {gsub(/^[ \t]+|[ \t]+$/, "", $3); print $3}' 2>/dev/null || \
+             echo "$TOKEN_OUTPUT" | grep -oP '(?<=value:\s).*' 2>/dev/null || \
+             echo "$TOKEN_OUTPUT" | grep -oP '(?<=token: ).*' 2>/dev/null || \
+             echo "")
 
 if [ -z "$API_SECRET" ]; then
     echo "ERROR: Failed to extract API secret from token creation"
@@ -268,6 +273,16 @@ echo "API_TOKEN_ID=${PACKER_USER}@pve!${PACKER_TOKEN_NAME}"
 echo "API_SECRET=${API_SECRET}"
 EOFREMOTE
 )
+SSH_EXIT_CODE=$?
+set -e  # Re-enable exit on error
+
+# Check SSH exit code
+if [ $SSH_EXIT_CODE -ne 0 ]; then
+    print_error "Remote command failed with exit code: $SSH_EXIT_CODE"
+    print_error "Output:"
+    echo "$API_INFO"
+    exit 1
+fi
 
 # Check if remote command was successful
 if ! echo "$API_INFO" | grep -q "SUCCESS"; then
