@@ -5,13 +5,10 @@ packer {
       version = ">= 1.1.3"
       source  = "github.com/hashicorp/proxmox"
     }
-    // commenting out sshkey plugin. Will use another method for generating ephemeral ssh keys
-    /*
     sshkey = {
       version = ">= 1.0.1"
       source  = "github.com/ivoronin/sshkey"
     }
-    */
     git = {
       source  = "github.com/ethanmdavidson/git"
       version = ">= 0.4.3"
@@ -39,10 +36,17 @@ locals {
 
 data "git-commit" "build" {}
 
+data "sshkey" "install" {}
+
 locals {
-  build_by          = "Built by: Hashicorp Packer ${packer.version}"
-  build_date        = formatdate("YYYY-MM-DD hh:mm ZZZ", timestamp())
-  build_version     = data.git-commit.build.hash
+  build_by   = "Built by: Hashicorp Packer ${packer.version}"
+  build_date = formatdate("YYYY-MM-DD hh:mm ZZZ", timestamp())
+  # Fallback to environment variable if git-commit fails
+  ssh_public_key    = data.sshkey.install.private_key_path
+  build_version     = try(data.git-commit.build.hash, env("GITHUB_SHA"), "unknown")
+  git_author        = try(data.git-commit.build.author, env("GITHUB_ACTOR"), "unknown")
+  git_committer     = try(data.git-commit.build.committer, env("GITHUB_ACTOR"), "unknown")
+  git_timestamp     = try(data.git-commit.build.timestamp, timestamp(), "unknown")
   build_description = "Version: ${local.build_version}\nBuilt on: ${local.build_date}\n${local.build_by}"
   manifest_path     = "./manifests/"
   manifest_date     = formatdate("YYYY-MM-DD hh:mm:ss", timestamp())
