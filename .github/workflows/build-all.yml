@@ -1,0 +1,179 @@
+name: Packer Build | All Images
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_target:
+        description: 'Select build target (or "all" to build everything)'
+        required: false
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - debian-12
+          - debian-13
+          - windows-server-2019
+          - windows-server-2022
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'builds/**'
+  schedule:
+    # Run monthly on the 1st at 2 AM UTC
+    - cron: '0 2 1 * *'
+
+env:
+  PACKER_LOG: "1"
+  POOL: ${{ secrets.POOL }}
+  PROXMOX_HOST: ${{ secrets.PROXMOX_HOST }}
+  TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
+  TOKEN_ID: ${{ secrets.TOKEN_ID }}
+  NODE: ${{ secrets.NODE }}
+  USERNAME: ${{ secrets.USERNAME }}
+  PASSWORD: ${{ secrets.PASSWORD }}
+  BUILD_KEY: ${{ secrets.BUILD_KEY }}
+
+jobs:
+  prepare:
+    name: Prepare Build Matrix
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set Matrix
+        id: set-matrix
+        run: |
+          # Define all available builds
+          ALL_BUILDS='[
+            {"name": "debian-12", "path": "builds/linux/debian/12", "os": "linux", "log": "packer-debian12.log"},
+            {"name": "debian-13", "path": "builds/linux/debian/13", "os": "linux", "log": "packer-debian13.log"},
+            {"name": "windows-server-2019", "path": "builds/windows/server/2019", "os": "windows", "log": "packer-win2019.log"},
+            {"name": "windows-server-2022", "path": "builds/windows/server/2022", "os": "windows", "log": "packer-win2022.log"}
+          ]'
+          
+          # Filter based on input or changed files
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            TARGET="${{ inputs.build_target }}"
+            if [ "$TARGET" == "all" ]; then
+              echo "matrix=$ALL_BUILDS" >> $GITHUB_OUTPUT
+            else
+              # Filter to only the selected target
+              echo "matrix=$(echo $ALL_BUILDS | jq -c "[.[] | select(.name == \"$TARGET\")]")" >> $GITHUB_OUTPUT
+            fi
+          else
+            # For push events, build everything
+            echo "matrix=$ALL_BUILDS" >> $GITHUB_OUTPUT
+          fi
+
+  build:
+    name: Build ${{ matrix.build.name }}
+    needs: prepare
+    runs-on: self-hosted
+    if: needs.prepare.outputs.matrix != '[]'
+    strategy:
+      fail-fast: false
+      max-parallel: 2  # Limit concurrent builds to avoid resource exhaustion
+      matrix:
+        build: ${{ fromJson(needs.prepare.outputs.matrix) }}
+    
+    env:
+      PACKER_LOG_PATH: ${{ matrix.build.log }}
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for git-commit datasource
+
+      - name: Setup Packer
+        uses: hashicorp/setup-packer@main
+        id: setup
+
+      - name: Verify Git Repository
+        run: |
+          echo "::group::Git Status"
+          git status
+          git log -1 --oneline
+          echo "::endgroup::"
+
+      - name: Initialize Packer
+        working-directory: ${{ matrix.build.path }}
+        run: |
+          echo "::group::Packer Init"
+          packer init .
+          echo "::endgroup::"
+
+      - name: Validate Packer Configuration
+        working-directory: ${{ matrix.build.path }}
+        run: |
+          echo "::group::Packer Validate"
+          packer validate \
+            -var="proxmox_host=${{ secrets.PROXMOX_HOST }}" \
+            -var="token_id=${{ secrets.TOKEN_ID }}" \
+            -var="token_secret=${{ secrets.TOKEN_SECRET }}" \
+            -var="node=${{ secrets.NODE }}" \
+            -var="pool=${{ secrets.POOL }}" \
+            -var="username=${{ secrets.USERNAME }}" \
+            -var="password=${{ secrets.PASSWORD }}" \
+            -var="build_key=${{ secrets.BUILD_KEY }}" \
+            .
+          echo "::endgroup::"
+
+      - name: Build Image
+        id: build
+        working-directory: ${{ matrix.build.path }}
+        run: |
+          echo "::group::Packer Build - ${{ matrix.build.name }}"
+          packer build \
+            -var="proxmox_host=${{ secrets.PROXMOX_HOST }}" \
+            -var="token_id=${{ secrets.TOKEN_ID }}" \
+            -var="token_secret=${{ secrets.TOKEN_SECRET }}" \
+            -var="node=${{ secrets.NODE }}" \
+            -var="pool=${{ secrets.POOL }}" \
+            -var="username=${{ secrets.USERNAME }}" \
+            -var="password=${{ secrets.PASSWORD }}" \
+            -var="build_key=${{ secrets.BUILD_KEY }}" \
+            .
+          echo "::endgroup::"
+
+      - name: Upload Build Manifest
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: manifest-${{ matrix.build.name }}-${{ github.run_number }}
+          path: ${{ matrix.build.path }}/manifests/*.json
+          retention-days: 90
+          if-no-files-found: warn
+
+      - name: Upload Packer Logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: logs-${{ matrix.build.name }}-${{ github.run_number }}
+          path: ${{ matrix.build.log }}
+          retention-days: 30
+          if-no-files-found: warn
+
+  summary:
+    name: Build Summary
+    needs: build
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Generate Summary
+        run: |
+          echo "# Packer Build Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Workflow:** ${{ github.workflow }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Trigger:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Build Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Build job status: ${{ needs.build.result }}" >> $GITHUB_STEP_SUMMARY
