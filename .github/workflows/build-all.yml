@@ -53,12 +53,15 @@ jobs:
       - name: Set Matrix
         id: set-matrix
         run: |
-          ALL_BUILDS='[
+          ALL_BUILDS=$(cat <<'EOF' | jq -c .
+          [
             {"name":"debian-12","path":"builds/linux/debian/12","os":"linux","log":"packer-debian12.log"},
             {"name":"debian-13","path":"builds/linux/debian/13","os":"linux","log":"packer-debian13.log"},
             {"name":"windows-server-2019","path":"builds/windows/server/2019","os":"windows","log":"packer-win2019.log"},
             {"name":"windows-server-2022","path":"builds/windows/server/2022","os":"windows","log":"packer-win2022.log"}
-          ]'
+          ]
+          EOF
+          )
 
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             TARGET="${{ inputs.build_target }}"
