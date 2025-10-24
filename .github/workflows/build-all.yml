@@ -224,8 +224,8 @@ jobs:
           TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
           NODE: ${{ secrets.NODE }}
           POOL: ${{ secrets.POOL }}
-          USERNAME: ${{ secrets.USERNAME }}
-          PASSWORD: ${{ secrets.PASSWORD }}
+          USERNAME: ${{ secrets.BUILD_USERNAME }}
+          PASSWORD: ${{ secrets.BUILD_PASSWORD }}
           BUILD_KEY: ${{ secrets.BUILD_KEY }}
         working-directory: ${{ matrix.build.path }}
         run: |
@@ -257,8 +257,8 @@ jobs:
       TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
       TOKEN_ID: ${{ secrets.TOKEN_ID }}
       NODE: ${{ secrets.NODE }}
-      USERNAME: ${{ secrets.USERNAME }}
-      PASSWORD: ${{ secrets.PASSWORD }}
+      USERNAME: ${{ secrets.BUILD_USERNAME }}
+      PASSWORD: ${{ secrets.BUILD_PASSWORD }}
       BUILD_KEY: ${{ secrets.BUILD_KEY }}
     steps:
       - uses: actions/checkout@v4
