@@ -3,7 +3,7 @@ set -euo pipefail
 
 # Script: proxmox-setup.sh
 # Purpose: Create a least-privilege Packer user on Proxmox with API token
-# Usage: ./proxmox-setup.sh [proxmox-host-or-ssh-alias] [output-file]
+# Usage: ./proxmox-setup.sh [OPTIONS] [proxmox-host-or-ssh-alias] [output-file]
 
 # Configuration
 PACKER_USER="packer"
@@ -12,6 +12,7 @@ PACKER_TOKEN_NAME="packer-token"
 PROXMOX_USER="${PROXMOX_USER:-root}"
 SSH_CONFIG="${HOME}/.ssh/config"
 DEFAULT_OUTPUT_FILE="variables.auto.pkrvars.hcl"
+NON_INTERACTIVE=false
 
 # Colors for output
 RED='\033[0;31m'
@@ -70,8 +71,46 @@ get_proxmox_version() {
 }
 
 # Parse arguments
-PROXMOX_HOST="${1:-}"
-OUTPUT_FILE="${2:-$DEFAULT_OUTPUT_FILE}"
+PROXMOX_HOST=""
+OUTPUT_FILE=""
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -y|--yes|--non-interactive)
+            NON_INTERACTIVE=true
+            shift
+            ;;
+        -h|--help)
+            echo "Usage: $0 [OPTIONS] [proxmox-host] [output-file]"
+            echo ""
+            echo "Options:"
+            echo "  -y, --yes, --non-interactive    Skip confirmation prompt"
+            echo "  -h, --help                      Show this help message"
+            echo ""
+            echo "Examples:"
+            echo "  $0                              # Interactive mode"
+            echo "  $0 pve01                       # Use SSH config alias"
+            echo "  $0 192.168.1.100               # Use IP address"
+            echo "  $0 -y pve01                    # Non-interactive mode"
+            echo "  $0 pve01 custom.pkrvars.hcl    # Custom output file"
+            exit 0
+            ;;
+        *)
+            if [ -z "$PROXMOX_HOST" ]; then
+                PROXMOX_HOST="$1"
+            elif [ -z "$OUTPUT_FILE" ]; then
+                OUTPUT_FILE="$1"
+            else
+                print_error "Too many arguments: $1"
+                exit 1
+            fi
+            shift
+            ;;
+    esac
+done
+
+# Set default output file if not provided
+OUTPUT_FILE="${OUTPUT_FILE:-$DEFAULT_OUTPUT_FILE}"
 
 # Interactive mode if no host provided
 if [ -z "$PROXMOX_HOST" ]; then
@@ -127,11 +166,17 @@ echo "  2. Create a Packer user '${PACKER_USER}@pve'"
 echo "  3. Generate an API token '${PACKER_TOKEN_NAME}'"
 echo "  4. Write credentials to '${OUTPUT_FILE}'"
 echo ""
-read -p "Continue? [y/N] " -n 1 -r
-echo
-if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-    print_info "Operation cancelled."
-    exit 0
+
+# Check for non-interactive mode or prompt user
+if [ "$NON_INTERACTIVE" = true ]; then
+    print_info "Running in non-interactive mode, proceeding automatically..."
+else
+    read -p "Continue? [y/N] " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        print_info "Operation cancelled."
+        exit 0
+    fi
 fi
 
 print_info "Creating Packer user on Proxmox host..."
@@ -147,7 +192,7 @@ PACKER_TOKEN_NAME="packer-token"
 
 # Create role with minimum required privileges
 echo "[1/5] Creating/updating Packer role..."
-if pveum role list | grep -q "^${PACKER_ROLE}"; then
+if pveum role list | awk '{print $2}' | grep -q "^${PACKER_ROLE}$"; then
     echo "  → Role '${PACKER_ROLE}' already exists, updating privileges..."
     pveum role modify $PACKER_ROLE -privs "\
 VM.Config.Disk,\
@@ -185,7 +230,7 @@ fi
 
 # Create user if it doesn't exist
 echo "[2/5] Creating Packer user..."
-if pveum user list | grep -q "^${PACKER_USER}@pve"; then
+if pveum user list | awk '{print $2}' | grep -q "^${PACKER_USER}@pve$"; then
     echo "  → User '${PACKER_USER}@pve' already exists"
 else
     pveum user add ${PACKER_USER}@pve --comment "Packer automation user - least privilege"
@@ -199,7 +244,7 @@ echo "  → Role '${PACKER_ROLE}' assigned to '${PACKER_USER}@pve' at path '/'"
 
 # Check if token already exists and delete if necessary
 echo "[4/5] Managing API token..."
-if pveum user token list ${PACKER_USER}@pve 2>/dev/null | grep -q "${PACKER_TOKEN_NAME}"; then
+if pveum user token list ${PACKER_USER}@pve 2>/dev/null | awk '{print $2}' | grep -q "^${PACKER_TOKEN_NAME}$"; then
     echo "  → Token '${PACKER_TOKEN_NAME}' already exists, recreating..."
     pveum user token remove ${PACKER_USER}@pve ${PACKER_TOKEN_NAME}
 fi
