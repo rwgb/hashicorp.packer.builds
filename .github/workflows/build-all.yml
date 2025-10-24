@@ -1,4 +1,4 @@
-name: Packer Build | All Images
+name: Packer CI / Build
 
 on:
   workflow_dispatch:
@@ -15,25 +15,20 @@ on:
           - windows-server-2019
           - windows-server-2022
   push:
-    branches:
-      - main
-      - develop
-    paths:
-      - 'builds/**'
+    branches: [develop, main]
+    paths: ['builds/**', '.github/workflows/**']
+  pull_request:
+    branches: [develop, main]
+    paths: ['builds/**', '.github/workflows/**']
   schedule:
-    # Run monthly on the 1st at 2 AM UTC
-    - cron: '0 2 1 * *'
+    - cron: '0 2 1 * *' # monthly on 1st at 02:00 UTC
+
+permissions:
+  contents: read
+  pull-requests: read
 
 env:
   PACKER_LOG: "1"
-  POOL: ${{ secrets.POOL }}
-  PROXMOX_HOST: ${{ secrets.PROXMOX_HOST }}
-  TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
-  TOKEN_ID: ${{ secrets.TOKEN_ID }}
-  NODE: ${{ secrets.NODE }}
-  USERNAME: ${{ secrets.USERNAME }}
-  PASSWORD: ${{ secrets.PASSWORD }}
-  BUILD_KEY: ${{ secrets.BUILD_KEY }}
 
 jobs:
   prepare:
@@ -41,58 +36,231 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
+      changed_paths: ${{ steps.changed.outputs.json }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      - name: Detect changed files (PR only)
+        id: changed
+        if: github.event_name == 'pull_request'
+        run: |
+          set -e
+          jq -n --argjson files "$(git diff --name-only origin/${{ github.base_ref }}... | jq -R -s -c 'split("\n")|map(select(length>0))')" \
+            '{files:$files}' > changed.json
+          echo "json=$(cat changed.json)" >> "$GITHUB_OUTPUT"
 
       - name: Set Matrix
         id: set-matrix
         run: |
-          # Define all available builds
           ALL_BUILDS='[
-            {"name": "debian-12", "path": "builds/linux/debian/12", "os": "linux", "log": "packer-debian12.log"},
-            {"name": "debian-13", "path": "builds/linux/debian/13", "os": "linux", "log": "packer-debian13.log"},
-            {"name": "windows-server-2019", "path": "builds/windows/server/2019", "os": "windows", "log": "packer-win2019.log"},
-            {"name": "windows-server-2022", "path": "builds/windows/server/2022", "os": "windows", "log": "packer-win2022.log"}
+            {"name":"debian-12","path":"builds/linux/debian/12","os":"linux","log":"packer-debian12.log"},
+            {"name":"debian-13","path":"builds/linux/debian/13","os":"linux","log":"packer-debian13.log"},
+            {"name":"windows-server-2019","path":"builds/windows/server/2019","os":"windows","log":"packer-win2019.log"},
+            {"name":"windows-server-2022","path":"builds/windows/server/2022","os":"windows","log":"packer-win2022.log"}
           ]'
-          
-          # Filter based on input or changed files
-          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             TARGET="${{ inputs.build_target }}"
-            if [ "$TARGET" == "all" ]; then
+            if [ "$TARGET" = "all" ]; then
               echo "matrix=$ALL_BUILDS" >> $GITHUB_OUTPUT
             else
-              # Filter to only the selected target
-              echo "matrix=$(echo $ALL_BUILDS | jq -c "[.[] | select(.name == \"$TARGET\")]")" >> $GITHUB_OUTPUT
+              echo "matrix=$(echo "$ALL_BUILDS" | jq -c "[.[] | select(.name==\"$TARGET\")]")" >> $GITHUB_OUTPUT
             fi
+          elif [ "${{ github.event_name }}" = "pull_request" ]; then
+            # Filter to builds whose directories were touched in the PR
+            CHANGED=$(echo '${{ steps.changed.outputs.json }}' | jq -r '.files[]' || true)
+            if [ -z "$CHANGED" ]; then
+              echo "matrix=[]" >> $GITHUB_OUTPUT
+              exit 0
+            fi
+            echo "matrix=$(echo "$ALL_BUILDS" | jq -c --argjson files "$(printf '%s\n' $CHANGED | jq -R -s -c 'split("\n")|map(select(length>0))')" '
+              [.[] | select( any($files[]; startswith(.path)) ) ]')" >> $GITHUB_OUTPUT
           else
-            # For push events, build everything
+            # push / schedule -> build everything
             echo "matrix=$ALL_BUILDS" >> $GITHUB_OUTPUT
           fi
 
-  build:
-    name: Build ${{ matrix.build.name }}
+  # --- Contributor gates on PRs to develop ---
+  contributor-checks:
+    name: Contributor Checks (PR → develop)
+    if: github.event_name == 'pull_request' && github.base_ref == 'develop'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      - name: DCO / Signed-off-by check
+        run: |
+          set -e
+          RANGE="${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}"
+          MISSING="$(git log --format='%H %s' $RANGE | awk '{print $1}' | while read c; do
+            if ! git show -s --format='%B' "$c" | grep -qi '^Signed-off-by: '; then
+              echo "$c"
+            fi
+          done)"
+          if [ -n "$MISSING" ]; then
+            echo "The following commits lack a 'Signed-off-by:' trailer:"
+            echo "$MISSING"
+            exit 1
+          fi
+          echo "All commits have DCO sign-off."
+
+      - name: Verify PR author is a repo collaborator (read or higher)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -e
+          owner="${{ github.repository_owner }}"
+          repo="${{ github.event.repository.name }}"
+          user="${{ github.event.pull_request.user.login }}"
+          url="https://api.github.com/repos/$owner/$repo/collaborators/$user/permission"
+          perm=$(curl -fsSL -H "Authorization: Bearer $GH_TOKEN" "$url" | jq -r '.permission // "none"')
+          case "$perm" in
+            admin|maintain|write|triage|read) echo "Collaborator permission: $perm";;
+            *) echo "User @$user is not a collaborator (permission=$perm)."; exit 1;;
+          esac
+
+  # --- Lint / validate packer on PRs (safe: no secrets) ---
+  packer-pr:
+    name: Packer Fmt & Validate (PR)
+    if: github.event_name == 'pull_request'
     needs: prepare
-    runs-on: self-hosted
-    if: needs.prepare.outputs.matrix != '[]'
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      max-parallel: 2  # Limit concurrent builds to avoid resource exhaustion
       matrix:
         build: ${{ fromJson(needs.prepare.outputs.matrix) }}
-    
-    env:
-      PACKER_LOG_PATH: ${{ matrix.build.log }}
-    
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Fetch all history for git-commit datasource
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
 
       - name: Setup Packer
-        uses: hashicorp/setup-packer@main
-        id: setup
+        uses: hashicorp/setup-packer@v3
+
+      - name: Format check
+        working-directory: ${{ matrix.build.path }}
+        run: |
+          packer fmt -check -write=false .
+
+      - name: Init
+        working-directory: ${{ matrix.build.path }}
+        run: packer init .
+
+      - name: Validate (no secrets; dummy vars)
+        working-directory: ${{ matrix.build.path }}
+        run: |
+          packer validate \
+            -var="proxmox_host=example.invalid" \
+            -var="token_id=dummy@pve!token" \
+            -var="token_secret=dummy" \
+            -var="node=dummy" \
+            -var="pool=dummy" \
+            -var="username=dummy" \
+            -var="password=dummy" \
+            -var="build_key=dummy" \
+            .
+
+  # --- Additional policy checks on PRs to main ---
+  main-pr-guards:
+    name: Main PR Policy (PR → main)
+    if: github.event_name == 'pull_request' && github.base_ref == 'main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      - name: Ensure changelog touched
+        run: |
+          set -e
+          base="${{ github.event.pull_request.base.sha }}"
+          head="${{ github.event.pull_request.head.sha }}"
+          if ! git diff --name-only "$base" "$head" | grep -q -E '(^|/)CHANGELOG\.md$'; then
+            echo "PRs to main must update CHANGELOG.md."
+            exit 1
+          fi
+          echo "CHANGELOG.md updated."
+
+      - name: Prevent TODO/FIXME in packer sources
+        run: |
+          set -e
+          base="${{ github.event.pull_request.base.sha }}"
+          head="${{ github.event.pull_request.head.sha }}"
+          files=$(git diff --name-only "$base" "$head" -- 'builds/**')
+          if [ -z "$files" ]; then exit 0; fi
+          if grep -RInE 'TODO|FIXME' $files; then
+            echo "Remove TODO/FIXME markers before merging to main."
+            exit 1
+          fi
+          echo "No TODO/FIXME markers found."
+
+  # --- CI on push / schedule / dispatch: validate + build using secrets ---
+  validate:
+    name: Validate Packer (push/schedule/dispatch)
+    if: github.event_name != 'pull_request'
+    needs: prepare
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        build: ${{ fromJson(needs.prepare.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: hashicorp/setup-packer@v3
+      - name: Format check
+        working-directory: ${{ matrix.build.path }}
+        run: packer fmt -check -write=false .
+      - name: Init
+        working-directory: ${{ matrix.build.path }}
+        run: packer init .
+      - name: Validate (with secrets)
+        env:
+          PROXMOX_HOST: ${{ secrets.PROXMOX_HOST }}
+          TOKEN_ID: ${{ secrets.TOKEN_ID }}
+          TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
+          NODE: ${{ secrets.NODE }}
+          POOL: ${{ secrets.POOL }}
+          USERNAME: ${{ secrets.USERNAME }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          BUILD_KEY: ${{ secrets.BUILD_KEY }}
+        working-directory: ${{ matrix.build.path }}
+        run: |
+          packer validate \
+            -var="proxmox_host=$PROXMOX_HOST" \
+            -var="token_id=$TOKEN_ID" \
+            -var="token_secret=$TOKEN_SECRET" \
+            -var="node=$NODE" \
+            -var="pool=$POOL" \
+            -var="username=$USERNAME" \
+            -var="password=$PASSWORD" \
+            -var="build_key=$BUILD_KEY" \
+            .
+
+  build:
+    name: Build ${{ matrix.build.name }}
+    if: github.event_name != 'pull_request' && needs.prepare.outputs.matrix != '[]'
+    needs: [prepare, validate]
+    runs-on: self-hosted
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        build: ${{ fromJson(needs.prepare.outputs.matrix) }}
+    env:
+      PACKER_LOG_PATH: ${{ matrix.build.log }}
+      POOL: ${{ secrets.POOL }}
+      PROXMOX_HOST: ${{ secrets.PROXMOX_HOST }}
+      TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
+      TOKEN_ID: ${{ secrets.TOKEN_ID }}
+      NODE: ${{ secrets.NODE }}
+      USERNAME: ${{ secrets.USERNAME }}
+      PASSWORD: ${{ secrets.PASSWORD }}
+      BUILD_KEY: ${{ secrets.BUILD_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: hashicorp/setup-packer@v3
 
       - name: Verify Git Repository
         run: |
@@ -103,43 +271,21 @@ jobs:
 
       - name: Initialize Packer
         working-directory: ${{ matrix.build.path }}
-        run: |
-          echo "::group::Packer Init"
-          packer init .
-          echo "::endgroup::"
+        run: packer init .
 
-      - name: Validate Packer Configuration
+      - name: Packer Build - ${{ matrix.build.name }}
         working-directory: ${{ matrix.build.path }}
         run: |
-          echo "::group::Packer Validate"
-          packer validate \
-            -var="proxmox_host=${{ secrets.PROXMOX_HOST }}" \
-            -var="token_id=${{ secrets.TOKEN_ID }}" \
-            -var="token_secret=${{ secrets.TOKEN_SECRET }}" \
-            -var="node=${{ secrets.NODE }}" \
-            -var="pool=${{ secrets.POOL }}" \
-            -var="username=${{ secrets.USERNAME }}" \
-            -var="password=${{ secrets.PASSWORD }}" \
-            -var="build_key=${{ secrets.BUILD_KEY }}" \
-            .
-          echo "::endgroup::"
-
-      - name: Build Image
-        id: build
-        working-directory: ${{ matrix.build.path }}
-        run: |
-          echo "::group::Packer Build - ${{ matrix.build.name }}"
           packer build \
-            -var="proxmox_host=${{ secrets.PROXMOX_HOST }}" \
-            -var="token_id=${{ secrets.TOKEN_ID }}" \
-            -var="token_secret=${{ secrets.TOKEN_SECRET }}" \
-            -var="node=${{ secrets.NODE }}" \
-            -var="pool=${{ secrets.POOL }}" \
-            -var="username=${{ secrets.USERNAME }}" \
-            -var="password=${{ secrets.PASSWORD }}" \
-            -var="build_key=${{ secrets.BUILD_KEY }}" \
+            -var="proxmox_host=${{ env.PROXMOX_HOST }}" \
+            -var="token_id=${{ env.TOKEN_ID }}" \
+            -var="token_secret=${{ env.TOKEN_SECRET }}" \
+            -var="node=${{ env.NODE }}" \
+            -var="pool=${{ env.POOL }}" \
+            -var="username=${{ env.USERNAME }}" \
+            -var="password=${{ env.PASSWORD }}" \
+            -var="build_key=${{ env.BUILD_KEY }}" \
             .
-          echo "::endgroup::"
 
       - name: Upload Build Manifest
         if: always()
@@ -161,19 +307,20 @@ jobs:
 
   summary:
     name: Build Summary
+    if: always() && github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
-    if: always()
     steps:
       - name: Generate Summary
         run: |
-          echo "# Packer Build Summary" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Workflow:** ${{ github.workflow }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Trigger:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "## Build Results" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Build job status: ${{ needs.build.result }}" >> $GITHUB_STEP_SUMMARY
+          {
+            echo "# Packer Build Summary"
+            echo ""
+            echo "**Workflow:** ${{ github.workflow }}"
+            echo "**Trigger:** ${{ github.event_name }}"
+            echo "**Branch:** ${{ github.ref_name }}"
+            echo "**Commit:** ${{ github.sha }}"
+            echo ""
+            echo "## Build Results"
+            echo "Build job status: ${{ needs.build.result }}"
+          } >> "$GITHUB_STEP_SUMMARY"
