@@ -41,8 +41,8 @@ data "git-commit" "build" {}
 data "sshkey" "install" {}
 
 locals {
-  build_by          = "Built by: Hashicorp Packer ${packer.version}"
-  build_date        = formatdate("YYYY-MM-DD hh:mm ZZZ", timestamp())
+  build_by   = "Built by: Hashicorp Packer ${packer.version}"
+  build_date = formatdate("YYYY-MM-DD hh:mm ZZZ", timestamp())
   # Fallback to environment variable if git-commit fails
   ssh_public_key    = data.sshkey.install.private_key_path
   build_version     = try(data.git-commit.build.hash, env("GITHUB_SHA"), "unknown")

@@ -44,6 +44,6 @@ variable "password" {
 }
 
 variable "build_key" {
-  type = string
+  type        = string
   description = "The public key file to connect to the vm"
 }
