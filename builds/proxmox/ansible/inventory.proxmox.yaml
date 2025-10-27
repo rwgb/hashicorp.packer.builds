@@ -1,0 +1,47 @@
+---
+# Proxmox Dynamic Inventory Configuration
+# This inventory plugin will automatically discover VMs and containers from your Proxmox cluster
+# Documentation: https://docs.ansible.com/ansible/latest/collections/community/general/proxmox_inventory.html
+
+plugin: community.general.proxmox
+
+# Proxmox API Connection
+# Replace with your actual Proxmox server URL
+url: http://192.168.1.161:8006
+
+# Authentication using API token (recommended)
+# Note: When using token auth, 'user' should be the username@realm
+#       and 'token_id' should be just the token name (not user@realm!tokenname)
+user: packer@pve
+token_id: packer-token
+token_secret: 5fb402ca-fa04-4c9c-8355-6974e7b6254b
+
+# Alternative: Use environment variables instead
+# export PROXMOX_USER=packer@pve
+# export PROXMOX_TOKEN_ID=packer-token
+# export PROXMOX_TOKEN_SECRET=5fb402ca-fa04-4c9c-8355-6974e7b6254b
+
+# SSL certificate validation (set to false for self-signed certs)
+validate_certs: false
+
+# Retrieve facts about VMs/containers (optional but useful)
+want_facts: true
+
+# Group VMs by various attributes
+compose:
+  # Use the IP address from network config
+  ansible_host: proxmox_ipconfig0.ip | default(proxmox_net0.ip) | default(proxmox_net0.hwaddr)
+
+# Create groups based on Proxmox tags
+keyed_groups:
+  - key: proxmox_tags_parsed
+    separator: ""
+    prefix: tag
+
+# Create custom groups
+groups:
+  docker: "'docker' in (proxmox_tags_parsed|list)"
+  database: "'database' in (proxmox_tags_parsed|list)"
+  webserver: "'webserver' in (proxmox_tags_parsed|list)"
+  production: "'prod' in (proxmox_tags_parsed|list)"
+  development: "'dev' in (proxmox_tags_parsed|list)"
