@@ -19,7 +19,6 @@ source "proxmox-iso" "windows_server_2k22_data_center_base" {
   qemu_agent      = true
   scsi_controller = "virtio-scsi-single"
   tags            = "windows;server;2022;data_center;template;base"
-  vm_notes        = local.vm_notes
 
   // install media
   boot_iso {
