@@ -4,9 +4,11 @@
 
 ![Packer](https://img.shields.io/badge/Packer-02A8EF?style=for-the-badge&logo=packer&logoColor=white)
 ![Proxmox](https://img.shields.io/badge/Proxmox-E57000?style=for-the-badge&logo=proxmox&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-FF9900?style=for-the-badge&logo=amazon-aws&logoColor=white)
 ![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)
+![Version](https://img.shields.io/badge/version-0.1.4-blue?style=for-the-badge)
 
-**Automated VM image builds for Proxmox using HashiCorp Packer**
+**Multi-cloud VM and AMI builds using HashiCorp Packer**
 
 [Features](#-features) • [Quick Start](#-quick-start) • [Builds](#-available-builds) • [CI/CD](#-cicd-automation) • [Documentation](#-documentation)
 
@@ -16,16 +18,34 @@
 
 ## 📋 Overview
 
-This repository contains **HashiCorp Packer** configurations for building virtual machine images on **Proxmox VE**. All builds are automated using **GitHub Actions** with support for both manual and scheduled builds.
+This repository contains **HashiCorp Packer** configurations for building virtual machine images and AMIs across multiple cloud providers. All builds are automated using **GitHub Actions** with support for both manual and scheduled builds.
+
+### Supported Platforms
+
+**Proxmox VE** - Virtual Machine Templates
+**AWS** - Amazon Machine Images (AMIs)
 
 ### Supported Operating Systems
 
+#### Proxmox Builds
 | OS | Version | Status | Build Path |
 |---|---|---|---|
-| **Debian** | 12 (Bookworm) | ✅ | `builds/linux/debian/12/` |
-| **Debian** | 13 (Trixie) | ✅ | `builds/linux/debian/13/` |
-| **Windows Server** | 2019 | ✅ | `builds/windows/server/2019/` |
-| **Windows Server** | 2022 | ✅ | `builds/windows/server/2022/` |
+| **Debian** | 12 (Bookworm) | ✅ | `builds/proxmox/linux/debian/12/` |
+| **Debian** | 13 (Trixie) | ✅ | `builds/proxmox/linux/debian/13/` |
+| **Windows Server** | 2019 | ✅ | `builds/proxmox/windows/server/2019/` |
+| **Windows Server** | 2022 | ✅ | `builds/proxmox/windows/server/2022/` |
+
+#### AWS AMI Builds
+| OS | Version | Status | Build Path |
+|---|---|---|---|
+| **Debian** | 11 (Bullseye) | ✅ | `builds/aws/linux/debian/11/` |
+| **Debian** | 12 (Bookworm) | ✅ | `builds/aws/linux/debian/12/` |
+| **Ubuntu** | 22.04 LTS (Jammy) | ✅ | `builds/aws/linux/ubuntu/22/` |
+| **Ubuntu** | 24.04 LTS (Noble) | ✅ | `builds/aws/linux/ubuntu/24/` |
+| **Windows Server** | 2019 | ✅ | `builds/aws/windows/server/2019/` |
+| **Windows Server** | 2022 | ✅ | `builds/aws/windows/server/2022/` |
+| **Windows Desktop** | 10 | ✅ | `builds/aws/windows/desktop/10/` |
+| **Windows Desktop** | 11 | ✅ | `builds/aws/windows/desktop/11/` |
 
 ---
 
