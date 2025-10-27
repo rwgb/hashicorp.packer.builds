@@ -17,16 +17,35 @@ packer {
   }
 }
 
-data "git-commit" "build" {}
+data "git-commit" "build" {
+  path = "${path.root}/../../"
+}
 
 locals {
   build_by          = "Built by: Hashicorp Packer ${packer.version}"
   build_date        = formatdate("YYYY-MM-DD hh:mm ZZZ", timestamp())
-  build_version     = data.git-commit.build.hash
+  build_version     = try(data.git-commit.build.hash, env("GITHUB_SHA"), "unknown")
+  git_author        = try(data.git-commit.build.author, env("GITHUB_ACTOR"), "unknown")
+  git_committer     = try(data.git-commit.build.committer, env("GITHUB_ACTOR"), "unknown")
+  git_timestamp     = try(data.git-commit.build.timestamp, timestamp(), "unknown")
   build_description = "Version: ${local.build_version}\nBuilt on: ${local.build_date}\n${local.build_by}"
   manifest_path     = "./manifests/"
   manifest_date     = formatdate("YYYY-MM-DD hh:mm:ss", timestamp())
   manifest_output   = "${local.manifest_path}${local.manifest_date}.json"
+  
+  # VM notes with build metadata
+  vm_notes = <<-EOT
+  Windows Server 2019 Datacenter Base Template
+  
+  Build Information:
+  - Build Date: ${local.build_date}
+  - Build Version: ${local.build_version}
+  - Git Committer: ${local.git_committer}
+  - Git Author: ${local.git_author}
+  - Commit Timestamp: ${local.git_timestamp}
+  
+  Built with Packer ${packer.version}
+  EOT
 }
 
 // build block
