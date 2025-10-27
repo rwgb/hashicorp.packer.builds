@@ -1,0 +1,73 @@
+---
+# MySQL installation and configuration
+
+- name: Install MySQL server
+  apt:
+    name:
+      - "mysql-server-{{ mysql_version }}"
+      - mysql-client
+      - python3-pymysql
+    state: present
+    update_cache: true
+  when: ansible_os_family == "Debian"
+
+- name: Ensure MySQL is started and enabled
+  service:
+    name: mysql
+    state: started
+    enabled: true
+
+- name: Set MySQL root password
+  mysql_user:
+    name: root
+    password: "{{ mysql_root_password }}"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    state: present
+  when: mysql_root_password is defined
+  no_log: true
+
+- name: Remove anonymous MySQL users
+  mysql_user:
+    name: ''
+    host_all: true
+    state: absent
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  when: mysql_remove_anonymous_users | default(true)
+
+- name: Remove MySQL test database
+  mysql_db:
+    name: test
+    state: absent
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  when: mysql_remove_test_db | default(true)
+
+- name: Configure MySQL bind address
+  lineinfile:
+    path: /etc/mysql/mysql.conf.d/mysqld.cnf
+    regexp: '^bind-address'
+    line: "bind-address = {{ mysql_bind_address }}"
+    state: present
+  notify: restart mysql
+  when: mysql_bind_address != '127.0.0.1'
+
+- name: Create MySQL databases
+  mysql_db:
+    name: "{{ item.name }}"
+    encoding: "{{ item.encoding | default('utf8mb4') }}"
+    collation: "{{ item.collation | default('utf8mb4_unicode_ci') }}"
+    state: present
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  loop: "{{ mysql_databases }}"
+  when: mysql_databases | length > 0
+
+- name: Create MySQL users
+  mysql_user:
+    name: "{{ item.name }}"
+    password: "{{ item.password }}"
+    host: "{{ item.host | default('%') }}"
+    priv: "{{ item.priv | default('*.*:ALL') }}"
+    state: present
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  loop: "{{ mysql_users }}"
+  when: mysql_users | length > 0
+  no_log: true

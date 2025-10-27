@@ -1,0 +1,76 @@
+---
+# Apache installation and configuration
+
+- name: Install Apache
+  apt:
+    name:
+      - apache2
+      - apache2-utils
+    state: present
+    update_cache: true
+  when: ansible_os_family == "Debian"
+
+- name: Ensure Apache is started and enabled
+  service:
+    name: apache2
+    state: started
+    enabled: true
+
+- name: Enable Apache modules
+  apache2_module:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ apache_modules }}"
+  notify: restart apache
+
+- name: Disable default Apache site
+  command: a2dissite 000-default
+  args:
+    removes: /etc/apache2/sites-enabled/000-default.conf
+  when: apache_remove_default_site | default(true)
+  notify: reload apache
+
+- name: Create Apache site configurations
+  template:
+    src: apache-site.conf.j2
+    dest: "/etc/apache2/sites-available/{{ item.name }}.conf"
+    mode: '0644'
+  loop: "{{ apache_sites }}"
+  when: apache_sites | length > 0
+  notify: reload apache
+
+- name: Enable Apache sites
+  command: "a2ensite {{ item.name }}"
+  args:
+    creates: "/etc/apache2/sites-enabled/{{ item.name }}.conf"
+  loop: "{{ apache_sites }}"
+  when: apache_sites | length > 0
+  notify: reload apache
+
+- name: Create default index.html
+  copy:
+    dest: /var/www/html/index.html
+    content: |
+      <!DOCTYPE html>
+      <html>
+      <head>
+          <title>Welcome</title>
+      </head>
+      <body>
+          <h1>Server is running</h1>
+          <p>Hostname: {{ ansible_hostname }}</p>
+          <p>IP: {{ ansible_default_ipv4.address | default('N/A') }}</p>
+      </body>
+      </html>
+    mode: '0644'
+  when: apache_create_default_page | default(true)
+
+- name: Test Apache configuration
+  command: apache2ctl configtest
+  register: apache_test
+  changed_when: false
+  failed_when: false
+
+- name: Display Apache test result
+  debug:
+    var: apache_test.stderr_lines

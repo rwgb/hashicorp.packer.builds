@@ -1,0 +1,53 @@
+---
+# Default variables for database role
+
+db_engine: "postgresql"  # Options: postgresql, mysql, mariadb
+db_version: "15"
+
+# PostgreSQL configuration
+postgresql_listen_addresses: "localhost"
+postgresql_max_connections: 100
+postgresql_shared_buffers: "128MB"
+postgresql_allowed_networks:
+  [] # Example: - "10.0.0.0/8"
+postgresql_databases: []
+# Example:
+#   - name: myapp
+#     encoding: UTF8
+postgresql_users: []
+# Example:
+#   - name: myapp_user
+#     password: "changeme"
+#     role_attr_flags: "CREATEDB,NOSUPERUSER"
+postgresql_privileges: []
+# Example:
+#   - database: myapp
+#     user: myapp_user
+#     privs: ALL
+
+# MySQL configuration
+mysql_version: "8.0"
+mysql_bind_address: "127.0.0.1"
+mysql_root_password: ""  # Leave empty to skip setting
+mysql_remove_anonymous_users: true
+mysql_remove_test_db: true
+mysql_databases: []
+# Example:
+#   - name: myapp
+#     encoding: utf8mb4
+#     collation: utf8mb4_unicode_ci
+mysql_users: []
+# Example:
+#   - name: myapp_user
+#     password: "changeme"
+#     host: "%"
+#     priv: "myapp.*:ALL"
+
+# MariaDB configuration
+mariadb_version: "10.11"
+mariadb_bind_address: "127.0.0.1"
+mariadb_root_password: ""  # Leave empty to skip setting
+mariadb_remove_anonymous_users: true
+mariadb_remove_test_db: true
+mariadb_databases: []
+mariadb_users: []

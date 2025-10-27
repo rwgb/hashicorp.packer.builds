@@ -1,0 +1,28 @@
+server {
+    listen {{ item.port | default(80) }};
+    listen [::]:{{ item.port | default(80) }};
+    
+    server_name {{ item.server_name | default('_') }};
+    root {{ item.document_root | default('/var/www/html') }};
+    index index.html index.htm index.nginx-debian.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    # Logging
+    access_log /var/log/nginx/{{ item.name }}-access.log;
+    error_log /var/log/nginx/{{ item.name }}-error.log;
+
+    {% if item.ssl | default(false) %}
+    # SSL Configuration
+    listen {{ item.ssl_port | default(443) }} ssl http2;
+    listen [::]:{{ item.ssl_port | default(443) }} ssl http2;
+    
+    ssl_certificate {{ item.ssl_certificate }};
+    ssl_certificate_key {{ item.ssl_certificate_key }};
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+    ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384;
+    {% endif %}
+}

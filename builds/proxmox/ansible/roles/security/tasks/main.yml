@@ -1,0 +1,101 @@
+---
+# Security role - Firewall and SSH hardening
+
+- name: Install UFW firewall
+  apt:
+    name: ufw
+    state: present
+  when:
+    - ansible_os_family == "Debian"
+    - enable_firewall | default(true)
+
+- name: Configure UFW defaults
+  ufw:
+    direction: "{{ item.direction }}"
+    policy: "{{ item.policy }}"
+  loop:
+    - { direction: 'incoming', policy: 'deny' }
+    - { direction: 'outgoing', policy: 'allow' }
+  when: enable_firewall | default(true)
+
+- name: Allow SSH through firewall
+  ufw:
+    rule: allow
+    port: "{{ ssh_port | default('22') }}"
+    proto: tcp
+  when: enable_firewall | default(true)
+
+- name: Allow additional ports through firewall
+  ufw:
+    rule: allow
+    port: "{{ item.port }}"
+    proto: "{{ item.proto | default('tcp') }}"
+  loop: "{{ firewall_allowed_ports }}"
+  when:
+    - enable_firewall | default(true)
+    - firewall_allowed_ports | length > 0
+
+- name: Enable UFW
+  ufw:
+    state: enabled
+  when: enable_firewall | default(true)
+
+- name: Install fail2ban
+  apt:
+    name: fail2ban
+    state: present
+  when:
+    - ansible_os_family == "Debian"
+    - enable_fail2ban | default(true)
+
+- name: Configure fail2ban
+  copy:
+    dest: /etc/fail2ban/jail.local
+    content: |
+      [DEFAULT]
+      bantime = {{ fail2ban_bantime }}
+      findtime = {{ fail2ban_findtime }}
+      maxretry = {{ fail2ban_maxretry }}
+      
+      [sshd]
+      enabled = true
+      port = {{ ssh_port | default('22') }}
+    mode: '0644'
+  when: enable_fail2ban | default(true)
+  notify: restart fail2ban
+
+- name: Start and enable fail2ban
+  service:
+    name: fail2ban
+    state: started
+    enabled: true
+  when: enable_fail2ban | default(true)
+
+- name: SSH hardening
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+  loop:
+    - { regexp: '^#?PermitRootLogin', line: 'PermitRootLogin {{ ssh_permit_root_login }}' }
+    - { regexp: '^#?PasswordAuthentication', line: 'PasswordAuthentication {{ ssh_password_authentication }}' }
+    - { regexp: '^#?PubkeyAuthentication', line: 'PubkeyAuthentication yes' }
+    - { regexp: '^#?PermitEmptyPasswords', line: 'PermitEmptyPasswords no' }
+    - { regexp: '^#?X11Forwarding', line: 'X11Forwarding no' }
+    - { regexp: '^#?MaxAuthTries', line: 'MaxAuthTries 3' }
+    - { regexp: '^#?ClientAliveInterval', line: 'ClientAliveInterval 300' }
+    - { regexp: '^#?ClientAliveCountMax', line: 'ClientAliveCountMax 2' }
+  when: ssh_hardening | default(true)
+  notify: restart sshd
+
+- name: Disable unnecessary services
+  service:
+    name: "{{ item }}"
+    state: stopped
+    enabled: false
+  loop: "{{ services_to_disable }}"
+  when:
+    - services_to_disable | length > 0
+    - disable_unnecessary_services | default(false)
+  failed_when: false

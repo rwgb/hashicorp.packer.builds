@@ -1,0 +1,120 @@
+---
+# Common role - Base packages and configuration for all hosts
+
+- name: Install common packages (Debian/Ubuntu)
+  apt:
+    name: "{{ common_packages }}"
+    state: present
+    update_cache: true
+  when: ansible_os_family == "Debian"
+
+- name: Install common packages (RedHat/CentOS)
+  yum:
+    name: "{{ common_packages }}"
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Set timezone
+  timezone:
+    name: "{{ timezone | default('UTC') }}"
+
+- name: Configure hostname
+  hostname:
+    name: "{{ inventory_hostname }}"
+  when: set_hostname | default(true)
+
+- name: Update /etc/hosts
+  lineinfile:
+    path: /etc/hosts
+    line: "{{ ansible_default_ipv4.address }} {{ inventory_hostname }}"
+    state: present
+  when: ansible_default_ipv4.address is defined
+
+- name: Disable swap (for Kubernetes compatibility)
+  shell: swapoff -a
+  when: disable_swap | default(false)
+  changed_when: false
+
+- name: Remove swap from /etc/fstab
+  lineinfile:
+    path: /etc/fstab
+    regexp: '.*swap.*'
+    state: absent
+  when: disable_swap | default(false)
+
+- name: Configure sysctl parameters
+  sysctl:
+    name: "{{ item.key }}"
+    value: "{{ item.value }}"
+    state: present
+    reload: true
+  loop:
+    - { key: 'vm.swappiness', value: '10' }
+    - { key: 'net.ipv4.ip_forward', value: '1' }
+    - { key: 'net.ipv6.conf.all.disable_ipv6', value: '0' }
+    - { key: 'fs.file-max', value: '2097152' }
+  when: configure_sysctl | default(true)
+
+- name: Set ulimits
+  pam_limits:
+    domain: '*'
+    limit_type: "{{ item.type }}"
+    limit_item: "{{ item.item }}"
+    value: "{{ item.value }}"
+  loop:
+    - { type: 'soft', item: 'nofile', value: '65536' }
+    - { type: 'hard', item: 'nofile', value: '65536' }
+    - { type: 'soft', item: 'nproc', value: '65536' }
+    - { type: 'hard', item: 'nproc', value: '65536' }
+  when: set_ulimits | default(true)
+
+- name: Create admin user group
+  group:
+    name: "{{ admin_group | default('admins') }}"
+    state: present
+  when: create_admin_group | default(false)
+
+- name: Configure automatic security updates (Debian/Ubuntu)
+  apt:
+    name: unattended-upgrades
+    state: present
+  when:
+    - ansible_os_family == "Debian"
+    - enable_auto_updates | default(true)
+
+- name: Enable automatic security updates
+  copy:
+    dest: /etc/apt/apt.conf.d/50unattended-upgrades
+    content: |
+      Unattended-Upgrade::Allowed-Origins {
+          "${distro_id}:${distro_codename}-security";
+      };
+      Unattended-Upgrade::AutoFixInterruptedDpkg "true";
+      Unattended-Upgrade::MinimalSteps "true";
+      Unattended-Upgrade::Remove-Unused-Dependencies "true";
+      Unattended-Upgrade::Automatic-Reboot "false";
+  when:
+    - ansible_os_family == "Debian"
+    - enable_auto_updates | default(true)
+
+- name: Install and configure chrony for time sync
+  block:
+    - name: Install chrony
+      apt:
+        name: chrony
+        state: present
+      when: ansible_os_family == "Debian"
+    
+    - name: Start and enable chrony
+      service:
+        name: chronyd
+        state: started
+        enabled: true
+  when: enable_time_sync | default(true)
+
+- name: Clean package cache
+  apt:
+    autoclean: true
+    autoremove: true
+  when: ansible_os_family == "Debian"
+  changed_when: false

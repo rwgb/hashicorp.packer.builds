@@ -1,0 +1,10 @@
+---
+# Web server role - Install and configure Nginx or Apache
+
+- name: Install Nginx
+  include_tasks: nginx.yml
+  when: web_engine == "nginx"
+
+- name: Install Apache
+  include_tasks: apache.yml
+  when: web_engine == "apache"

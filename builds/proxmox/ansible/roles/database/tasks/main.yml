@@ -1,0 +1,14 @@
+---
+# Database role - Install and configure PostgreSQL, MySQL, or MariaDB
+
+- name: Install PostgreSQL
+  include_tasks: postgresql.yml
+  when: db_engine == "postgresql"
+
+- name: Install MySQL
+  include_tasks: mysql.yml
+  when: db_engine == "mysql"
+
+- name: Install MariaDB
+  include_tasks: mariadb.yml
+  when: db_engine == "mariadb"

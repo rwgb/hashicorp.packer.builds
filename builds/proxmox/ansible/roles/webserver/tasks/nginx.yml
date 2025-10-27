@@ -1,0 +1,108 @@
+---
+# Nginx installation and configuration
+
+- name: Install Nginx
+  apt:
+    name: nginx
+    state: present
+    update_cache: true
+  when: ansible_os_family == "Debian"
+
+- name: Ensure Nginx is started and enabled
+  service:
+    name: nginx
+    state: started
+    enabled: true
+
+- name: Remove default Nginx site
+  file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /etc/nginx/sites-enabled/default
+    - /etc/nginx/sites-available/default
+  when: nginx_remove_default_site | default(true)
+  notify: reload nginx
+
+- name: Create Nginx directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  loop:
+    - /etc/nginx/sites-available
+    - /etc/nginx/sites-enabled
+    - /var/www/html
+    - /var/log/nginx
+
+- name: Configure Nginx main configuration
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+    mode: '0644'
+  notify: reload nginx
+  when: nginx_custom_config | default(false)
+
+- name: Create Nginx site configurations
+  template:
+    src: nginx-site.conf.j2
+    dest: "/etc/nginx/sites-available/{{ item.name }}"
+    mode: '0644'
+  loop: "{{ nginx_sites }}"
+  when: nginx_sites | length > 0
+  notify: reload nginx
+
+- name: Enable Nginx sites
+  file:
+    src: "/etc/nginx/sites-available/{{ item.name }}"
+    dest: "/etc/nginx/sites-enabled/{{ item.name }}"
+    state: link
+  loop: "{{ nginx_sites }}"
+  when: nginx_sites | length > 0
+  notify: reload nginx
+
+- name: Create default index.html
+  copy:
+    dest: /var/www/html/index.html
+    content: |
+      <!DOCTYPE html>
+      <html>
+      <head>
+          <title>Welcome</title>
+      </head>
+      <body>
+          <h1>Server is running</h1>
+          <p>Hostname: {{ ansible_hostname }}</p>
+          <p>IP: {{ ansible_default_ipv4.address | default('N/A') }}</p>
+      </body>
+      </html>
+    mode: '0644'
+  when: nginx_create_default_page | default(true)
+
+- name: Configure Nginx logrotate
+  copy:
+    dest: /etc/logrotate.d/nginx
+    content: |
+      /var/log/nginx/*.log {
+        daily
+        missingok
+        rotate 14
+        compress
+        delaycompress
+        notifempty
+        create 0640 www-data adm
+        sharedscripts
+        postrotate
+          [ -f /var/run/nginx.pid ] && kill -USR1 `cat /var/run/nginx.pid`
+        endscript
+      }
+    mode: '0644'
+
+- name: Test Nginx configuration
+  command: nginx -t
+  register: nginx_test
+  changed_when: false
+
+- name: Display Nginx test result
+  debug:
+    var: nginx_test.stderr_lines

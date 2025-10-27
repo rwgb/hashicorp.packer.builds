@@ -1,0 +1,22 @@
+---
+# Handlers for webserver role
+
+- name: reload nginx
+  service:
+    name: nginx
+    state: reloaded
+
+- name: restart nginx
+  service:
+    name: nginx
+    state: restarted
+
+- name: reload apache
+  service:
+    name: apache2
+    state: reloaded
+
+- name: restart apache
+  service:
+    name: apache2
+    state: restarted

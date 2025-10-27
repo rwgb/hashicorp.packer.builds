@@ -1,0 +1,29 @@
+---
+# Default variables for common role
+
+common_packages:
+  - curl
+  - wget
+  - git
+  - vim
+  - htop
+  - net-tools
+  - unzip
+  - jq
+  - tmux
+  - python3-pip
+  - ca-certificates
+  - software-properties-common
+  - apt-transport-https
+  - gnupg
+  - lsb-release
+
+timezone: "UTC"
+set_hostname: true
+disable_swap: false
+configure_sysctl: true
+set_ulimits: true
+create_admin_group: false
+admin_group: "admins"
+enable_auto_updates: true
+enable_time_sync: true

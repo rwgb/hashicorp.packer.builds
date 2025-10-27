@@ -1,0 +1,8 @@
+---
+# Handlers for monitoring role
+
+- name: restart node_exporter
+  systemd:
+    name: node_exporter
+    state: restarted
+    daemon_reload: true

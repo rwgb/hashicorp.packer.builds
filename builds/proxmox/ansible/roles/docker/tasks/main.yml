@@ -1,0 +1,138 @@
+---
+# Docker role - Install and configure Docker Engine
+
+- name: Remove old Docker versions
+  apt:
+    name:
+      - docker
+      - docker-engine
+      - docker.io
+      - containerd
+      - runc
+    state: absent
+  when: ansible_os_family == "Debian"
+
+- name: Install Docker dependencies
+  apt:
+    name:
+      - ca-certificates
+      - curl
+      - gnupg
+      - lsb-release
+    state: present
+    update_cache: true
+  when: ansible_os_family == "Debian"
+
+- name: Add Docker GPG key
+  apt_key:
+    url: https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Add Docker repository
+  apt_repository:
+    repo: "deb [arch={{ docker_arch_map[ansible_architecture] }}] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable"
+    state: present
+    filename: docker
+  when: ansible_os_family == "Debian"
+
+- name: Install Docker Engine
+  apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+    state: present
+    update_cache: true
+  when: ansible_os_family == "Debian"
+
+- name: Ensure Docker group exists
+  group:
+    name: docker
+    state: present
+
+- name: Add users to Docker group
+  user:
+    name: "{{ item }}"
+    groups: docker
+    append: true
+  loop: "{{ docker_users }}"
+  when: docker_users | length > 0
+
+- name: Create Docker daemon configuration directory
+  file:
+    path: /etc/docker
+    state: directory
+    mode: '0755'
+
+- name: Configure Docker daemon
+  copy:
+    dest: /etc/docker/daemon.json
+    content: |
+      {
+        "log-driver": "{{ docker_log_driver }}",
+        "log-opts": {
+          "max-size": "{{ docker_log_max_size }}",
+          "max-file": "{{ docker_log_max_file }}"
+        },
+        "storage-driver": "{{ docker_storage_driver }}",
+        "live-restore": {{ docker_live_restore | to_json }},
+        "userland-proxy": false,
+        "default-address-pools": [
+          {
+            "base": "172.17.0.0/12",
+            "size": 24
+          }
+        ]
+      }
+    mode: '0644'
+  notify: restart docker
+
+- name: Start and enable Docker service
+  service:
+    name: docker
+    state: started
+    enabled: true
+
+- name: Install Docker Compose standalone (legacy)
+  get_url:
+    url: "https://github.com/docker/compose/releases/download/v{{ docker_compose_version }}/docker-compose-{{ ansible_system }}-{{ ansible_architecture }}"
+    dest: /usr/local/bin/docker-compose
+    mode: '0755'
+  when: install_docker_compose_standalone | default(false)
+
+- name: Verify Docker installation
+  command: docker --version
+  register: docker_version_output
+  changed_when: false
+
+- name: Display Docker version
+  debug:
+    var: docker_version_output.stdout
+
+- name: Install Docker Python SDK
+  pip:
+    name:
+      - docker
+      - docker-compose
+    state: present
+  when: install_docker_python_sdk | default(true)
+
+- name: Create Docker network for services
+  docker_network:
+    name: "{{ docker_default_network }}"
+    state: present
+  when:
+    - create_default_network | default(false)
+    - install_docker_python_sdk | default(true)
+
+- name: Pull common Docker images
+  docker_image:
+    name: "{{ item }}"
+    source: pull
+  loop: "{{ docker_preload_images }}"
+  when:
+    - docker_preload_images | length > 0
+    - install_docker_python_sdk | default(true)

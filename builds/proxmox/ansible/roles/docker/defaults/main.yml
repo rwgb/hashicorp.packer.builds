@@ -1,0 +1,33 @@
+---
+# Default variables for Docker role
+
+docker_version: "latest"
+docker_compose_version: "2.23.0"
+
+docker_users:
+  - debian
+
+docker_arch_map:
+  x86_64: amd64
+  aarch64: arm64
+  armv7l: armhf
+
+# Docker daemon configuration
+docker_log_driver: "json-file"
+docker_log_max_size: "10m"
+docker_log_max_file: "3"
+docker_storage_driver: "overlay2"
+docker_live_restore: true
+
+# Optional features
+install_docker_compose_standalone: false
+install_docker_python_sdk: true
+create_default_network: false
+docker_default_network: "services"
+
+# Preload common images (empty by default)
+docker_preload_images: []
+# Example:
+#   - nginx:latest
+#   - postgres:15
+#   - redis:alpine

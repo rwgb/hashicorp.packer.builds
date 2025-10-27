@@ -1,0 +1,131 @@
+---
+# Ansible Playbook for Packer Build Configuration
+# This playbook configures VMs/AMIs built by Packer with optional roles
+# for Docker hosts, database hosts, or web server hosts.
+#
+# Usage:
+#   # Configure as Docker host
+#   ansible-playbook -i inventory playbook.yml -e "host_type=docker"
+#
+#   # Configure as database host (PostgreSQL)
+#   ansible-playbook -i inventory playbook.yml -e "host_type=database db_engine=postgresql"
+#
+#   # Configure as web server (Nginx)
+#   ansible-playbook -i inventory playbook.yml -e "host_type=webserver web_engine=nginx"
+#
+#   # Configure with multiple roles
+#   ansible-playbook -i inventory playbook.yml -e "host_type=docker,webserver"
+
+- name: Configure Packer-built hosts
+  hosts: all
+  become: true
+  gather_facts: true
+
+  vars:
+    # Default configuration
+    host_type: "base"  # Options: base, docker, database, webserver (comma-separated)
+    
+    # Docker configuration
+    docker_version: "latest"
+    docker_compose_version: "2.23.0"
+    docker_users:
+      - "{{ ansible_user | default('debian') }}"
+    
+    # Database configuration
+    db_engine: "postgresql"  # Options: postgresql, mysql, mariadb
+    db_version: "15"  # PostgreSQL version
+    mysql_version: "8.0"
+    mariadb_version: "10.11"
+    
+    # Web server configuration
+    web_engine: "nginx"  # Options: nginx, apache
+    nginx_version: "latest"
+    apache_version: "latest"
+    
+    # Common packages
+    common_packages:
+      - curl
+      - wget
+      - git
+      - vim
+      - htop
+      - net-tools
+      - unzip
+      - jq
+      - tmux
+      - python3-pip
+    
+    # Security settings
+    enable_firewall: true
+    enable_fail2ban: true
+    ssh_hardening: true
+
+  pre_tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: true
+        cache_valid_time: 3600
+      when: ansible_os_family == "Debian"
+    
+    - name: Update yum cache
+      yum:
+        update_cache: true
+      when: ansible_os_family == "RedHat"
+    
+    - name: Display configuration
+      debug:
+        msg:
+          - "Configuring host as: {{ host_type }}"
+          - "OS Family: {{ ansible_os_family }}"
+          - "Distribution: {{ ansible_distribution }} {{ ansible_distribution_version }}"
+
+  roles:
+    # Common role - always applied
+    - role: common
+      tags: ['common', 'always']
+    
+    # Security role - applied if enabled
+    - role: security
+      tags: ['security']
+      when: enable_firewall or enable_fail2ban or ssh_hardening
+    
+    # Docker role - applied if host_type includes 'docker'
+    - role: docker
+      tags: ['docker']
+      when: "'docker' in host_type"
+    
+    # Database role - applied if host_type includes 'database'
+    - role: database
+      tags: ['database']
+      when: "'database' in host_type"
+    
+    # Web server role - applied if host_type includes 'webserver'
+    - role: webserver
+      tags: ['webserver']
+      when: "'webserver' in host_type"
+    
+    # Monitoring role - optional
+    - role: monitoring
+      tags: ['monitoring', 'never']
+      when: enable_monitoring | default(false)
+
+  post_tasks:
+    - name: Display completion message
+      debug:
+        msg:
+          - "Configuration complete!"
+          - "Host type: {{ host_type }}"
+          - "Hostname: {{ ansible_hostname }}"
+          - "IP Address: {{ ansible_default_ipv4.address | default('N/A') }}"
+    
+    - name: Reboot if required
+      reboot:
+        msg: "Reboot initiated by Ansible for kernel updates"
+        connect_timeout: 5
+        reboot_timeout: 300
+        pre_reboot_delay: 0
+        post_reboot_delay: 30
+        test_command: uptime
+      when: 
+        - reboot_required | default(false)
+        - auto_reboot | default(false)

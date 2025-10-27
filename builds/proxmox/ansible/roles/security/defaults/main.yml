@@ -1,0 +1,31 @@
+---
+# Default variables for security role
+
+enable_firewall: true
+enable_fail2ban: true
+ssh_hardening: true
+
+# Firewall configuration
+firewall_allowed_ports: []
+# Example:
+#   - { port: 80, proto: tcp }
+#   - { port: 443, proto: tcp }
+#   - { port: 5432, proto: tcp }
+
+# Fail2ban configuration
+fail2ban_bantime: "10m"
+fail2ban_findtime: "10m"
+fail2ban_maxretry: 5
+
+# SSH configuration
+ssh_port: "22"
+ssh_permit_root_login: "no"
+ssh_password_authentication: "no"
+
+# Services to disable
+disable_unnecessary_services: false
+services_to_disable: []
+# Example:
+#   - bluetooth
+#   - cups
+#   - avahi-daemon

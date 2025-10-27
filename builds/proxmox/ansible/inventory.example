@@ -1,0 +1,38 @@
+# Ansible Inventory Example
+# Copy this file to 'inventory' and customize for your environment
+
+[docker_hosts]
+docker-01 ansible_host=192.168.1.101 ansible_user=debian
+docker-02 ansible_host=192.168.1.102 ansible_user=debian
+
+[database_hosts]
+db-01 ansible_host=192.168.1.201 ansible_user=debian db_engine=postgresql db_version=15
+db-02 ansible_host=192.168.1.202 ansible_user=debian db_engine=mysql mysql_version=8.0
+
+[webserver_hosts]
+web-01 ansible_host=192.168.1.301 ansible_user=debian web_engine=nginx
+web-02 ansible_host=192.168.1.302 ansible_user=debian web_engine=apache
+
+[development]
+dev-01 ansible_host=192.168.1.401 ansible_user=debian host_type=docker,webserver
+
+[production]
+prod-01 ansible_host=192.168.1.501 ansible_user=debian
+
+# Group variables can be set here or in group_vars/
+[docker_hosts:vars]
+host_type=docker
+docker_compose_version=2.23.0
+
+[database_hosts:vars]
+host_type=database
+enable_firewall=true
+
+[webserver_hosts:vars]
+host_type=webserver
+enable_firewall=true
+enable_fail2ban=true
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_ssh_private_key_file=~/.ssh/id_rsa

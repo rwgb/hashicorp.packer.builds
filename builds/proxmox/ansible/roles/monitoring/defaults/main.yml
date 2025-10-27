@@ -1,0 +1,15 @@
+---
+# Default variables for monitoring role
+
+node_exporter_version: "1.7.0"
+node_exporter_arch_map:
+  x86_64: amd64
+  aarch64: arm64
+  armv7l: armv7
+
+node_exporter_options: ""
+
+monitoring_allowed_ips: []
+# Example:
+#   - "10.0.0.0/8"
+#   - "192.168.1.100"

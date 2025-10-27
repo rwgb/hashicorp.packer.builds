@@ -1,0 +1,28 @@
+<VirtualHost *:{{ item.port | default(80) }}>
+    ServerName {{ item.server_name | default(ansible_hostname) }}
+    {% if item.server_alias is defined %}
+    ServerAlias {{ item.server_alias }}
+    {% endif %}
+    
+    DocumentRoot {{ item.document_root | default('/var/www/html') }}
+    
+    <Directory {{ item.document_root | default('/var/www/html') }}>
+        Options -Indexes +FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    # Logging
+    ErrorLog ${APACHE_LOG_DIR}/{{ item.name }}-error.log
+    CustomLog ${APACHE_LOG_DIR}/{{ item.name }}-access.log combined
+
+    {% if item.ssl | default(false) %}
+    # SSL Configuration
+    SSLEngine on
+    SSLCertificateFile {{ item.ssl_certificate }}
+    SSLCertificateKeyFile {{ item.ssl_certificate_key }}
+    {% if item.ssl_certificate_chain is defined %}
+    SSLCertificateChainFile {{ item.ssl_certificate_chain }}
+    {% endif %}
+    {% endif %}
+</VirtualHost>

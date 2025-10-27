@@ -1,0 +1,23 @@
+# Ansible
+*.retry
+ansible.log
+.vault_pass
+
+# Inventory files (keep example only)
+inventory
+!inventory.example
+
+# Variable files with secrets
+vars/secrets.yml
+vars/production.yml
+vars/*_secrets.yml
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db

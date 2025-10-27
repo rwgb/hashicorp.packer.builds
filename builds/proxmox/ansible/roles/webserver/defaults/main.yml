@@ -1,0 +1,36 @@
+---
+# Default variables for webserver role
+
+web_engine: "nginx"  # Options: nginx, apache
+
+# Nginx configuration
+nginx_version: "latest"
+nginx_worker_connections: 1024
+nginx_remove_default_site: true
+nginx_create_default_page: true
+nginx_custom_config: false
+nginx_sites: []
+# Example:
+#   - name: example
+#     server_name: example.com
+#     document_root: /var/www/example
+#     port: 80
+#     ssl: false
+
+# Apache configuration
+apache_version: "latest"
+apache_remove_default_site: true
+apache_create_default_page: true
+apache_modules:
+  - rewrite
+  - ssl
+  - headers
+  - proxy
+  - proxy_http
+apache_sites: []
+# Example:
+#   - name: example
+#     server_name: example.com
+#     document_root: /var/www/example
+#     port: 80
+#     ssl: false
