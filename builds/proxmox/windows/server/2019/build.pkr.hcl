@@ -1,13 +1,14 @@
-// Packer build file debian linux 12
+// packer build file
 packer {
+  required_version = ">= 1.9.4"
   required_plugins {
     proxmox = {
       version = ">= 1.1.3"
       source  = "github.com/hashicorp/proxmox"
     }
-    sshkey = {
-      version = ">= 1.0.1"
-      source  = "github.com/ivoronin/sshkey"
+    windows-update = {
+      source  = "github.com/rgl/windows-update"
+      version = ">= 0.14.3"
     }
     git = {
       source  = "github.com/ethanmdavidson/git"
@@ -16,36 +17,13 @@ packer {
   }
 }
 
-locals {
-  instance_uuid   = uuidv4()
-  short_id        = substr(replace(local.instance_uuid, "-", ""), 0, 8)
-  bcrypt_password = bcrypt(var.password)
-  source_content = {
-    "/ks.cfg" = templatefile("${abspath(path.root)}/data/ks.pkrtpl.hcl", {
-      username            = var.username
-      password            = var.password
-      password_encrypted  = local.bcrypt_password
-      build_key           = data.sshkey.install.private_key_path
-      guest_os_language   = var.guest_os_language
-      guest_os_keyboard   = var.guest_os_keyboard
-      guest_os_timezone   = var.guest_os_timezone
-      additional_packages = join(" ", var.additional_packages)
-    })
-  }
-}
-
 data "git-commit" "build" {
-  path = "${path.root}/../../../"
+  path = "${path.root}/../../../../"
 }
 
-data "sshkey" "install" {}
-
 locals {
-  build_by   = "Built by: Hashicorp Packer ${packer.version}"
-  build_date = formatdate("YYYY-MM-DD hh:mm ZZZ", timestamp())
-  build_key  = coalesce(var.build_key, data.sshkey.install.private_key_path)
-  # Fallback to environment variable if git-commit fails
-  ssh_public_key    = data.sshkey.install.public_key
+  build_by          = "Built by: Hashicorp Packer ${packer.version}"
+  build_date        = formatdate("YYYY-MM-DD hh:mm ZZZ", timestamp())
   build_version     = try(data.git-commit.build.hash, env("GITHUB_SHA"), "unknown")
   git_author        = try(data.git-commit.build.author, env("GITHUB_ACTOR"), "unknown")
   git_committer     = try(data.git-commit.build.committer, env("GITHUB_ACTOR"), "unknown")
@@ -56,12 +34,41 @@ locals {
   manifest_output   = "${local.manifest_path}${local.manifest_date}.json"
 }
 
-// Build block
+// build block
 build {
-  name = "debian_linux_12"
-
-  sources = ["source.proxmox-iso.debian_12_base"]
-
+  name = "windows_server_2k19"
+  sources = [
+    //"source.proxmox-clone.windows_server_2k19_data_center_base",
+    "source.proxmox-iso.windows_server_2k19_data_center_base",
+  ]
+  // redundant scripts. keeping provisioner for future builds
+  /*
+  provisioner "powershell" {
+    environment_vars = [
+      "BUILD_USER=${var.username}"
+    ]
+    elevated_user     = var.username
+    elevated_password = var.password
+    scripts = [
+      "../../scripts/windows-init.ps1",
+      "../../scripts/windows-prepare.ps1"
+    ]
+  }
+  */
+  // commenting out for base build.
+  /*
+  provisioner "windows-update" {
+    pause_before    = "30s"
+    search_criteria = "IsInstalled=0"
+    filters = [
+      "exclude:$_.Title -like '*VMware*'",
+      "exclude:$_.Title -like '*Preview*'",
+      "exclude:$_.Title -like '*Defender*'",
+      "exclude:$_.InstallationBehavior.CanRequestUserInput",
+      "include:$true"
+    ]
+  }
+*/
   post-processor "manifest" {
     output     = local.manifest_output
     strip_path = true

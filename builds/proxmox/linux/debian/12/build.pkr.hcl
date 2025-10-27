@@ -5,12 +5,10 @@ packer {
       version = ">= 1.1.3"
       source  = "github.com/hashicorp/proxmox"
     }
-
     sshkey = {
       version = ">= 1.0.1"
       source  = "github.com/ivoronin/sshkey"
     }
-
     git = {
       source  = "github.com/ethanmdavidson/git"
       version = ">= 0.4.3"
@@ -37,7 +35,7 @@ locals {
 }
 
 data "git-commit" "build" {
-  path = "${path.root}/../../../"
+  path = "${path.root}/../../../../"
 }
 
 data "sshkey" "install" {}
@@ -45,8 +43,9 @@ data "sshkey" "install" {}
 locals {
   build_by   = "Built by: Hashicorp Packer ${packer.version}"
   build_date = formatdate("YYYY-MM-DD hh:mm ZZZ", timestamp())
+  build_key  = coalesce(var.build_key, data.sshkey.install.private_key_path)
   # Fallback to environment variable if git-commit fails
-  ssh_public_key    = data.sshkey.install.private_key_path
+  ssh_public_key    = data.sshkey.install.public_key
   build_version     = try(data.git-commit.build.hash, env("GITHUB_SHA"), "unknown")
   git_author        = try(data.git-commit.build.author, env("GITHUB_ACTOR"), "unknown")
   git_committer     = try(data.git-commit.build.committer, env("GITHUB_ACTOR"), "unknown")
@@ -59,9 +58,9 @@ locals {
 
 // Build block
 build {
-  name = "debian_linux_13"
+  name = "debian_linux_12"
 
-  sources = ["source.proxmox-iso.debian_13_base"]
+  sources = ["source.proxmox-iso.debian_12_base"]
 
   post-processor "manifest" {
     output     = local.manifest_output
@@ -71,9 +70,9 @@ build {
       build_username = var.username
       build_date     = local.build_date
       build_version  = local.build_version
-      author         = local.git_author
-      committer      = local.git_committer
-      timestamp      = local.git_timestamp
+      author         = "${data.git-commit.build.author}"
+      committer      = "${data.git-commit.build.committer}"
+      timestamp      = "${data.git-commit.build.timestamp}"
     }
   }
 }

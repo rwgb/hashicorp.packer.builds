@@ -18,7 +18,7 @@ packer {
 }
 
 data "git-commit" "build" {
-  path = "${path.root}/../../"
+  path = "${path.root}/../../../../"
 }
 
 locals {
