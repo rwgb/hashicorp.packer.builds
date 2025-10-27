@@ -56,6 +56,7 @@ The script will:
    - VM.Config.Disk
    - VM.Config.CPU
    - VM.Config.Memory
+   - VM.Config.Cloudinit
    - Datastore.AllocateSpace
    - Sys.Modify
    - VM.Config.Options
@@ -67,6 +68,7 @@ The script will:
    - VM.PowerMgmt
    - VM.Config.HWType
    - VM.Monitor
+   - SDN.Use (required for SDN-enabled networks)
 
 2. **Proxmox User**: `packer@pve`
    - Assigned the `PackerRole`

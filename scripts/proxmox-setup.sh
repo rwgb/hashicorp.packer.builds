@@ -199,6 +199,7 @@ if pveum role list | awk '{print $2}' | grep -q "^${PACKER_ROLE}$"; then
 VM.Config.Disk,\
 VM.Config.CPU,\
 VM.Config.Memory,\
+VM.Config.Cloudinit,\
 Datastore.AllocateSpace,\
 Sys.Modify,\
 VM.Config.Options,\
@@ -209,12 +210,14 @@ VM.Config.CDROM,\
 VM.Config.Network,\
 VM.PowerMgmt,\
 VM.Config.HWType,\
-VM.Monitor"
+VM.Monitor,\
+SDN.Use"
 else
     pveum role add $PACKER_ROLE -privs "\
 VM.Config.Disk,\
 VM.Config.CPU,\
 VM.Config.Memory,\
+VM.Config.Cloudinit,\
 Datastore.AllocateSpace,\
 Sys.Modify,\
 VM.Config.Options,\
@@ -225,7 +228,8 @@ VM.Config.CDROM,\
 VM.Config.Network,\
 VM.PowerMgmt,\
 VM.Config.HWType,\
-VM.Monitor"
+VM.Monitor,\
+SDN.Use"
     echo "  → Role '${PACKER_ROLE}' created"
 fi
 
