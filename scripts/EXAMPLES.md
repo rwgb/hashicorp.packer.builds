@@ -33,6 +33,24 @@ Real-world examples for using `buildManager.py` in various scenarios.
 ./scripts/buildManager.py --os debian-13
 ```
 
+### AWS Builds
+
+Build AMIs for AWS using the same workflow:
+
+```bash
+# List all AWS builds
+./scripts/buildManager.py --list | grep -A 3 "AWS"
+
+# Build Debian 11 AMI
+./scripts/buildManager.py --os debian-11-aws
+
+# Build Ubuntu 22.04 AMI
+./scripts/buildManager.py --os ubuntu-22-aws
+
+# Build Windows Server 2022 AMI
+./scripts/buildManager.py --os windows-server-2022-aws
+```
+
 ### Testing Configuration Changes
 
 ```bash
@@ -64,6 +82,8 @@ Windows Server builds have both ISO and clone sources:
 
 ### Custom Variables
 
+#### Proxmox Builds
+
 ```bash
 # Create custom variables file
 cat > custom-build.auto.pkrvars.hcl <<EOF
@@ -75,6 +95,99 @@ EOF
 # Build with custom variables
 ./scripts/buildManager.py --os debian-12 \
     --vars ./custom-build.auto.pkrvars.hcl
+```
+
+#### AWS Builds
+
+```bash
+# Use the example variables file
+cd builds/aws
+cp example.pkrvars.hcl my-aws-config.pkrvars.hcl
+
+# Edit with your settings
+vim my-aws-config.pkrvars.hcl
+
+# Build with custom AWS configuration
+../../scripts/buildManager.py --os debian-11-aws \
+    --vars my-aws-config.pkrvars.hcl
+```
+
+### AWS-Specific Examples
+
+#### Build with Encryption and Multi-Region
+
+```bash
+# Create encrypted AMI and copy to multiple regions
+cat > aws-prod.pkrvars.hcl <<EOF
+aws_region   = "us-west-2"
+encrypt_boot = true
+kms_key_id   = "arn:aws:kms:us-west-2:123456789012:key/your-key-id"
+
+ami_regions = [
+  "us-east-1",
+  "us-east-2",
+  "eu-west-1"
+]
+
+ami_users = ["123456789012"]  # Share with production account
+
+tags = {
+  Environment = "Production"
+  Compliance  = "SOC2"
+  CostCenter  = "Engineering"
+}
+EOF
+
+./scripts/buildManager.py --os ubuntu-22-aws --vars aws-prod.pkrvars.hcl
+```
+
+#### Build in Custom VPC
+
+```bash
+# Build in specific VPC/subnet
+cat > aws-custom-network.pkrvars.hcl <<EOF
+aws_region        = "us-east-1"
+vpc_id            = "vpc-0123456789abcdef0"
+subnet_id         = "subnet-0123456789abcdef0"
+security_group_id = "sg-0123456789abcdef0"
+EOF
+
+./scripts/buildManager.py --os debian-12-aws --vars aws-custom-network.pkrvars.hcl
+```
+
+#### Fast Development Build (No Encryption)
+
+```bash
+# Faster, cheaper build for testing
+cat > aws-dev.pkrvars.hcl <<EOF
+aws_region    = "us-east-1"
+instance_type = "t3.medium"
+volume_size   = 20
+encrypt_boot  = false
+
+tags = {
+  Environment = "Development"
+  AutoDelete  = "7-days"
+}
+EOF
+
+./scripts/buildManager.py --os ubuntu-24-aws --vars aws-dev.pkrvars.hcl
+```
+
+#### Windows AMI with Larger Instance
+
+```bash
+# Windows builds benefit from larger instances
+cat > aws-windows.pkrvars.hcl <<EOF
+aws_region         = "us-west-2"
+instance_type      = "t3.xlarge"  # Faster Windows Updates
+volume_size        = 50
+encrypt_boot       = true
+winrm_timeout      = "45m"        # Windows needs longer timeout
+communicator_timeout = "20m"
+EOF
+
+./scripts/buildManager.py --os windows-server-2022-aws --vars aws-windows.pkrvars.hcl
 ```
 
 ### Force Plugin Update
@@ -99,7 +212,7 @@ EOF
 
 ## CI/CD Examples
 
-### GitHub Actions
+### GitHub Actions - Proxmox Builds
 
 ```yaml
 name: Build All Templates
@@ -126,11 +239,95 @@ jobs:
         run: python3 scripts/buildManager.py --os ${{ matrix.os }}
 ```
 
+### GitHub Actions - AWS AMI Builds
+
+```yaml
+name: Build AWS AMIs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'builds/aws/**'
+  workflow_dispatch:
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [debian-11-aws, debian-12-aws, ubuntu-22-aws, ubuntu-24-aws]
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      
+      - name: Setup Packer
+        uses: hashicorp/setup-packer@main
+      
+      - name: Initialize Packer
+        run: python3 scripts/buildManager.py --os ${{ matrix.os }} --init-only
+      
+      - name: Validate Configuration
+        run: python3 scripts/buildManager.py --os ${{ matrix.os }} --validate-only
+      
+      - name: Build AMI
+        run: python3 scripts/buildManager.py --os ${{ matrix.os }}
+      
+      - name: Upload Manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: manifest-${{ matrix.os }}
+          path: builds/aws/**/*/manifests/*.json
+
+  build-windows:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [windows-server-2019-aws, windows-server-2022-aws]
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      
+      - name: Setup Packer
+        uses: hashicorp/setup-packer@main
+      
+      - name: Initialize Packer
+        run: python3 scripts/buildManager.py --os ${{ matrix.os }} --init-only
+      
+      - name: Validate Configuration
+        run: python3 scripts/buildManager.py --os ${{ matrix.os }} --validate-only
+      
+      - name: Build AMI
+        run: |
+          python3 scripts/buildManager.py --os ${{ matrix.os }} -- -timestamp-ui
+        timeout-minutes: 120  # Windows builds take longer
+      
+      - name: Upload Manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: manifest-${{ matrix.os }}
+          path: builds/aws/**/*/manifests/*.json
+```
+
 ### Shell Script Automation
+
+#### Build All Proxmox Templates
 
 ```bash
 #!/bin/bash
-# build-all.sh - Build all OS templates
+# build-all-proxmox.sh - Build all Proxmox OS templates
 
 set -e
 
@@ -156,6 +353,60 @@ for build in "${BUILDS[@]}"; do
 done
 
 echo "All builds completed successfully!"
+```
+
+#### Build All AWS AMIs
+
+```bash
+#!/bin/bash
+# build-all-aws.sh - Build all AWS AMIs with custom configuration
+
+set -e
+
+SCRIPT="./scripts/buildManager.py"
+VARS_FILE="./builds/aws/production.pkrvars.hcl"
+
+# Linux AMIs
+LINUX_BUILDS=(
+    "debian-11-aws"
+    "debian-12-aws"
+    "ubuntu-22-aws"
+    "ubuntu-24-aws"
+)
+
+# Windows AMIs (need longer timeout)
+WINDOWS_BUILDS=(
+    "windows-server-2019-aws"
+    "windows-server-2022-aws"
+    "windows-desktop-10-aws"
+    "windows-desktop-11-aws"
+)
+
+echo "=== Building Linux AMIs ==="
+for build in "${LINUX_BUILDS[@]}"; do
+    echo "Building $build..."
+    "$SCRIPT" --os "$build" --vars "$VARS_FILE" --init-only
+    "$SCRIPT" --os "$build" --vars "$VARS_FILE" --validate-only
+    "$SCRIPT" --os "$build" --vars "$VARS_FILE"
+done
+
+echo "=== Building Windows AMIs ==="
+for build in "${WINDOWS_BUILDS[@]}"; do
+    echo "Building $build (this will take longer)..."
+    "$SCRIPT" --os "$build" --vars "$VARS_FILE" --init-only
+    "$SCRIPT" --os "$build" --vars "$VARS_FILE" --validate-only
+    "$SCRIPT" --os "$build" --vars "$VARS_FILE" -- -timestamp-ui
+done
+
+echo "All AWS AMI builds completed successfully!"
+
+# Output manifest summary
+echo ""
+echo "=== Build Manifests ==="
+find builds/aws -name "*.json" -type f -path "*/manifests/*" -mtime -1 | while read manifest; do
+    echo "  - $manifest"
+    jq -r '.builds[0].artifact_id' "$manifest" 2>/dev/null || echo "    (manifest parse error)"
+done
 ```
 
 ### Environment-Specific Builds
@@ -231,11 +482,67 @@ packer version
 
 ### Quick Validation of All Builds
 
+#### Proxmox Builds
 ```bash
 for os in debian-12 debian-13 windows-server-2019 windows-server-2022; do
     echo "Validating $os..."
     ./scripts/buildManager.py --os "$os" --validate-only || echo "FAILED: $os"
 done
+```
+
+#### AWS Builds
+```bash
+# Validate all AWS Linux builds
+for os in debian-11-aws debian-12-aws ubuntu-22-aws ubuntu-24-aws; do
+    echo "Validating $os..."
+    ./scripts/buildManager.py --os "$os" --validate-only || echo "FAILED: $os"
+done
+
+# Validate all AWS Windows builds
+for os in windows-server-2019-aws windows-server-2022-aws windows-desktop-10-aws windows-desktop-11-aws; do
+    echo "Validating $os..."
+    ./scripts/buildManager.py --os "$os" --validate-only || echo "FAILED: $os"
+done
+```
+
+### Check AWS Credentials
+
+```bash
+# Verify AWS credentials before building
+aws sts get-caller-identity
+
+# Test Packer can access AWS
+cd builds/aws/linux/debian/11
+packer validate .
+```
+
+### Extract AMI IDs from Manifests
+
+```bash
+# Get the latest AMI ID for a build
+LATEST_MANIFEST=$(ls -t builds/aws/linux/debian/11/manifests/*.json | head -1)
+AMI_ID=$(jq -r '.builds[0].artifact_id' "$LATEST_MANIFEST" | cut -d':' -f2)
+echo "Latest Debian 11 AMI: $AMI_ID"
+
+# Get all AMI IDs from today
+find builds/aws -name "*.json" -mtime -1 | while read manifest; do
+    AMI=$(jq -r '.builds[0].artifact_id' "$manifest" 2>/dev/null | cut -d':' -f2)
+    BUILD=$(dirname "$(dirname "$manifest")")
+    echo "$BUILD: $AMI"
+done
+```
+
+### Compare Source AMI vs Built AMI
+
+```bash
+# See what base AMI was used
+jq -r '.builds[0].custom_data.source_ami_name' builds/aws/linux/ubuntu/22/manifests/*.json | tail -1
+
+# See build timestamp
+jq -r '.builds[0].custom_data.build_time' builds/aws/linux/ubuntu/22/manifests/*.json | tail -1
+
+# See git commit used for build
+jq -r '.builds[0].custom_data.git_commit' builds/aws/linux/ubuntu/22/manifests/*.json | tail -1
 ```
 
 ### Build Only Changed OS
