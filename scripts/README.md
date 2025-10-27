@@ -21,6 +21,197 @@ Automated script to create a least-privilege Packer user on Proxmox VE with API 
 - SSH key authentication configured
 - Proxmox VE 6.x or later
 
+# Packer Build Scripts
+
+This directory contains utility scripts for managing Packer builds in this repository.
+
+## buildManager.py
+
+A comprehensive Python script for managing Packer builds with granular control over source selection and variable management.
+
+### Features
+
+- 🔍 **Auto-discovery**: Automatically discovers all Packer builds in the repository
+- 🎯 **Granular control**: Select specific sources from multi-source builds
+- 📝 **Variable management**: Support for custom variables files
+- 🎨 **Interactive mode**: User-friendly menu-driven interface
+- ✅ **Validation**: Validate configurations before building
+- 🚀 **Flexible execution**: CLI and interactive modes
+
+### Installation
+
+The script requires Python 3.6+ (no external dependencies).
+
+```bash
+chmod +x scripts/buildManager.py
+```
+
+### Usage Examples
+
+#### List All Available Builds
+
+```bash
+python3 scripts/buildManager.py --list
+```
+
+Output:
+```
+Available Packer Builds:
+
+📦 PROXMOX
+  └─ linux
+      1. debian_linux_12
+         Path: proxmox/linux/debian/12
+         Sources: proxmox-iso.debian_12_base
+         ✓ Has variables.auto.pkrvars.hcl
+      2. debian_linux_13
+         Path: proxmox/linux/debian/13
+         Sources: proxmox-iso.debian_13_base
+```
+
+#### Interactive Mode
+
+Run without arguments for an interactive menu:
+
+```bash
+python3 scripts/buildManager.py
+```
+
+#### Build Specific OS
+
+```bash
+# Build Debian 12
+python3 scripts/buildManager.py --os debian-12
+
+# Build Windows Server 2019
+python3 scripts/buildManager.py --os windows-server-2019
+```
+
+#### Build Specific Source
+
+Perfect for builds with multiple sources (e.g., ISO vs Clone):
+
+```bash
+# Build only the ISO source
+python3 scripts/buildManager.py --source proxmox-iso.windows_server_2k19_data_center_base
+
+# Build only the clone source
+python3 scripts/buildManager.py --source proxmox-clone.windows_server_2k19_data_center_base
+```
+
+#### Use Custom Variables File
+
+```bash
+python3 scripts/buildManager.py --os debian-12 --vars /path/to/custom.auto.pkrvars.hcl
+```
+
+#### Validate Only (No Build)
+
+```bash
+python3 scripts/buildManager.py --os debian-12 --validate-only
+```
+
+#### Initialize Packer Plugins
+
+```bash
+# Initialize once
+python3 scripts/buildManager.py --os debian-12 --init-only
+
+# Force re-initialization (upgrade plugins)
+python3 scripts/buildManager.py --os debian-12 --force-init
+```
+
+#### Dry Run
+
+See what commands would be executed without actually running them:
+
+```bash
+python3 scripts/buildManager.py --os debian-12 --dry-run
+```
+
+#### Pass Additional Packer Arguments
+
+```bash
+# Pass extra arguments to packer build
+python3 scripts/buildManager.py --os debian-12 -- -on-error=ask -parallel-builds=2
+```
+
+### Command-Line Options
+
+| Option | Description |
+|--------|-------------|
+| `--list`, `-l` | List all available builds |
+| `--os OS` | Build specific OS (e.g., 'debian-12', 'windows-server-2019') |
+| `--source SOURCE`, `-s` | Build specific source (e.g., 'proxmox-iso.debian_12_base') |
+| `--vars FILE`, `-v` | Path to custom variables.auto.pkrvars.hcl file |
+| `--validate-only` | Only validate, don't build |
+| `--init-only` | Only initialize (packer init) |
+| `--force-init` | Force re-initialization (packer init -upgrade) |
+| `--dry-run` | Show commands without executing |
+| `--repo-root PATH` | Repository root path (auto-detected if not specified) |
+| `--help`, `-h` | Show help message |
+
+### How It Works
+
+1. **Auto-Discovery**: Scans `builds/` directory for all Packer configurations
+2. **Source Parsing**: Extracts available sources from `sources.pkr.hcl` files
+3. **Variable Detection**: Automatically uses `variables.auto.pkrvars.hcl` if present
+4. **Execution**: Runs packer commands in the correct build directory
+
+### Advanced Examples
+
+#### CI/CD Integration
+
+```bash
+# Validate all builds
+for os in debian-12 debian-13 windows-server-2019 windows-server-2022; do
+    python3 scripts/buildManager.py --os "$os" --validate-only || exit 1
+done
+
+# Build with secrets from environment
+python3 scripts/buildManager.py --os debian-12 \
+    --vars "$SECRETS_DIR/production.auto.pkrvars.hcl"
+```
+
+#### Multi-Source Builds
+
+For Windows Server builds that have both ISO and clone sources:
+
+```bash
+# Build fresh from ISO (slower, clean)
+python3 scripts/buildManager.py --source proxmox-iso.windows_server_2k22_data_center_base
+
+# Build from existing template clone (faster)
+python3 scripts/buildManager.py --source proxmox-clone.windows_server_2k22_data_center_base
+```
+
+### Error Handling
+
+The script provides clear, colored output for:
+- ✅ Success (green)
+- ⚠️  Warnings (yellow)
+- ❌ Errors (red)
+- ℹ️  Info (blue/cyan)
+
+### Repository Structure
+
+The script expects this structure:
+
+```
+builds/
+├── {provider}/          # e.g., proxmox, aws, azure
+│   ├── {os_type}/       # e.g., linux, windows
+│   │   └── {distro}/    # e.g., debian, ubuntu, server
+│   │       └── {version}/
+│   │           ├── build.pkr.hcl
+│   │           ├── sources.pkr.hcl
+│   │           └── variables.auto.pkrvars.hcl  # optional
+```
+
+## proxmox-setup.sh
+
+Automated script for creating a least-privilege Packer user on Proxmox VE.
+
 ### Usage
 
 #### Interactive Mode (Recommended)
