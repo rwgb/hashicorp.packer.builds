@@ -36,7 +36,9 @@ locals {
   }
 }
 
-data "git-commit" "build" {}
+data "git-commit" "build" {
+  path = "${path.root}/../../../"
+}
 
 data "sshkey" "install" {}
 
@@ -51,8 +53,22 @@ locals {
   git_timestamp     = try(data.git-commit.build.timestamp, timestamp(), "unknown")
   build_description = "Version: ${local.build_version}\nBuilt on: ${local.build_date}\n${local.build_by}"
   manifest_path     = "./manifests/"
-  manifest_date     = formatdate("YYYY-MM-DD hh:mm:ss", timestamp())
+  manifest_date     = formatdate("YYYY-MM-DD-hh-mm-ss", timestamp())
   manifest_output   = "${local.manifest_path}${local.manifest_date}.json"
+  
+  # VM notes with build metadata
+  vm_notes = <<-EOT
+  Debian 13 Base Template
+  
+  Build Information:
+  - Build Date: ${local.build_date}
+  - Build Version: ${local.build_version}
+  - Git Committer: ${local.git_committer}
+  - Git Author: ${local.git_author}
+  - Commit Timestamp: ${local.git_timestamp}
+  
+  Built with Packer ${packer.version}
+  EOT
 }
 
 // Build block
