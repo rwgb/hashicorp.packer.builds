@@ -25,7 +25,7 @@ locals {
       username            = var.username
       password            = var.password
       password_encrypted  = local.bcrypt_password
-      build_key           = var.build_key
+      build_key           = data.sshkey.install.private_key_path
       guest_os_language   = var.guest_os_language
       guest_os_keyboard   = var.guest_os_keyboard
       guest_os_timezone   = var.guest_os_timezone
@@ -41,8 +41,9 @@ data "sshkey" "install" {}
 locals {
   build_by   = "Built by: Hashicorp Packer ${packer.version}"
   build_date = formatdate("YYYY-MM-DD hh:mm ZZZ", timestamp())
+  build_key  = coalesce(var.build_key, data.sshkey.install.private_key_path)
   # Fallback to environment variable if git-commit fails
-  ssh_public_key    = data.sshkey.install.private_key_path
+  ssh_public_key    = data.sshkey.install.public_key
   build_version     = try(data.git-commit.build.hash, env("GITHUB_SHA"), "unknown")
   git_author        = try(data.git-commit.build.author, env("GITHUB_ACTOR"), "unknown")
   git_committer     = try(data.git-commit.build.committer, env("GITHUB_ACTOR"), "unknown")

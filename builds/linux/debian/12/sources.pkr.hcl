@@ -21,7 +21,7 @@ source "proxmox-iso" "debian_12_base" {
   // install media
   boot_iso {
     type         = "scsi"
-    iso_file     = "local:iso/debian-12.1.0-amd64-netinst.iso"
+    iso_file     = "shared-iso:iso/debian-12.1.0-amd64-netinst.iso"
     iso_checksum = "sha256:9da6ae5b63a72161d0fd4480d0f090b250c4f6bf421474e4776e82eea5cb3143bf8936bf43244e438e74d581797fe87c7193bbefff19414e33932fe787b1400f"
     unmount      = true
   }
@@ -78,7 +78,7 @@ source "proxmox-iso" "debian_12_base" {
   communicator         = "ssh"
   ssh_username         = var.username
   ssh_password         = var.password
-  ssh_private_key_file = var.build_key
+  ssh_private_key_file = data.sshkey.install.private_key_path
   ssh_timeout          = "20m"
 
   // http content
