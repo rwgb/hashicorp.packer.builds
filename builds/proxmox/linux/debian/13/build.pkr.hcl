@@ -60,7 +60,7 @@ locals {
   manifest_path     = "./manifests/"
   manifest_date     = formatdate("YYYY-MM-DD-hh-mm-ss", timestamp())
   manifest_output   = "${local.manifest_path}${local.manifest_date}.json"
-  ansible_root      = "${path.root}/../../ansible"
+  ansible_root      = "${path.root}/../../../ansible"
 }
 
 // Build block

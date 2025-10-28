@@ -88,7 +88,7 @@ The playbook is located at: `builds/proxmox/ansible/playbook.yml`
 All builds reference this shared playbook using:
 ```hcl
 locals {
-  ansible_root = "${path.root}/../../ansible"
+  ansible_root = "${path.root}/../../../ansible"
 }
 ```
 
