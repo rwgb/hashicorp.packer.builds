@@ -5,8 +5,26 @@
 1. **Plugin name corrected**: Changed from `community.proxmox.proxmox` (doesn't exist) to `community.general.proxmox` (correct)
 2. **Authentication parameters fixed**: Changed from `token_name/token_value` to `token_id/token_secret` (correct parameters)
 3. **Required URL added**: Added `url` parameter pointing to Proxmox server
+4. **Automated Setup Available**: Run `scripts/proxmox-setup.sh` to automatically create Ansible user and configure credentials
 
-## 🔍 Current Status
+## � Quick Setup (Recommended)
+
+The easiest way to configure authentication is to use the automated setup script:
+
+```bash
+cd scripts
+./proxmox-setup.sh
+```
+
+This will:
+- Create both `packer@pve` and `ansible@pve` users
+- Generate API tokens with appropriate permissions
+- Automatically update `builds/proxmox/ansible/inventory.proxmox.yaml`
+- Set correct file permissions (600)
+
+See `scripts/SETUP_CHANGES.md` for detailed information.
+
+## 🔍 Manual Setup (If Needed)
 
 The inventory file now parses correctly, but authentication is failing with:
 ```

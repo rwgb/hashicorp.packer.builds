@@ -18,7 +18,7 @@ source "proxmox-iso" "windows_server_2k22_data_center_base" {
   sockets         = 2
   qemu_agent      = true
   scsi_controller = "virtio-scsi-single"
-  tags            = "windows;server;2022;data_center;template;base"
+  tags            = "windows;server;2022;data_center;template;base;packer"
 
   // install media
   boot_iso {
@@ -106,7 +106,7 @@ source "proxmox-clone" "windows_server_2k22_data_center_base" {
   qemu_agent      = true
   scsi_controller = "virtio-scsi-single"
   task_timeout    = "20m"
-  tags            = "windows;server;2022;data_center;clone;base"
+  tags            = "windows;server;2022;data_center;clone;base;packer"
 
   // disk settings
   disks {

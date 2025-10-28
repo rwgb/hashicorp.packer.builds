@@ -7,14 +7,14 @@ plugin: community.general.proxmox
 
 # Proxmox API Connection
 # Replace with your actual Proxmox server URL
-url: http://192.168.1.161:8006
+url: https://192.168.1.160:8006
 
 # Authentication using API token (recommended)
 # Note: When using token auth, 'user' should be the username@realm
 #       and 'token_id' should be just the token name (not user@realm!tokenname)
-user: packer@pve
-token_id: packer-token
-token_secret: 5fb402ca-fa04-4c9c-8355-6974e7b6254b
+user: ansible@pve
+token_id: ansible-token
+token_secret: f729fd60-6ef0-4a0d-858c-643e128b5643
 
 # Alternative: Use environment variables instead
 # export PROXMOX_USER=packer@pve

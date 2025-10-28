@@ -16,7 +16,7 @@ source "proxmox-iso" "debian_12_base" {
   sockets      = 1
   qemu_agent   = true
   task_timeout = "20m"
-  tags         = "linux;debian;12;template;base"
+  tags         = "linux;debian;12;template;base;packer"
 
   // install media
   boot_iso {
