@@ -101,16 +101,19 @@ build {
       "--extra-vars", "security_enable_ufw=true",
       "--extra-vars", "security_enable_fail2ban=true",
       "--extra-vars", "monitoring_enable=true",
-      "-v"
+      "-vv"
     ]
     
     ansible_env_vars = [
       "ANSIBLE_HOST_KEY_CHECKING=False",
-      "ANSIBLE_SSH_ARGS=-o ControlMaster=auto -o ControlPersist=60s -o UserKnownHostsFile=/dev/null",
-      "ANSIBLE_STDOUT_CALLBACK=yaml"
+      "ANSIBLE_SSH_ARGS=-o ControlMaster=auto -o ControlPersist=60s -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no",
+      "ANSIBLE_STDOUT_CALLBACK=yaml",
+      "ANSIBLE_ROLES_PATH=${local.ansible_root}/roles"
     ]
     
-    user = var.username
+    user            = var.username
+    use_proxy       = false
+    ansible_ssh_extra_args = ["-o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedKeyTypes=+ssh-rsa"]
   }
 
   // Verify Docker installation
