@@ -10,24 +10,24 @@ source "proxmox-iso" "debian_12_base" {
   insecure_skip_tls_verify = var.insecure_tls # disables https checks during connections
 
   // virtual machine settings
-  vm_name      = "debian12base"
-  memory       = 1024
-  cores        = 1
-  sockets      = 1
-  qemu_agent   = true
-  task_timeout = "20m"
-  tags         = "linux;debian;12;template;base;packer"
+  vm_name              = "debian12base"
+  memory               = 1024
+  cores                = 1
+  sockets              = 1
+  qemu_agent           = true
+  task_timeout         = "20m"
+  template_description = "Debian 12 Base Template\nBuild Version: ${local.build_version}\nBuild Date: ${local.build_date}\nBuilt By: ${local.build_by}\nGit Author: ${local.git_author}"
+  tags                 = "linux;debian;12;template;base;packer"
 
   // install media
   boot_iso {
     type         = "scsi"
-    iso_file     = "shared-iso:iso/debian-12.1.0-amd64-netinst.iso"
+    iso_file     = "local:iso/debian-12.iso"
     iso_checksum = "sha256:9da6ae5b63a72161d0fd4480d0f090b250c4f6bf421474e4776e82eea5cb3143bf8936bf43244e438e74d581797fe87c7193bbefff19414e33932fe787b1400f"
     unmount      = true
   }
 
   // cd files
-  /*
   additional_iso_files {
     type             = "sata"
     iso_storage_pool = "packer_iso"
@@ -47,7 +47,6 @@ source "proxmox-iso" "debian_12_base" {
       })
     }
   }
-  */
 
   // disk settings
   disks {
