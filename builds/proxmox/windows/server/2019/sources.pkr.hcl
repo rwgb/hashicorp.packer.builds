@@ -38,20 +38,6 @@ source "proxmox-iso" "windows_server_2k19_data_center_base" {
       "${path.cwd}/drivers",
       "../../scripts"
     ]
-    cd_content = {
-      "autounattend.xml" = templatefile("${abspath(path.root)}/data/autounattend.pkrtpl.hcl", {
-        is_efi            = false
-        username          = var.username
-        password          = var.password
-        inst_os_language  = "en-US"
-        inst_os_keyboard  = "en-US"
-        inst_os_image     = "Windows Server 2019 SERVERDATACENTER"
-        kms_key           = "WMDGN-G9PQG-XVVXX-R3X43-63DFG"
-        guest_os_language = "en-US"
-        guest_os_keyboard = "en-US"
-        guest_os_timezone = "CST"
-      })
-    }
   }
 
   // disk settings
@@ -125,11 +111,11 @@ source "proxmox-clone" "windows_server_2k19_data_center_base" {
 
   // cd files
   additional_iso_files {
-    type             = "sata"
+    type             = "ide"
     cd_label         = "autounattend"
     iso_storage_pool = "cidata"
     cd_content = {
-      "autounattend.xml" = templatefile("${abspath(path.root)}/data/autounattend.pkrtpl.hcl", {
+      "Autounattend.xml" = templatefile("${abspath(path.root)}/data/autounattend.pkrtpl.hcl", {
         is_efi            = false
         username          = var.username
         password          = var.password
