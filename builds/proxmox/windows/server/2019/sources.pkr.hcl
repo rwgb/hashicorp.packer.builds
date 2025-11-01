@@ -18,12 +18,13 @@ source "proxmox-iso" "windows_server_2k19_data_center_base" {
   sockets         = 2
   qemu_agent      = true
   scsi_controller = "virtio-scsi-single"
+  template_description = "Windows Server 2019 Data Center Base Template\nBuild Version: ${local.build_version}\nBuild Date: ${local.build_date}\nBuilt By: ${local.build_by}\nGit Author: ${local.git_author}"
   tags            = "windows;server;2019;data_center;template;base;packer"
 
   // install media
   boot_iso {
     type         = "scsi"
-    iso_file     = "local:iso/en_windows_server_2019_updated_aug_2019_x64_dvd_cdf24600.iso"
+    iso_file     = "local:iso/windows-server-2019-en_US.iso"
     iso_checksum = "sha256:930d902d3880ba6462acc6f54ccabd2bf3f39f1c4514f08a02b3714f8ecf166e"
     unmount      = true
   }
@@ -32,7 +33,7 @@ source "proxmox-iso" "windows_server_2k19_data_center_base" {
   additional_iso_files {
     type             = "sata"
     cd_label         = "2k19_drivers"
-    iso_storage_pool = "packer_iso"
+    iso_storage_pool = "cidata"
     cd_files = [
       "${path.cwd}/drivers",
       "../../scripts"
@@ -126,7 +127,7 @@ source "proxmox-clone" "windows_server_2k19_data_center_base" {
   additional_iso_files {
     type             = "sata"
     cd_label         = "autounattend"
-    iso_storage_pool = "packer_iso"
+    iso_storage_pool = "cidata"
     cd_content = {
       "autounattend.xml" = templatefile("${abspath(path.root)}/data/autounattend.pkrtpl.hcl", {
         is_efi            = false

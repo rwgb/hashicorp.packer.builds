@@ -18,6 +18,7 @@ source "proxmox-iso" "windows_server_2k22_data_center_base" {
   sockets         = 2
   qemu_agent      = true
   scsi_controller = "virtio-scsi-single"
+  template_description = "Windows Server 2022 Data Center Base Template\nBuild Version: ${local.build_version}\nBuild Date: ${local.build_date}\nBuilt By: ${local.build_by}\nGit Author: ${local.git_author}"
   tags            = "windows;server;2022;data_center;template;base;packer"
 
   // install media
@@ -32,7 +33,7 @@ source "proxmox-iso" "windows_server_2k22_data_center_base" {
   additional_iso_files {
     type             = "sata"
     cd_label         = "2k22_drivers"
-    iso_storage_pool = "packer_iso"
+    iso_storage_pool = "cidata"
     cd_files = [
       "${path.cwd}/drivers",
       "../../scripts"
@@ -126,7 +127,7 @@ source "proxmox-clone" "windows_server_2k22_data_center_base" {
   additional_iso_files {
     type             = "sata"
     cd_label         = "autounattend"
-    iso_storage_pool = "packer_iso"
+    iso_storage_pool = "cidata"
     cd_content = {
       "autounattend.xml" = templatefile("${abspath(path.root)}/data/autounattend.pkrtpl.hcl", {
         is_efi            = false

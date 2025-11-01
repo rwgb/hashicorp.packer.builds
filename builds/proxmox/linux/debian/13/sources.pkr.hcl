@@ -16,6 +16,7 @@ source "proxmox-iso" "debian_13_base" {
   sockets      = 1
   qemu_agent   = true
   task_timeout = "20m"
+  template_description = "Debian 13 Base Template\nBuild Version: ${local.build_version}\nBuild Date: ${local.build_date}\nBuilt By: ${local.build_by}\nGit Author: ${local.git_author}"
   tags         = "linux;debian;13;template;base;packer"
 
   // install media
