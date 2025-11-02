@@ -12,14 +12,14 @@ source "proxmox-iso" "windows_server_2k19_data_center_base" {
   task_timeout             = "20m"
 
   // virtual machine settings
-  vm_name         = "ws2k19dcbase"
-  memory          = 4096
-  cores           = 2
-  sockets         = 2
-  qemu_agent      = true
-  scsi_controller = "virtio-scsi-single"
+  vm_name              = "ws2k19dcbase"
+  memory               = 4096
+  cores                = 2
+  sockets              = 2
+  qemu_agent           = true
+  scsi_controller      = "virtio-scsi-single"
   template_description = "Windows Server 2019 Data Center Base Template\nBuild Version: ${local.build_version}\nBuild Date: ${local.build_date}\nBuilt By: ${local.build_by}\nGit Author: ${local.git_author}"
-  tags            = "windows;server;2019;data_center;template;base;packer"
+  tags                 = "windows;server;2019;data_center;template;base;packer"
 
   // install media
   boot_iso {
@@ -111,7 +111,7 @@ source "proxmox-clone" "windows_server_2k19_data_center_base" {
 
   // cd files
   additional_iso_files {
-    type             = "ide"
+    type             = "scsi"
     cd_label         = "autounattend"
     iso_storage_pool = "cidata"
     cd_content = {
