@@ -1,0 +1,22 @@
+# Configured Build Configuration - EXAMPLE
+# Copy this to configured.auto.pkrvars.hcl for configured-specific overrides
+#
+# cp configured.auto.pkrvars.hcl.example configured.auto.pkrvars.hcl
+
+# Template to clone from
+clone_template = "debian-12-base"
+
+# VM ID for configured template (optional - leave commented for auto-assignment)
+# vm_id_configured = 9100
+
+# Ansible host type - determines which Ansible roles are applied
+# Options: base, docker, database, webserver, monitoring, etc.
+ansible_host_type = "base"
+
+# Examples for different types:
+# ansible_host_type = "docker"      # VM ID 9101
+# ansible_host_type = "database"    # VM ID 9102
+# ansible_host_type = "webserver"   # VM ID 9103
+# ansible_host_type = "monitoring"  # VM ID 9104
+
+# Note: These settings override common.auto.pkrvars.hcl

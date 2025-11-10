@@ -1,0 +1,38 @@
+# Proxmox Configuration for Packer - EXAMPLE
+# Copy this file to common.auto.pkrvars.hcl and fill in your actual values
+# 
+# cp common.auto.pkrvars.hcl.example common.auto.pkrvars.hcl
+# vim common.auto.pkrvars.hcl
+
+# Proxmox connection settings
+proxmox_host = "proxmox.example.com"  # Your Proxmox host IP or FQDN
+token_id     = "packer@pve!packer-token"  # API token ID (user@realm!token-name)
+token_secret = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"  # API token secret
+node         = "pve"  # Proxmox node name
+
+# Resource pool (optional - leave empty string if not using pools)
+pool = ""
+
+# Network configuration
+network_bridge = "vmbr0"  # Network bridge to use
+
+# Storage configuration
+storage_pool            = "local-lvm"  # Storage pool for VM disks
+cloud_init_storage_pool = "local-lvm"  # Storage pool for cloud-init drive
+
+# Build user credentials
+# These credentials will be set during OS installation
+username = "packer"
+password = "packer"
+
+# Guest OS localization settings
+guest_os_language = "en_US"  # Language setting
+guest_os_keyboard = "us"     # Keyboard layout
+guest_os_timezone = "UTC"    # Timezone
+
+# TLS verification
+insecure_tls = true  # Set to false if using valid SSL certificates
+
+# Note: After copying this file to common.auto.pkrvars.hcl,
+# it will be automatically ignored by git (see .gitignore)
+# Never commit common.auto.pkrvars.hcl with real credentials!

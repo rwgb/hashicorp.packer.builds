@@ -1,0 +1,19 @@
+# Proxmox Configuration for Packer - EXAMPLE
+# This is the legacy filename - use common.auto.pkrvars.hcl for new builds
+# Copy this file to variables.auto.pkrvars.hcl and fill in your actual values
+# 
+# cp variables.auto.pkrvars.hcl.example variables.auto.pkrvars.hcl
+# vim variables.auto.pkrvars.hcl
+
+# Proxmox Configuration for Packer
+proxmox_host = "192.168.1.100"  # Your Proxmox host IP address or hostname
+token_id     = "packer@pve!packer-token"  # API Token ID
+token_secret = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"  # API Token Secret
+node         = "pve"  # Proxmox node name
+pool         = ""  # Resource pool (leave empty if not using pools)
+
+# Ansible configuration (if using)
+ansible_host_type = "base"  # Ansible host type: base, docker, database, webserver, etc.
+
+# Note: This file contains sensitive credentials
+# Add to .gitignore: *.auto.pkrvars.hcl

@@ -1,0 +1,26 @@
+# Base Build Configuration - EXAMPLE
+# Copy this to base.auto.pkrvars.hcl for base-specific overrides
+#
+# cp base.auto.pkrvars.hcl.example base.auto.pkrvars.hcl
+
+# VM ID for base template (must be unique in Proxmox)
+vm_id_base = 9000
+
+# ISO configuration
+iso_file     = "local:iso/debian-12.iso"
+iso_checksum = "sha256:9da6ae5b63a72161d0fd4480d0f090b250c4f6bf421474e4776e82eea5cb3143bf8936bf43244e438e74d581797fe87c7193bbefff19414e33932fe787b1400f"
+
+# Disk size for base template
+disk_size_base = "10G"
+
+# Additional packages to install in base template
+additional_packages = [
+  "qemu-guest-agent",
+  "cloud-init",
+  "vim",
+  "curl",
+  "wget",
+  "net-tools"
+]
+
+# Note: These settings override common.auto.pkrvars.hcl
