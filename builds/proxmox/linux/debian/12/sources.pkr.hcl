@@ -10,19 +10,20 @@ source "proxmox-iso" "debian_12_base" {
   insecure_skip_tls_verify = var.insecure_tls # disables https checks during connections
 
   // virtual machine settings
-  vm_id       = 9000
+  vm_id        = 9000
   vm_name      = "debian-12-base"
-  memory       = 1024
-  cores        = 1
-  sockets      = 1
+  memory       = 4096
+  cores        = 2
+  sockets      = 2
   qemu_agent   = true
-  task_timeout = "20m"
+  disable_kvm  = true
+  task_timeout = "45m"
   tags         = "linux;debian-12;template;base"
 
   // install media
   boot_iso {
     type         = "scsi"
-    iso_file     = "shared-iso:iso/debian-12.1.0-amd64-netinst.iso"
+    iso_file     = "${var.iso_storage_pool}:iso/debian-12.12.0-amd64-netinst.iso"
     iso_checksum = "sha256:9da6ae5b63a72161d0fd4480d0f090b250c4f6bf421474e4776e82eea5cb3143bf8936bf43244e438e74d581797fe87c7193bbefff19414e33932fe787b1400f"
     unmount      = true
   }
@@ -53,8 +54,8 @@ source "proxmox-iso" "debian_12_base" {
   // disk settings
   disks {
     type         = "scsi"
-    storage_pool = "local-lvm"
-    disk_size    = "5G"
+    storage_pool = var.disk_storage_pool
+    disk_size    = "15G"
   }
 
   // network settings
@@ -65,7 +66,7 @@ source "proxmox-iso" "debian_12_base" {
 
   // cloud init settings
   cloud_init              = true
-  cloud_init_storage_pool = "cidata"
+  cloud_init_storage_pool = var.cloud_init_storage_pool
 
   // boot settings
   boot_wait = "5s"
@@ -80,7 +81,7 @@ source "proxmox-iso" "debian_12_base" {
   ssh_username         = var.username
   ssh_password         = var.password
   ssh_private_key_file = data.sshkey.install.private_key_path
-  ssh_timeout          = "20m"
+  ssh_timeout          = "90m"
 
   // http content
   http_content = local.source_content

@@ -1,27 +1,29 @@
-name: Packer CI / Build
+name: Packer CI / Build (DISABLED)
 
+# This workflow has been disabled
+# Use test-debian12-build.yml for on-demand testing
 on:
-  workflow_dispatch:
-    inputs:
-      build_target:
-        description: 'Select build target (or "all" to build everything)'
-        required: false
-        default: 'all'
-        type: choice
-        options:
-          - all
-          - debian-12
-          - debian-13
-          - windows-server-2019
-          - windows-server-2022
-  push:
-    branches: [develop, main]
-    paths: ['builds/**', '.github/workflows/**']
-  pull_request:
-    branches: [develop, main]
-    paths: ['builds/**', '.github/workflows/**']
-  schedule:
-    - cron: '0 2 1 * *' # monthly on 1st at 02:00 UTC
+  # workflow_dispatch:
+  #   inputs:
+  #     build_target:
+  #       description: 'Select build target (or "all" to build everything)'
+  #       required: false
+  #       default: 'all'
+  #       type: choice
+  #       options:
+  #         - all
+  #         - debian-12
+  #         - debian-13
+  #         - windows-server-2019
+  #         - windows-server-2022
+  # push:
+  #   branches: [develop, main]
+  #   paths: ['builds/**', '.github/workflows/**']
+  # pull_request:
+  #   branches: [develop, main]
+  #   paths: ['builds/**', '.github/workflows/**']
+  # schedule:
+  #   - cron: '0 2 1 * *' # monthly on 1st at 02:00 UTC
 
 permissions:
   contents: read

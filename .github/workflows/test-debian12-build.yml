@@ -1,0 +1,84 @@
+name: Test Debian 12 Packer Build
+
+# Manual trigger only for testing
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PACKER_LOG: "1"
+  PACKER_LOG_PATH: "packer-debian12.log"
+
+jobs:
+  build-debian12:
+    name: Build Debian 12 Base Image
+    runs-on: self-hosted
+    timeout-minutes: 90
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Packer
+        uses: hashicorp/setup-packer@main
+        with:
+          version: "latest"
+
+      - name: Verify Packer installation
+        run: packer version
+
+      - name: Initialize Packer
+        working-directory: builds/proxmox/linux/debian/12
+        run: packer init .
+
+      - name: Validate Packer configuration
+        working-directory: builds/proxmox/linux/debian/12
+        env:
+          PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
+          PKR_VAR_token_id: ${{ secrets.PROXMOX_TOKEN_ID }}
+          PKR_VAR_token_secret: ${{ secrets.PROXMOX_TOKEN_SECRET }}
+          PKR_VAR_node: ${{ secrets.PROXMOX_NODE }}
+          PKR_VAR_pool: ${{ secrets.PROXMOX_POOL }}
+          PKR_VAR_iso_storage_pool: ${{ secrets.PROXMOX_ISO_STORAGE }}
+          PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
+          PKR_VAR_cloud_init_storage_pool: ${{ secrets.PROXMOX_CLOUDINIT_STORAGE }}
+        run: packer validate .
+
+      - name: Build Debian 12 image
+        working-directory: builds/proxmox/linux/debian/12
+        env:
+          PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
+          PKR_VAR_token_id: ${{ secrets.PROXMOX_TOKEN_ID }}
+          PKR_VAR_token_secret: ${{ secrets.PROXMOX_TOKEN_SECRET }}
+          PKR_VAR_node: ${{ secrets.PROXMOX_NODE }}
+          PKR_VAR_pool: ${{ secrets.PROXMOX_POOL }}
+          PKR_VAR_iso_storage_pool: ${{ secrets.PROXMOX_ISO_STORAGE }}
+          PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
+          PKR_VAR_cloud_init_storage_pool: ${{ secrets.PROXMOX_CLOUDINIT_STORAGE }}
+        run: |
+          echo "Starting Packer build with verbose logging..."
+          packer build -timestamp-ui .
+
+      - name: Upload Packer logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: packer-logs-debian12
+          path: packer-debian12.log
+          retention-days: 7
+
+      - name: Build summary
+        if: always()
+        run: |
+          echo "## Debian 12 Build Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -f packer-debian12.log ]; then
+            echo "### Last 50 lines of build log:" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            tail -50 packer-debian12.log >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          else
+            echo "No log file found" >> $GITHUB_STEP_SUMMARY
+          fi
