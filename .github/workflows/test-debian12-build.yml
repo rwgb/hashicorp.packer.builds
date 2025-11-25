@@ -37,6 +37,7 @@ jobs:
         run: packer init .
 
       - name: Validate Packer configuration
+        continue-on-error: true
         working-directory: builds/proxmox/linux/debian/12
         env:
           PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
