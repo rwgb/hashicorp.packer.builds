@@ -1,4 +1,4 @@
-// Packer build file debian linux 12
+// Packer build file debian linux 13
 packer {
   required_plugins {
     proxmox = {
@@ -45,8 +45,9 @@ data "sshkey" "install" {}
 locals {
   build_by   = "Built by: Hashicorp Packer ${packer.version}"
   build_date = formatdate("YYYY-MM-DD hh:mm ZZZ", timestamp())
+  build_key  = coalesce(var.build_key, data.sshkey.install.private_key_path)
   # Fallback to environment variable if git-commit fails
-  ssh_public_key    = data.sshkey.install.private_key_path
+  ssh_public_key    = data.sshkey.install.public_key
   build_version     = try(data.git-commit.build.hash, env("GITHUB_SHA"), "unknown")
   git_author        = try(data.git-commit.build.author, env("GITHUB_ACTOR"), "unknown")
   git_committer     = try(data.git-commit.build.committer, env("GITHUB_ACTOR"), "unknown")
@@ -71,9 +72,9 @@ build {
       build_username = var.username
       build_date     = local.build_date
       build_version  = local.build_version
-      author         = local.git_author
-      committer      = local.git_committer
-      timestamp      = local.git_timestamp
+      author         = "${data.git-commit.build.author}"
+      committer      = "${data.git-commit.build.committer}"
+      timestamp      = "${data.git-commit.build.timestamp}"
     }
   }
 }

@@ -1,5 +1,5 @@
-## > Debian 12
-## > https://www.debian.org/releases/bookworm/amd64/
+## > Debian 13
+## > https://www.debian.org/releases/trixie/amd64/
 
 # > Locale and Keyboard
 d-i debian-installer/locale string ${guest_os_language}

@@ -25,6 +25,24 @@ variable "pool" {
   description = "The name of the resource pool in which to create the virtual machine"
 }
 
+variable "iso_storage_pool" {
+  type        = string
+  description = "The Proxmox storage pool where ISO files are stored"
+  default     = "local"
+}
+
+variable "disk_storage_pool" {
+  type        = string
+  description = "The Proxmox storage pool for VM disks"
+  default     = "local-lvm"
+}
+
+variable "cloud_init_storage_pool" {
+  type        = string
+  description = "The Proxmox storage pool for cloud-init drives"
+  default     = "local-lvm"
+}
+
 variable "insecure_tls" {
   type        = bool
   description = "Defaults to true. Whether or not HTTPS certificate of the proxmox server should be validated"
