@@ -1,0 +1,116 @@
+---
+# Ansible playbook for hardened Docker host
+- name: Configure Hardened Docker Host
+  hosts: all
+  become: true
+  
+  tasks:
+    - name: Install prerequisites
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
+          - auditd
+          - apparmor
+          - apparmor-utils
+        state: present
+        update_cache: yes
+
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/debian/gpg
+        state: present
+
+    - name: Add Docker repository
+      apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable"
+        state: present
+
+    - name: Install Docker
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-compose-plugin
+        state: present
+        update_cache: yes
+
+    - name: Create Docker daemon configuration directory
+      file:
+        path: /etc/docker
+        state: directory
+        mode: '0755'
+
+    - name: Configure Docker daemon with security settings
+      copy:
+        dest: /etc/docker/daemon.json
+        content: |
+          {
+            "icc": false,
+            "live-restore": true,
+            "userland-proxy": false,
+            "no-new-privileges": true,
+            "log-driver": "json-file",
+            "log-opts": {
+              "max-size": "10m",
+              "max-file": "3"
+            },
+            "default-ulimits": {
+              "nofile": {
+                "Name": "nofile",
+                "Hard": 64000,
+                "Soft": 64000
+              }
+            },
+            "userns-remap": "default"
+          }
+      notify: restart docker
+
+    - name: Configure audit rules for Docker
+      blockinfile:
+        path: /etc/audit/rules.d/docker.rules
+        create: yes
+        block: |
+          -w /usr/bin/docker -p wa -k docker
+          -w /var/lib/docker -p wa -k docker
+          -w /etc/docker -p wa -k docker
+          -w /lib/systemd/system/docker.service -p wa -k docker
+          -w /lib/systemd/system/docker.socket -p wa -k docker
+          -w /etc/default/docker -p wa -k docker
+          -w /etc/docker/daemon.json -p wa -k docker
+          -w /usr/bin/containerd -p wa -k docker
+          -w /usr/bin/runc -p wa -k docker
+      notify: restart auditd
+
+    - name: Set proper permissions on Docker socket
+      file:
+        path: /var/run/docker.sock
+        mode: '0660'
+      when: ansible_facts['os_family'] == "Debian"
+
+    - name: Enable Docker service
+      systemd:
+        name: docker
+        enabled: yes
+        state: started
+
+    - name: Enable auditd service
+      systemd:
+        name: auditd
+        enabled: yes
+        state: started
+
+  handlers:
+    - name: restart docker
+      systemd:
+        name: docker
+        state: restarted
+
+    - name: restart auditd
+      systemd:
+        name: auditd
+        state: restarted

@@ -1,0 +1,147 @@
+---
+# Ansible playbook for hardened Tomcat application server
+- name: Configure Hardened Tomcat Application Server
+  hosts: all
+  become: true
+  
+  tasks:
+    - name: Install Java and Tomcat packages
+      apt:
+        name:
+          - default-jdk
+          - tomcat9
+          - tomcat9-admin
+          - fail2ban
+        state: present
+        update_cache: yes
+
+    - name: Create Tomcat system user
+      user:
+        name: tomcat
+        system: yes
+        shell: /bin/false
+        home: /opt/tomcat
+        create_home: no
+
+    - name: Configure Tomcat server.xml security settings
+      blockinfile:
+        path: /etc/tomcat9/server.xml
+        marker: "<!-- {mark} ANSIBLE MANAGED SECURITY BLOCK -->"
+        insertbefore: "</Host>"
+        block: |
+          <!-- Security Valve -->
+          <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+                 allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />
+          
+          <!-- Error Report Valve - Hide version information -->
+          <Valve className="org.apache.catalina.valves.ErrorReportValve"
+                 showReport="false"
+                 showServerInfo="false" />
+      notify: restart tomcat
+
+    - name: Configure Tomcat web.xml security settings
+      blockinfile:
+        path: /etc/tomcat9/web.xml
+        marker: "<!-- {mark} ANSIBLE MANAGED SECURITY BLOCK -->"
+        insertbefore: "</web-app>"
+        block: |
+          <!-- Security constraints -->
+          <security-constraint>
+            <web-resource-collection>
+              <web-resource-name>Restricted methods</web-resource-name>
+              <url-pattern>/*</url-pattern>
+              <http-method>TRACE</http-method>
+              <http-method>PUT</http-method>
+              <http-method>DELETE</http-method>
+            </web-resource-collection>
+            <auth-constraint/>
+          </security-constraint>
+          
+          <!-- Session configuration -->
+          <session-config>
+            <session-timeout>30</session-timeout>
+            <cookie-config>
+              <http-only>true</http-only>
+              <secure>true</secure>
+            </cookie-config>
+            <tracking-mode>COOKIE</tracking-mode>
+          </session-config>
+          
+          <!-- Error pages -->
+          <error-page>
+            <error-code>404</error-code>
+            <location>/error.jsp</location>
+          </error-page>
+          <error-page>
+            <error-code>500</error-code>
+            <location>/error.jsp</location>
+          </error-page>
+      notify: restart tomcat
+
+    - name: Configure Tomcat security properties
+      blockinfile:
+        path: /etc/tomcat9/catalina.properties
+        block: |
+          # Security properties
+          tomcat.util.scan.StandardJarScanFilter.jarsToSkip=*.jar
+          tomcat.util.http.parser.HttpParser.requestTargetAllow=|{}
+      notify: restart tomcat
+
+    - name: Remove default Tomcat applications
+      file:
+        path: "/var/lib/tomcat9/webapps/{{ item }}"
+        state: absent
+      loop:
+        - ROOT
+        - docs
+        - examples
+        - host-manager
+        - manager
+
+    - name: Set proper Tomcat directory permissions
+      file:
+        path: "{{ item }}"
+        owner: tomcat9
+        group: tomcat9
+        mode: '0750'
+        state: directory
+      loop:
+        - /var/lib/tomcat9
+        - /var/lib/tomcat9/webapps
+        - /var/lib/tomcat9/conf
+        - /var/log/tomcat9
+
+    - name: Configure fail2ban for Tomcat
+      copy:
+        dest: /etc/fail2ban/jail.d/tomcat.conf
+        content: |
+          [tomcat-auth]
+          enabled = true
+          port = 8080
+          logpath = /var/log/tomcat9/catalina.out
+          maxretry = 5
+          bantime = 600
+      notify: restart fail2ban
+
+    - name: Enable Tomcat service
+      systemd:
+        name: tomcat9
+        enabled: yes
+        state: started
+
+    - name: Enable fail2ban service
+      systemd:
+        name: fail2ban
+        enabled: yes
+        state: started
+
+  handlers:
+    - name: restart tomcat
+      systemd:
+        name: tomcat9
+        state: restarted
+
+    - name: restart fail2ban
+      systemd:
+        name: fail2ban
+        state: restarted
