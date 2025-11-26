@@ -10,16 +10,16 @@ source "proxmox-iso" "debian_12_base" {
   insecure_skip_tls_verify = var.insecure_tls # disables https checks during connections
 
   // virtual machine settings
-  vm_id        = 9000
-  vm_name      = "debian-12-base"
-  description  = local.build_description
-  memory       = 4096
-  cores        = 2
-  sockets      = 2
-  qemu_agent   = true
-  disable_kvm  = true
-  task_timeout = "45m"
-  tags         = "linux;debian-12;template;base"
+  vm_id               = 9000
+  vm_name             = "debian-12-base"
+  template_description = local.build_description
+  memory              = 4096
+  cores               = 2
+  sockets             = 2
+  qemu_agent          = true
+  disable_kvm         = true
+  task_timeout        = "45m"
+  tags                = "linux;debian-12;template;base"
 
   // install media
   boot_iso {
