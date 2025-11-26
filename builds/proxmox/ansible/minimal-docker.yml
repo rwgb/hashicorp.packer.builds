@@ -1,0 +1,69 @@
+---
+# Ansible playbook for minimal Docker host
+- name: Configure Minimal Docker Host
+  hosts: all
+  become: true
+  
+  tasks:
+    - name: Install minimal prerequisites
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+        state: present
+        update_cache: yes
+        install_recommends: no
+
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/debian/gpg
+        state: present
+
+    - name: Add Docker repository
+      apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable"
+        state: present
+
+    - name: Install Docker (minimal)
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        state: present
+        update_cache: yes
+        install_recommends: no
+
+    - name: Create Docker daemon configuration directory
+      file:
+        path: /etc/docker
+        state: directory
+        mode: '0755'
+
+    - name: Configure Docker daemon for minimal resource usage
+      copy:
+        dest: /etc/docker/daemon.json
+        content: |
+          {
+            "log-driver": "json-file",
+            "log-opts": {
+              "max-size": "5m",
+              "max-file": "1"
+            },
+            "storage-driver": "overlay2"
+          }
+      notify: restart docker
+
+    - name: Enable Docker service
+      systemd:
+        name: docker
+        enabled: yes
+        state: started
+
+  handlers:
+    - name: restart docker
+      systemd:
+        name: docker
+        state: restarted

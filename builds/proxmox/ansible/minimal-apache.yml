@@ -1,0 +1,70 @@
+---
+# Ansible playbook for minimal Apache web server
+- name: Configure Minimal Apache Web Server
+  hosts: all
+  become: true
+  
+  tasks:
+    - name: Install Apache (minimal)
+      apt:
+        name:
+          - apache2
+        state: present
+        update_cache: yes
+        install_recommends: no
+
+    - name: Disable unnecessary Apache modules
+      apache2_module:
+        name: "{{ item }}"
+        state: absent
+      loop:
+        - autoindex
+        - status
+        - negotiation
+      notify: restart apache
+
+    - name: Enable essential Apache modules only
+      apache2_module:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - mpm_event
+        - authz_core
+        - dir
+      notify: restart apache
+
+    - name: Remove default site configuration
+      file:
+        path: /etc/apache2/sites-enabled/000-default.conf
+        state: absent
+      notify: restart apache
+
+    - name: Configure Apache for minimal resource usage
+      blockinfile:
+        path: /etc/apache2/conf-available/minimal.conf
+        create: yes
+        block: |
+          ServerTokens Prod
+          ServerSignature Off
+          TraceEnable Off
+          Timeout 30
+          KeepAlive On
+          MaxKeepAliveRequests 50
+          KeepAliveTimeout 3
+      notify: restart apache
+
+    - name: Enable minimal configuration
+      command: a2enconf minimal
+      notify: restart apache
+
+    - name: Enable Apache service
+      systemd:
+        name: apache2
+        enabled: yes
+        state: started
+
+  handlers:
+    - name: restart apache
+      systemd:
+        name: apache2
+        state: restarted

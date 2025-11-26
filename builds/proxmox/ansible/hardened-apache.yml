@@ -1,0 +1,105 @@
+---
+# Ansible playbook for hardened Apache web server
+- name: Configure Hardened Apache Web Server
+  hosts: all
+  become: true
+  
+  tasks:
+    - name: Install Apache and security packages
+      apt:
+        name:
+          - apache2
+          - apache2-utils
+          - libapache2-mod-security2
+          - libapache2-mod-evasive
+          - fail2ban
+        state: present
+        update_cache: yes
+
+    - name: Enable Apache modules
+      apache2_module:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - ssl
+        - headers
+        - security2
+        - evasive
+      notify: restart apache
+
+    - name: Configure Apache security headers
+      blockinfile:
+        path: /etc/apache2/conf-available/security.conf
+        block: |
+          ServerTokens Prod
+          ServerSignature Off
+          TraceEnable Off
+          Header always set X-Content-Type-Options "nosniff"
+          Header always set X-Frame-Options "SAMEORIGIN"
+          Header always set X-XSS-Protection "1; mode=block"
+          Header always set Referrer-Policy "strict-origin-when-cross-origin"
+      notify: restart apache
+
+    - name: Configure ModSecurity
+      copy:
+        src: /etc/modsecurity/modsecurity.conf-recommended
+        dest: /etc/modsecurity/modsecurity.conf
+        remote_src: yes
+      notify: restart apache
+
+    - name: Set ModSecurity to active mode
+      lineinfile:
+        path: /etc/modsecurity/modsecurity.conf
+        regexp: '^SecRuleEngine'
+        line: 'SecRuleEngine On'
+      notify: restart apache
+
+    - name: Configure fail2ban for Apache
+      copy:
+        dest: /etc/fail2ban/jail.d/apache.conf
+        content: |
+          [apache-auth]
+          enabled = true
+          port = http,https
+          logpath = /var/log/apache2/error.log
+          
+          [apache-badbots]
+          enabled = true
+          port = http,https
+          logpath = /var/log/apache2/access.log
+          
+          [apache-noscript]
+          enabled = true
+          port = http,https
+          logpath = /var/log/apache2/error.log
+      notify: restart fail2ban
+
+    - name: Disable directory listing
+      lineinfile:
+        path: /etc/apache2/apache2.conf
+        regexp: '^\s*Options Indexes'
+        line: '    Options -Indexes'
+      notify: restart apache
+
+    - name: Enable Apache service
+      systemd:
+        name: apache2
+        enabled: yes
+        state: started
+
+    - name: Enable fail2ban service
+      systemd:
+        name: fail2ban
+        enabled: yes
+        state: started
+
+  handlers:
+    - name: restart apache
+      systemd:
+        name: apache2
+        state: restarted
+
+    - name: restart fail2ban
+      systemd:
+        name: fail2ban
+        state: restarted

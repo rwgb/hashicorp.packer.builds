@@ -1,0 +1,58 @@
+---
+# Ansible playbook for minimal Tomcat application server
+- name: Configure Minimal Tomcat Application Server
+  hosts: all
+  become: true
+  
+  tasks:
+    - name: Install minimal Java and Tomcat
+      apt:
+        name:
+          - default-jre-headless
+          - tomcat9
+        state: present
+        update_cache: yes
+        install_recommends: no
+
+    - name: Configure Tomcat for minimal resource usage
+      blockinfile:
+        path: /etc/default/tomcat9
+        block: |
+          # Minimal JVM settings
+          JAVA_OPTS="-Djava.awt.headless=true -Xmx256m -Xms128m -XX:+UseSerialGC"
+      notify: restart tomcat
+
+    - name: Remove default Tomcat applications
+      file:
+        path: "/var/lib/tomcat9/webapps/{{ item }}"
+        state: absent
+      loop:
+        - ROOT
+        - docs
+        - examples
+        - host-manager
+        - manager
+
+    - name: Configure minimal connector settings
+      blockinfile:
+        path: /etc/tomcat9/server.xml
+        marker: "<!-- {mark} ANSIBLE MANAGED MINIMAL BLOCK -->"
+        insertafter: "<Connector"
+        block: |
+          <!-- Minimal connection settings -->
+          maxThreads="50"
+          minSpareThreads="5"
+          connectionTimeout="20000"
+      notify: restart tomcat
+
+    - name: Enable Tomcat service
+      systemd:
+        name: tomcat9
+        enabled: yes
+        state: started
+
+  handlers:
+    - name: restart tomcat
+      systemd:
+        name: tomcat9
+        state: restarted

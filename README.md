@@ -137,13 +137,60 @@ packer build .
 ### Linux Builds
 
 #### Debian 12 (Bookworm)
-- **Path**: `builds/linux/debian/12/`
-- **ISO**: Debian 12 netinstall
-- **Features**: Minimal base, cloud-init ready, SSH hardened
+
+Debian 12 builds use a **three-tier approach**:
+
+1. **Base Build** (`builds/proxmox/linux/debian/12/base/`)
+   - **VM ID**: 9000
+   - **Builder**: `proxmox-iso` (builds from ISO)
+   - **ISO**: Debian 12.9.0 netinstall
+   - **Features**: Minimal base, cloud-init ready, SSH hardened
+   - **Purpose**: Foundation template for all variant clones
+
+2. **Hardened Variants** (`builds/proxmox/linux/debian/12/hardened/`)
+   - **Builder**: `proxmox-clone` (clones from base VM 9000)
+   - **Provisioning**: Ansible playbooks with security-focused configurations
+   - **Available Roles**:
+     - **Apache** (VM 9001): ModSecurity WAF, fail2ban, SSL hardening
+     - **Docker** (VM 9002): Docker Engine, secure daemon config, user namespaces
+     - **MySQL** (VM 9003): MySQL Server, authentication plugins, audit logging
+     - **Tomcat** (VM 9004): Tomcat 10, JMX monitoring, security manager
+
+3. **Minimal Variants** (`builds/proxmox/linux/debian/12/minimal/`)
+   - **Builder**: `proxmox-clone` (clones from base VM 9000)
+   - **Provisioning**: Ansible playbooks with lightweight configurations
+   - **Available Roles**:
+     - **Apache** (VM 9005): Apache2 with minimal modules, optimized performance
+     - **Docker** (VM 9006): Docker Engine, essential tools only
+     - **MySQL** (VM 9007): MySQL Server, minimal plugins, performance tuning
+     - **Tomcat** (VM 9008): Tomcat 10, lightweight deployment
+
+**Build Workflow**:
+```bash
+# 1. Build the base template
+cd builds/proxmox/linux/debian/12/base/
+packer build .
+
+# 2. Build hardened variants (clones from VM 9000)
+cd ../hardened/
+packer build -only='proxmox-clone.debian12-hardened-apache' .
+packer build -only='proxmox-clone.debian12-hardened-docker' .
+packer build -only='proxmox-clone.debian12-hardened-mysql' .
+packer build -only='proxmox-clone.debian12-hardened-tomcat' .
+
+# 3. Build minimal variants (clones from VM 9000)
+cd ../minimal/
+packer build -only='proxmox-clone.debian12-minimal-apache' .
+packer build -only='proxmox-clone.debian12-minimal-docker' .
+packer build -only='proxmox-clone.debian12-minimal-mysql' .
+packer build -only='proxmox-clone.debian12-minimal-tomcat' .
+```
 
 #### Debian 13 (Trixie)
-- **Path**: `builds/linux/debian/13/`
-- **ISO**: Debian 13 netinstall
+- **Path**: `builds/proxmox/linux/debian/13/`
+- **VM ID**: 9001
+- **Builder**: `proxmox-iso`
+- **ISO**: Debian 13.1.0 netinstall
 - **Features**: Latest packages, modern kernel, optimized for containers
 
 ### Windows Builds
@@ -251,27 +298,60 @@ The workflows use a self-hosted GitHub Actions runner that:
 ## 📁 Repository Structure
 
 ```
-hashicorp.packer/
+hashicorp.packer.builds/
 ├── .github/
+│   ├── copilot-instructions.md    # GitHub Copilot configuration
 │   └── workflows/
 │       ├── build-all.yml          # Build all images workflow
-│       ├── build-debian-13.yml    # Debian 13 specific workflow
+│       ├── test-debian12-build.yml # Debian 12 base build test
 │       └── README.md              # Workflow documentation
 ├── builds/
-│   ├── linux/
-│   │   └── debian/
-│   │       ├── 12/
-│   │       │   ├── build.pkr.hcl          # Build configuration
-│   │       │   ├── sources.pkr.hcl        # Source definitions
-│   │       │   ├── variables.pkr.hcl      # Variable definitions
-│   │       │   ├── data/                  # Templates (kickstart, etc.)
-│   │       │   └── manifests/             # Build output manifests
-│   │       └── 13/
-│   │           ├── build.pkr.hcl
-│   │           ├── sources.pkr.hcl
-│   │           ├── variables.pkr.hcl
-│   │           ├── data/
-│   │           └── manifests/
+│   ├── proxmox/
+│   │   ├── ansible/
+│   │   │   ├── hardened-apache.yml      # Security-focused Apache config
+│   │   │   ├── hardened-docker.yml      # Hardened Docker setup
+│   │   │   ├── hardened-mysql.yml       # MySQL with security plugins
+│   │   │   ├── hardened-tomcat.yml      # Tomcat with security manager
+│   │   │   ├── minimal-apache.yml       # Lightweight Apache
+│   │   │   ├── minimal-docker.yml       # Minimal Docker installation
+│   │   │   ├── minimal-mysql.yml        # Performance-tuned MySQL
+│   │   │   ├── minimal-tomcat.yml       # Lightweight Tomcat
+│   │   │   └── README.md                # Ansible documentation
+│   │   └── linux/
+│   │       └── debian/
+│   │           ├── 12/
+│   │           │   ├── base/
+│   │           │   │   ├── build.pkr.hcl          # Base build config
+│   │           │   │   ├── sources.pkr.hcl        # proxmox-iso source
+│   │           │   │   ├── variables.pkr.hcl      # Base variables
+│   │           │   │   ├── data/                  # Preseed templates
+│   │           │   │   └── manifests/             # Build manifests (VM 9000)
+│   │           │   ├── hardened/
+│   │           │   │   ├── build.pkr.hcl          # All hardened builds
+│   │           │   │   ├── sources-apache.pkr.hcl # VM 9001 source
+│   │           │   │   ├── sources-docker.pkr.hcl # VM 9002 source
+│   │           │   │   ├── sources-mysql.pkr.hcl  # VM 9003 source
+│   │           │   │   ├── sources-tomcat.pkr.hcl # VM 9004 source
+│   │           │   │   ├── variables-apache.pkr.hcl
+│   │           │   │   ├── variables-docker.pkr.hcl
+│   │           │   │   ├── variables-mysql.pkr.hcl
+│   │           │   │   └── variables-tomcat.pkr.hcl
+│   │           │   └── minimal/
+│   │           │       ├── build.pkr.hcl          # All minimal builds
+│   │           │       ├── sources-apache.pkr.hcl # VM 9005 source
+│   │           │       ├── sources-docker.pkr.hcl # VM 9006 source
+│   │           │       ├── sources-mysql.pkr.hcl  # VM 9007 source
+│   │           │       ├── sources-tomcat.pkr.hcl # VM 9008 source
+│   │           │       ├── variables-apache.pkr.hcl
+│   │           │       ├── variables-docker.pkr.hcl
+│   │           │       ├── variables-mysql.pkr.hcl
+│   │           │       └── variables-tomcat.pkr.hcl
+│   │           └── 13/
+│   │               ├── build.pkr.hcl
+│   │               ├── sources.pkr.hcl
+│   │               ├── variables.pkr.hcl
+│   │               ├── data/
+│   │               └── manifests/
 │   └── windows/
 │       └── server/
 │           ├── 2019/
@@ -288,8 +368,16 @@ hashicorp.packer/
 │               ├── data/
 │               ├── drivers/
 │               └── manifests/
+├── scripts/
+│   ├── buildManager.py            # Build orchestration tool
+│   ├── EXAMPLES.md                # Usage examples
+│   └── README.md                  # Scripts documentation
 ├── .gitignore
 ├── .actrc                         # Act (local testing) configuration
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── VERSION
 └── README.md                      # This file
 ```
 
@@ -341,6 +429,146 @@ for dir in builds/*/*/*/*/; do
   cd -
 done
 ```
+
+---
+
+## 🔧 Ansible Provisioning
+
+The hardened and minimal variants use Ansible for automated configuration:
+
+### Playbook Structure
+
+All playbooks are located in `builds/proxmox/ansible/`:
+
+| Playbook | Purpose | Key Components |
+|----------|---------|----------------|
+| `hardened-apache.yml` | Security-focused Apache | ModSecurity WAF, fail2ban, SSL hardening |
+| `hardened-docker.yml` | Hardened Docker setup | Secure daemon config, user namespaces, audit logging |
+| `hardened-mysql.yml` | MySQL with security | Authentication plugins, audit logging, encrypted connections |
+| `hardened-tomcat.yml` | Tomcat with security | Security manager, JMX monitoring, encrypted configs |
+| `minimal-apache.yml` | Lightweight Apache | Essential modules only, optimized performance |
+| `minimal-docker.yml` | Minimal Docker | Docker Engine, essential tools, lightweight |
+| `minimal-mysql.yml` | Performance-tuned MySQL | Minimal plugins, InnoDB optimization, query cache |
+| `minimal-tomcat.yml` | Lightweight Tomcat | Essential webapps, memory-optimized JVM |
+
+### Provisioning Workflow
+
+1. **Base Build**: Creates foundation template (VM 9000) using `proxmox-iso` builder
+2. **Clone**: Packer uses `proxmox-clone` builder to clone base template
+3. **Provision**: Ansible playbook runs inside cloned VM to configure role
+4. **Finalize**: VM is converted to template with role-specific configuration
+
+### VM ID Assignments
+
+| VM ID | Type | Role | Description |
+|-------|------|------|-------------|
+| 9000 | Base | Foundation | Minimal Debian 12 base template |
+| 9001 | Hardened | Apache | ModSecurity, fail2ban, SSL |
+| 9002 | Hardened | Docker | Secure daemon, user namespaces |
+| 9003 | Hardened | MySQL | Authentication, audit, encryption |
+| 9004 | Hardened | Tomcat | Security manager, JMX |
+| 9005 | Minimal | Apache | Lightweight, performance-focused |
+| 9006 | Minimal | Docker | Essential Docker only |
+| 9007 | Minimal | MySQL | Performance-tuned |
+| 9008 | Minimal | Tomcat | Memory-optimized |
+
+### Extending with New Roles
+
+To add a new role (e.g., PostgreSQL):
+
+1. Create Ansible playbooks:
+   ```bash
+   # Hardened variant
+   builds/proxmox/ansible/hardened-postgresql.yml
+   
+   # Minimal variant
+   builds/proxmox/ansible/minimal-postgresql.yml
+   ```
+
+2. Create Packer sources:
+   ```bash
+   # Hardened
+   builds/proxmox/linux/debian/12/hardened/sources-postgresql.pkr.hcl
+   builds/proxmox/linux/debian/12/hardened/variables-postgresql.pkr.hcl
+   
+   # Minimal
+   builds/proxmox/linux/debian/12/minimal/sources-postgresql.pkr.hcl
+   builds/proxmox/linux/debian/12/minimal/variables-postgresql.pkr.hcl
+   ```
+
+3. Add build blocks to `build.pkr.hcl` in hardened/ and minimal/ directories
+
+4. Assign VM IDs (next available: 9009 for hardened, 9010 for minimal)
+
+---
+
+## 🔧 Ansible Provisioning
+
+The hardened and minimal variants use Ansible for automated configuration:
+
+### Playbook Structure
+
+All playbooks are located in `builds/proxmox/ansible/`:
+
+| Playbook | Purpose | Key Components |
+|----------|---------|----------------|
+| `hardened-apache.yml` | Security-focused Apache | ModSecurity WAF, fail2ban, SSL hardening |
+| `hardened-docker.yml` | Hardened Docker setup | Secure daemon config, user namespaces, audit logging |
+| `hardened-mysql.yml` | MySQL with security | Authentication plugins, audit logging, encrypted connections |
+| `hardened-tomcat.yml` | Tomcat with security | Security manager, JMX monitoring, encrypted configs |
+| `minimal-apache.yml` | Lightweight Apache | Essential modules only, optimized performance |
+| `minimal-docker.yml` | Minimal Docker | Docker Engine, essential tools, lightweight |
+| `minimal-mysql.yml` | Performance-tuned MySQL | Minimal plugins, InnoDB optimization, query cache |
+| `minimal-tomcat.yml` | Lightweight Tomcat | Essential webapps, memory-optimized JVM |
+
+### Provisioning Workflow
+
+1. **Base Build**: Creates foundation template (VM 9000) using `proxmox-iso` builder
+2. **Clone**: Packer uses `proxmox-clone` builder to clone base template
+3. **Provision**: Ansible playbook runs inside cloned VM to configure role
+4. **Finalize**: VM is converted to template with role-specific configuration
+
+### VM ID Assignments
+
+| VM ID | Type | Role | Description |
+|-------|------|------|-------------|
+| 9000 | Base | Foundation | Minimal Debian 12 base template |
+| 9001 | Hardened | Apache | ModSecurity, fail2ban, SSL |
+| 9002 | Hardened | Docker | Secure daemon, user namespaces |
+| 9003 | Hardened | MySQL | Authentication, audit, encryption |
+| 9004 | Hardened | Tomcat | Security manager, JMX |
+| 9005 | Minimal | Apache | Lightweight, performance-focused |
+| 9006 | Minimal | Docker | Essential Docker only |
+| 9007 | Minimal | MySQL | Performance-tuned |
+| 9008 | Minimal | Tomcat | Memory-optimized |
+
+### Extending with New Roles
+
+To add a new role (e.g., PostgreSQL):
+
+1. Create Ansible playbooks:
+   ```bash
+   # Hardened variant
+   builds/proxmox/ansible/hardened-postgresql.yml
+   
+   # Minimal variant
+   builds/proxmox/ansible/minimal-postgresql.yml
+   ```
+
+2. Create Packer sources:
+   ```bash
+   # Hardened
+   builds/proxmox/linux/debian/12/hardened/sources-postgresql.pkr.hcl
+   builds/proxmox/linux/debian/12/hardened/variables-postgresql.pkr.hcl
+   
+   # Minimal
+   builds/proxmox/linux/debian/12/minimal/sources-postgresql.pkr.hcl
+   builds/proxmox/linux/debian/12/minimal/variables-postgresql.pkr.hcl
+   ```
+
+3. Add build blocks to `build.pkr.hcl` in hardened/ and minimal/ directories
+
+4. Assign VM IDs (next available: 9009 for hardened, 9010 for minimal)
 
 ---
 

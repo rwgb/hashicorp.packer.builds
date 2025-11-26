@@ -1,4 +1,4 @@
-name: Test Debian 12 Packer Build
+name: Test Debian 12 Hardened Builds
 
 # Manual trigger only for testing
 on:
@@ -9,11 +9,10 @@ permissions:
 
 env:
   PACKER_LOG: "1"
-  PACKER_LOG_PATH: "packer-debian12.log"
 
 jobs:
-  build-debian12:
-    name: Build Debian 12 Base Image
+  build-base:
+    name: Build Debian 12 Base Template
     runs-on: self-hosted
     timeout-minutes: 90
     
@@ -30,11 +29,11 @@ jobs:
         run: packer version
 
       - name: Initialize Packer
-        working-directory: builds/proxmox/linux/debian/12
+        working-directory: builds/proxmox/linux/debian/12/base
         run: packer init .
 
       - name: Validate Packer configuration
-        working-directory: builds/proxmox/linux/debian/12
+        working-directory: builds/proxmox/linux/debian/12/base
         env:
           PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
           PKR_VAR_token_id: ${{ secrets.PROXMOX_TOKEN_ID }}
@@ -46,8 +45,8 @@ jobs:
           PKR_VAR_cloud_init_storage_pool: ${{ secrets.PROXMOX_CLOUDINIT_STORAGE }}
         run: packer validate .
 
-      - name: Build Debian 12 image
-        working-directory: builds/proxmox/linux/debian/12
+      - name: Build Debian 12 Base Template
+        working-directory: builds/proxmox/linux/debian/12/base
         env:
           PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
           PKR_VAR_token_id: ${{ secrets.PROXMOX_TOKEN_ID }}
@@ -58,27 +57,89 @@ jobs:
           PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
           PKR_VAR_cloud_init_storage_pool: ${{ secrets.PROXMOX_CLOUDINIT_STORAGE }}
         run: |
-          echo "Starting Packer build with verbose logging..."
+          echo "Building base template (VM 9000)..."
           packer build -timestamp-ui .
 
       - name: Upload Packer logs on failure
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: packer-logs-debian12
-          path: packer-debian12.log
+          name: packer-logs-base
+          path: builds/proxmox/linux/debian/12/base/packer-*.log
           retention-days: 7
 
-      - name: Build summary
-        if: always()
+  build-hardened:
+    name: Build Hardened - ${{ matrix.role }}
+    runs-on: self-hosted
+    timeout-minutes: 60
+    needs: build-base
+    strategy:
+      fail-fast: false
+      matrix:
+        role: [apache, docker, mysql, tomcat]
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Packer
+        uses: hashicorp/setup-packer@main
+        with:
+          version: "latest"
+
+      - name: Initialize Packer
+        working-directory: builds/proxmox/linux/debian/12/hardened
+        run: packer init .
+
+      - name: Validate Packer configuration
+        working-directory: builds/proxmox/linux/debian/12/hardened
+        env:
+          PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
+          PKR_VAR_token_id: ${{ secrets.PROXMOX_TOKEN_ID }}
+          PKR_VAR_token_secret: ${{ secrets.PROXMOX_TOKEN_SECRET }}
+          PKR_VAR_node: ${{ secrets.PROXMOX_NODE }}
+          PKR_VAR_pool: ${{ secrets.PROXMOX_POOL }}
+          PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
+        run: packer validate -only="proxmox-clone.debian12-hardened-${{ matrix.role }}" .
+
+      - name: Build Hardened ${{ matrix.role }} Template
+        working-directory: builds/proxmox/linux/debian/12/hardened
+        env:
+          PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
+          PKR_VAR_token_id: ${{ secrets.PROXMOX_TOKEN_ID }}
+          PKR_VAR_token_secret: ${{ secrets.PROXMOX_TOKEN_SECRET }}
+          PKR_VAR_node: ${{ secrets.PROXMOX_NODE }}
+          PKR_VAR_pool: ${{ secrets.PROXMOX_POOL }}
+          PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
         run: |
-          echo "## Debian 12 Build Summary" >> $GITHUB_STEP_SUMMARY
+          echo "Building hardened ${{ matrix.role }} from base template..."
+          packer build -timestamp-ui -only="proxmox-clone.debian12-hardened-${{ matrix.role }}" .
+
+      - name: Upload Packer logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: packer-logs-hardened-${{ matrix.role }}
+          path: builds/proxmox/linux/debian/12/hardened/packer-*.log
+          retention-days: 7
+
+  build-summary:
+    name: Build Summary
+    runs-on: self-hosted
+    needs: [build-base, build-hardened]
+    if: always()
+    
+    steps:
+      - name: Generate Summary
+        run: |
+          echo "## Debian 12 Hardened Builds Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          if [ -f packer-debian12.log ]; then
-            echo "### Last 50 lines of build log:" >> $GITHUB_STEP_SUMMARY
-            echo '```' >> $GITHUB_STEP_SUMMARY
-            tail -50 packer-debian12.log >> $GITHUB_STEP_SUMMARY
-            echo '```' >> $GITHUB_STEP_SUMMARY
-          else
-            echo "No log file found" >> $GITHUB_STEP_SUMMARY
-          fi
+          echo "### Build Results:" >> $GITHUB_STEP_SUMMARY
+          echo "- **Base Template (VM 9000)**: ${{ needs.build-base.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Hardened Apache (VM 9001)**: ${{ needs.build-hardened.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Hardened Docker (VM 9002)**: ${{ needs.build-hardened.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Hardened MySQL (VM 9003)**: ${{ needs.build-hardened.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Hardened Tomcat (VM 9004)**: ${{ needs.build-hardened.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Templates Created:" >> $GITHUB_STEP_SUMMARY
+          echo "All hardened templates include Ansible provisioning with security-focused configurations." >> $GITHUB_STEP_SUMMARY

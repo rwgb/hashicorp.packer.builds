@@ -1,0 +1,114 @@
+---
+# Ansible playbook for hardened MySQL database server
+- name: Configure Hardened MySQL Database Server
+  hosts: all
+  become: true
+  
+  tasks:
+    - name: Install MySQL and security packages
+      apt:
+        name:
+          - mysql-server
+          - python3-pymysql
+          - fail2ban
+        state: present
+        update_cache: yes
+
+    - name: Ensure MySQL is started
+      systemd:
+        name: mysql
+        state: started
+        enabled: yes
+
+    - name: Configure MySQL security settings
+      blockinfile:
+        path: /etc/mysql/mysql.conf.d/security.cnf
+        create: yes
+        block: |
+          [mysqld]
+          # Security settings
+          local-infile=0
+          symbolic-links=0
+          skip-show-database
+          
+          # Network settings
+          bind-address = 127.0.0.1
+          
+          # Logging
+          log_error = /var/log/mysql/error.log
+          log_warnings = 2
+          
+          # Connection limits
+          max_connections = 100
+          max_connect_errors = 10
+          
+          # User limits
+          max_user_connections = 50
+          
+          # SSL/TLS settings (uncomment when certificates are configured)
+          # require_secure_transport = ON
+          # ssl-ca=/etc/mysql/ssl/ca-cert.pem
+          # ssl-cert=/etc/mysql/ssl/server-cert.pem
+          # ssl-key=/etc/mysql/ssl/server-key.pem
+      notify: restart mysql
+
+    - name: Set strict SQL mode
+      blockinfile:
+        path: /etc/mysql/mysql.conf.d/sql-mode.cnf
+        create: yes
+        block: |
+          [mysqld]
+          sql_mode=STRICT_ALL_TABLES,NO_ZERO_DATE,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
+      notify: restart mysql
+
+    - name: Configure fail2ban for MySQL
+      copy:
+        dest: /etc/fail2ban/jail.d/mysql.conf
+        content: |
+          [mysqld-auth]
+          enabled = true
+          port = 3306
+          logpath = /var/log/mysql/error.log
+          maxretry = 5
+          bantime = 600
+      notify: restart fail2ban
+
+    - name: Set proper MySQL directory permissions
+      file:
+        path: "{{ item }}"
+        owner: mysql
+        group: mysql
+        mode: '0750'
+      loop:
+        - /var/lib/mysql
+        - /var/log/mysql
+
+    - name: Create MySQL security script
+      copy:
+        dest: /root/mysql_secure.sh
+        mode: '0700'
+        content: |
+          #!/bin/bash
+          # Run mysql_secure_installation equivalent
+          mysql -e "DELETE FROM mysql.user WHERE User='';"
+          mysql -e "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');"
+          mysql -e "DROP DATABASE IF EXISTS test;"
+          mysql -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';"
+          mysql -e "FLUSH PRIVILEGES;"
+
+    - name: Enable fail2ban service
+      systemd:
+        name: fail2ban
+        enabled: yes
+        state: started
+
+  handlers:
+    - name: restart mysql
+      systemd:
+        name: mysql
+        state: restarted
+
+    - name: restart fail2ban
+      systemd:
+        name: fail2ban
+        state: restarted
