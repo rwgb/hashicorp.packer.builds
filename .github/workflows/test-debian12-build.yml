@@ -30,11 +30,11 @@ jobs:
         run: packer version
 
       - name: Initialize Packer
-        working-directory: builds/proxmox/linux/debian/12
+        working-directory: builds/proxmox/linux/debian/12/base
         run: packer init .
 
       - name: Validate Packer configuration
-        working-directory: builds/proxmox/linux/debian/12
+        working-directory: builds/proxmox/linux/debian/12/base
         env:
           PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
           PKR_VAR_token_id: ${{ secrets.PROXMOX_TOKEN_ID }}
@@ -47,7 +47,7 @@ jobs:
         run: packer validate .
 
       - name: Build Debian 12 image
-        working-directory: builds/proxmox/linux/debian/12
+        working-directory: builds/proxmox/linux/debian/12/base
         env:
           PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
           PKR_VAR_token_id: ${{ secrets.PROXMOX_TOKEN_ID }}
