@@ -1,0 +1,56 @@
+---
+# Ansible playbook for minimal MySQL database server
+- name: Configure Minimal MySQL Database Server
+  hosts: all
+  become: true
+  
+  tasks:
+    - name: Install MySQL (minimal)
+      apt:
+        name:
+          - mysql-server
+          - python3-pymysql
+        state: present
+        update_cache: yes
+        install_recommends: no
+
+    - name: Ensure MySQL is started
+      systemd:
+        name: mysql
+        state: started
+        enabled: yes
+
+    - name: Configure MySQL for minimal resource usage
+      blockinfile:
+        path: /etc/mysql/mysql.conf.d/minimal.cnf
+        create: yes
+        block: |
+          [mysqld]
+          # Minimal resource configuration
+          innodb_buffer_pool_size = 128M
+          max_connections = 50
+          thread_cache_size = 8
+          query_cache_size = 16M
+          query_cache_limit = 1M
+          
+          # Network settings
+          bind-address = 127.0.0.1
+          
+          # Logging (minimal)
+          log_error = /var/log/mysql/error.log
+      notify: restart mysql
+
+    - name: Disable performance schema
+      blockinfile:
+        path: /etc/mysql/mysql.conf.d/performance.cnf
+        create: yes
+        block: |
+          [mysqld]
+          performance_schema = OFF
+      notify: restart mysql
+
+  handlers:
+    - name: restart mysql
+      systemd:
+        name: mysql
+        state: restarted
