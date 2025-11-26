@@ -12,6 +12,7 @@ source "proxmox-iso" "debian_12_base" {
   // virtual machine settings
   vm_id        = 9000
   vm_name      = "debian-12-base"
+  description  = local.build_description
   memory       = 4096
   cores        = 2
   sockets      = 2
