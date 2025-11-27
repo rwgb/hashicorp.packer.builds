@@ -77,7 +77,6 @@ jobs:
     runs-on: self-hosted
     timeout-minutes: 60
     needs: build-base
-    if: always()
     strategy:
       fail-fast: false
       matrix:
@@ -136,7 +135,6 @@ jobs:
     runs-on: self-hosted
     timeout-minutes: 60
     needs: build-base
-    if: always()
     strategy:
       fail-fast: false
       matrix:
