@@ -1,4 +1,4 @@
-name: Test Debian 12 Hardened Builds
+name: Test Debian 12 Hardened and Minimal Builds
 
 # Manual trigger only for testing
 on:
@@ -130,23 +130,90 @@ jobs:
           path: builds/proxmox/linux/debian/12/hardened/packer-*.log
           retention-days: 7
 
+  build-minimal:
+    name: Build Minimal - ${{ matrix.role }}
+    runs-on: self-hosted
+    timeout-minutes: 60
+    needs: build-base
+    strategy:
+      fail-fast: false
+      matrix:
+        role: [apache, docker, mysql, tomcat]
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Packer
+        uses: hashicorp/setup-packer@main
+        with:
+          version: "latest"
+
+      - name: Initialize Packer
+        working-directory: builds/proxmox/linux/debian/12/minimal
+        run: packer init .
+
+      - name: Validate Packer configuration
+        continue-on-error: true
+        working-directory: builds/proxmox/linux/debian/12/minimal
+        env:
+          PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
+          PKR_VAR_token_id: ${{ secrets.PROXMOX_TOKEN_ID }}
+          PKR_VAR_token_secret: ${{ secrets.PROXMOX_TOKEN_SECRET }}
+          PKR_VAR_node: ${{ secrets.PROXMOX_NODE }}
+          PKR_VAR_pool: ${{ secrets.PROXMOX_POOL }}
+          PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
+        run: |
+          echo "Note: SSH key validation errors are expected and can be ignored (keys generated at runtime)"
+          packer validate -only="proxmox-clone.debian12-minimal-${{ matrix.role }}" . || true
+
+      - name: Build Minimal ${{ matrix.role }} Template
+        working-directory: builds/proxmox/linux/debian/12/minimal
+        env:
+          PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
+          PKR_VAR_token_id: ${{ secrets.PROXMOX_TOKEN_ID }}
+          PKR_VAR_token_secret: ${{ secrets.PROXMOX_TOKEN_SECRET }}
+          PKR_VAR_node: ${{ secrets.PROXMOX_NODE }}
+          PKR_VAR_pool: ${{ secrets.PROXMOX_POOL }}
+          PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
+        run: |
+          echo "Building minimal ${{ matrix.role }} from base template..."
+          packer build -timestamp-ui -only="proxmox-clone.debian12-minimal-${{ matrix.role }}" .
+
+      - name: Upload Packer logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: packer-logs-minimal-${{ matrix.role }}
+          path: builds/proxmox/linux/debian/12/minimal/packer-*.log
+          retention-days: 7
+
   build-summary:
     name: Build Summary
     runs-on: self-hosted
-    needs: [build-base, build-hardened]
+    needs: [build-base, build-hardened, build-minimal]
     if: always()
     
     steps:
       - name: Generate Summary
         run: |
-          echo "## Debian 12 Hardened Builds Summary" >> $GITHUB_STEP_SUMMARY
+          echo "## Debian 12 Hardened and Minimal Builds Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### Build Results:" >> $GITHUB_STEP_SUMMARY
           echo "- **Base Template (VM 9000)**: ${{ needs.build-base.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "#### Hardened Builds:" >> $GITHUB_STEP_SUMMARY
           echo "- **Hardened Apache (VM 9001)**: ${{ needs.build-hardened.result }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Hardened Docker (VM 9002)**: ${{ needs.build-hardened.result }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Hardened MySQL (VM 9003)**: ${{ needs.build-hardened.result }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Hardened Tomcat (VM 9004)**: ${{ needs.build-hardened.result }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
+          echo "#### Minimal Builds:" >> $GITHUB_STEP_SUMMARY
+          echo "- **Minimal Apache (VM 9005)**: ${{ needs.build-minimal.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Minimal Docker (VM 9006)**: ${{ needs.build-minimal.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Minimal MySQL (VM 9007)**: ${{ needs.build-minimal.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Minimal Tomcat (VM 9008)**: ${{ needs.build-minimal.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
           echo "### Templates Created:" >> $GITHUB_STEP_SUMMARY
-          echo "All hardened templates include Ansible provisioning with security-focused configurations." >> $GITHUB_STEP_SUMMARY
+          echo "- **Hardened templates** include Ansible provisioning with security-focused configurations" >> $GITHUB_STEP_SUMMARY
+          echo "- **Minimal templates** include Ansible provisioning optimized for resource efficiency" >> $GITHUB_STEP_SUMMARY
