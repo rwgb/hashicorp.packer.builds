@@ -47,8 +47,9 @@ build {
   }
   
   // Run Ansible playbook based on build source
+  // Extract service name from source.name (e.g., "debian_12_minimal_apache" -> "apache")
   provisioner "ansible" {
-    playbook_file = "${path.root}/../../ansible/minimal-${source.name}.yml"
+    playbook_file = "${path.root}/../../../../ansible/minimal-${split("_", source.name)[3]}.yml"
     use_proxy     = false
     user          = var.username
   }

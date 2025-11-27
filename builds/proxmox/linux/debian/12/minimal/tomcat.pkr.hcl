@@ -14,7 +14,7 @@ build {
   }
   
   provisioner "ansible-local" {
-    playbook_file = "${path.root}/../../ansible/minimal-tomcat.yml"
+    playbook_file = "${path.root}/../../../../ansible/minimal-tomcat.yml"
   }
   
   provisioner "shell" {

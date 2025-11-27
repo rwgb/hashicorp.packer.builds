@@ -48,8 +48,3 @@ variable "clone_vm_id" {
   description = "The VM ID of the base template to clone from"
   default     = 9000
 }
-
-variable "ansible_playbook_path" {
-  type        = string
-  description = "Path to the Ansible playbook relative to the project root"
-}

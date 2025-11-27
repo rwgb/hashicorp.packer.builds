@@ -4,22 +4,23 @@ source "proxmox-clone" "debian_12_hardened_apache" {
   proxmox_url = "https://${var.proxmox_host}:8006/api2/json"
   username    = var.token_id
   token       = var.token_secret
-  
+
   // Proxmox settings
   node                     = var.node
   pool                     = var.pool
   insecure_skip_tls_verify = var.insecure_tls
-  
+
   // Clone settings
   clone_vm_id = var.clone_vm_id
   full_clone  = true
-  
+
   // VM settings
-  vm_id               = 9001
-  vm_name             = "debian-12-hardened-apache"
+  vm_id                = 9001
+  vm_name              = "debian-12-hardened-apache"
   template_description = "Debian 12 Hardened Apache Web Server - Built by Packer"
-  tags                = "linux;debian-12;hardened;apache"
-  
+  tags                 = "linux;debian-12;hardened;apache"
+  disable_kvm          = true
+
   // SSH settings
   ssh_username = var.username
   ssh_password = var.password
@@ -32,22 +33,23 @@ source "proxmox-clone" "debian_12_hardened_docker" {
   proxmox_url = "https://${var.proxmox_host}:8006/api2/json"
   username    = var.token_id
   token       = var.token_secret
-  
+
   // Proxmox settings
   node                     = var.node
   pool                     = var.pool
   insecure_skip_tls_verify = var.insecure_tls
-  
+
   // Clone settings
   clone_vm_id = var.clone_vm_id
   full_clone  = true
-  
+
   // VM settings
-  vm_id               = 9002
-  vm_name             = "debian-12-hardened-docker"
+  vm_id                = 9002
+  vm_name              = "debian-12-hardened-docker"
   template_description = "Debian 12 Hardened Docker Host - Built by Packer"
-  tags                = "linux;debian-12;hardened;docker"
-  
+  tags                 = "linux;debian-12;hardened;docker"
+  disable_kvm          = true
+
   // SSH settings
   ssh_username = var.username
   ssh_password = var.password
@@ -60,22 +62,23 @@ source "proxmox-clone" "debian_12_hardened_mysql" {
   proxmox_url = "https://${var.proxmox_host}:8006/api2/json"
   username    = var.token_id
   token       = var.token_secret
-  
+
   // Proxmox settings
   node                     = var.node
   pool                     = var.pool
   insecure_skip_tls_verify = var.insecure_tls
-  
+
   // Clone settings
   clone_vm_id = var.clone_vm_id
   full_clone  = true
-  
+
   // VM settings
-  vm_id               = 9003
-  vm_name             = "debian-12-hardened-mysql"
+  vm_id                = 9003
+  vm_name              = "debian-12-hardened-mysql"
   template_description = "Debian 12 Hardened MySQL Database Server - Built by Packer"
-  tags                = "linux;debian-12;hardened;mysql"
-  
+  tags                 = "linux;debian-12;hardened;mysql"
+  disable_kvm          = true
+
   // SSH settings
   ssh_username = var.username
   ssh_password = var.password
@@ -88,22 +91,23 @@ source "proxmox-clone" "debian_12_hardened_tomcat" {
   proxmox_url = "https://${var.proxmox_host}:8006/api2/json"
   username    = var.token_id
   token       = var.token_secret
-  
+
   // Proxmox settings
   node                     = var.node
   pool                     = var.pool
   insecure_skip_tls_verify = var.insecure_tls
-  
+
   // Clone settings
   clone_vm_id = var.clone_vm_id
   full_clone  = true
-  
+
   // VM settings
-  vm_id               = 9004
-  vm_name             = "debian-12-hardened-tomcat"
+  vm_id                = 9004
+  vm_name              = "debian-12-hardened-tomcat"
   template_description = "Debian 12 Hardened Tomcat Application Server - Built by Packer"
-  tags                = "linux;debian-12;hardened;tomcat"
-  
+  tags                 = "linux;debian-12;hardened;tomcat"
+  disable_kvm          = true
+
   // SSH settings
   ssh_username = var.username
   ssh_password = var.password

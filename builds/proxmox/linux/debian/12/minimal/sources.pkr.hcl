@@ -19,6 +19,7 @@ source "proxmox-clone" "debian_12_minimal_apache" {
   vm_name             = "debian-12-minimal-apache"
   template_description = "Debian 12 Minimal Apache Web Server - Built by Packer"
   tags                = "linux;debian-12;minimal;apache"
+  disable_kvm         = true
   
   // SSH settings
   ssh_username = var.username
@@ -47,6 +48,7 @@ source "proxmox-clone" "debian_12_minimal_docker" {
   vm_name             = "debian-12-minimal-docker"
   template_description = "Debian 12 Minimal Docker Host - Built by Packer"
   tags                = "linux;debian-12;minimal;docker"
+  disable_kvm         = true
   
   // SSH settings
   ssh_username = var.username
@@ -75,6 +77,7 @@ source "proxmox-clone" "debian_12_minimal_mysql" {
   vm_name             = "debian-12-minimal-mysql"
   template_description = "Debian 12 Minimal MySQL Database Server - Built by Packer"
   tags                = "linux;debian-12;minimal;mysql"
+  disable_kvm         = true
   
   // SSH settings
   ssh_username = var.username
@@ -103,6 +106,7 @@ source "proxmox-clone" "debian_12_minimal_tomcat" {
   vm_name             = "debian-12-minimal-tomcat"
   template_description = "Debian 12 Minimal Tomcat Application Server - Built by Packer"
   tags                = "linux;debian-12;minimal;tomcat"
+  disable_kvm         = true
   
   // SSH settings
   ssh_username = var.username
