@@ -1,0 +1,13 @@
+{
+  "builds": [
+    {
+      "name": "debian_12_hardened_apache",
+      "builder_type": "proxmox-clone",
+      "files": null,
+      "artifact_id": "9001",
+      "packer_run_uuid": "da5c010b-fbd8-21df-c93a-65d315c9dd62",
+      "custom_data": null
+    }
+  ],
+  "last_run_uuid": "da5c010b-fbd8-21df-c93a-65d315c9dd62"
+}

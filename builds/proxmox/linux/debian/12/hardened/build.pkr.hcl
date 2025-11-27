@@ -48,10 +48,8 @@ build {
 
   // Run Ansible playbook based on build source
   // Extract role name from source.name (e.g., "debian_12_hardened_apache" -> "apache")
-  provisioner "ansible" {
+  provisioner "ansible-local" {
     playbook_file = "${path.root}/../../../../ansible/hardened-${split("_", source.name)[3]}.yml"
-    use_proxy     = false
-    user          = var.username
   }
 
   // Cleanup

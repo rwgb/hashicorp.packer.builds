@@ -11,76 +11,10 @@ env:
   PACKER_LOG: "1"
 
 jobs:
-  # Base build is commented out - assuming VM 9000 already exists
-  # build-base:
-  #   name: Build Debian 12 Base Template
-  #   runs-on: self-hosted
-  #   timeout-minutes: 90
-  #   
-  #   steps:
-  #
-  #     - name: Install updates
-  #       run: sudo apt-get update && sudo apt-get upgrade -y
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v4
-  #
-  #     - name: Setup Packer
-  #       uses: hashicorp/setup-packer@main
-  #       with:
-  #         version: "latest"
-  #
-  #     - name: Verify Packer installation
-  #       run: packer version
-  #
-  #     - name: Initialize Packer
-  #       working-directory: builds/proxmox/linux/debian/12/base
-  #       run: packer init .
-  #
-  #     - name: Validate Packer configuration
-  #       continue-on-error: true
-  #       working-directory: builds/proxmox/linux/debian/12/base
-  #       env:
-  #         PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
-  #         PKR_VAR_token_id: ${{ secrets.PROXMOX_TOKEN_ID }}
-  #         PKR_VAR_token_secret: ${{ secrets.PROXMOX_TOKEN_SECRET }}
-  #         PKR_VAR_node: ${{ secrets.PROXMOX_NODE }}
-  #         PKR_VAR_pool: ${{ secrets.PROXMOX_POOL }}
-  #         PKR_VAR_iso_storage_pool: ${{ secrets.PROXMOX_ISO_STORAGE }}
-  #         PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
-  #         PKR_VAR_cloud_init_storage_pool: ${{ secrets.PROXMOX_CLOUDINIT_STORAGE }}
-  #       run: packer validate .
-  #
-  #     - name: Build Debian 12 Base Template
-  #       working-directory: builds/proxmox/linux/debian/12/base
-  #       env:
-  #         PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
-  #         PKR_VAR_token_id: ${{ secrets.PROXMOX_TOKEN_ID }}
-  #         PKR_VAR_token_secret: ${{ secrets.PROXMOX_TOKEN_SECRET }}
-  #         PKR_VAR_node: ${{ secrets.PROXMOX_NODE }}
-  #         PKR_VAR_pool: ${{ secrets.PROXMOX_POOL }}
-  #         PKR_VAR_iso_storage_pool: ${{ secrets.PROXMOX_ISO_STORAGE }}
-  #         PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
-  #         PKR_VAR_cloud_init_storage_pool: ${{ secrets.PROXMOX_CLOUDINIT_STORAGE }}
-  #       run: |
-  #         echo "Building base template (VM 9000)..."
-  #         packer build -timestamp-ui .
-  #
-  #     - name: Upload Packer logs on failure
-  #       if: failure()
-  #       uses: actions/upload-artifact@v4
-  #       with:
-  #         name: packer-logs-base
-  #         path: builds/proxmox/linux/debian/12/base/packer-*.log
-  #         retention-days: 7
-
-  build-hardened:
-    name: Build Hardened - ${{ matrix.role }}
+  build-hardened-apache:
+    name: Build Hardened Apache
     runs-on: self-hosted
     timeout-minutes: 60
-    strategy:
-      fail-fast: false
-      matrix:
-        role: [apache]
     
     steps:
       - name: Checkout repository
@@ -105,11 +39,9 @@ jobs:
           PKR_VAR_node: ${{ secrets.PROXMOX_NODE }}
           PKR_VAR_pool: ${{ secrets.PROXMOX_POOL }}
           PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
-        run: |
-          echo "Note: SSH key validation errors are expected and can be ignored (keys generated at runtime)"
-          packer validate -only="debian_12_hardened_${{ matrix.role }}_only.proxmox-clone.debian_12_hardened_${{ matrix.role }}" . || true
+        run: packer validate -only="debian_12_hardened_apache_only.proxmox-clone.debian_12_hardened_apache" . || true
 
-      - name: Build Hardened ${{ matrix.role }} Template
+      - name: Build Hardened Apache Template
         working-directory: builds/proxmox/linux/debian/12/hardened
         env:
           PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
@@ -119,25 +51,23 @@ jobs:
           PKR_VAR_pool: ${{ secrets.PROXMOX_POOL }}
           PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
         run: |
-          echo "Building hardened ${{ matrix.role }} from base template..."
-          packer build -timestamp-ui -only="debian_12_hardened_${{ matrix.role }}_only.proxmox-clone.debian_12_hardened_${{ matrix.role }}" .
+          echo "Building hardened Apache from base template..."
+          packer build -timestamp-ui -only="debian_12_hardened_apache_only.proxmox-clone.debian_12_hardened_apache" .
 
       - name: Upload Packer logs on failure
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: packer-logs-hardened-${{ matrix.role }}
+          name: packer-logs-hardened-apache
           path: builds/proxmox/linux/debian/12/hardened/packer-*.log
           retention-days: 7
 
-  build-minimal:
-    name: Build Minimal - ${{ matrix.role }}
+  build-minimal-apache:
+    name: Build Minimal Apache
     runs-on: self-hosted
     timeout-minutes: 60
-    strategy:
-      fail-fast: false
-      matrix:
-        role: [apache]
+    needs: build-hardened-apache
+
     
     steps:
       - name: Checkout repository
@@ -162,11 +92,9 @@ jobs:
           PKR_VAR_node: ${{ secrets.PROXMOX_NODE }}
           PKR_VAR_pool: ${{ secrets.PROXMOX_POOL }}
           PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
-        run: |
-          echo "Note: SSH key validation errors are expected and can be ignored (keys generated at runtime)"
-          packer validate -only="debian_12_minimal_${{ matrix.role }}_only.proxmox-clone.debian_12_minimal_${{ matrix.role }}" . || true
+        run: packer validate -only="debian_12_minimal_apache_only.proxmox-clone.debian_12_minimal_apache" . || true
 
-      - name: Build Minimal ${{ matrix.role }} Template
+      - name: Build Minimal Apache Template
         working-directory: builds/proxmox/linux/debian/12/minimal
         env:
           PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
@@ -176,36 +104,355 @@ jobs:
           PKR_VAR_pool: ${{ secrets.PROXMOX_POOL }}
           PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
         run: |
-          echo "Building minimal ${{ matrix.role }} from base template..."
-          packer build -timestamp-ui -only="debian_12_minimal_${{ matrix.role }}_only.proxmox-clone.debian_12_minimal_${{ matrix.role }}" .
+          echo "Building minimal Apache from base template..."
+          packer build -timestamp-ui -only="debian_12_minimal_apache_only.proxmox-clone.debian_12_minimal_apache" .
 
       - name: Upload Packer logs on failure
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: packer-logs-minimal-${{ matrix.role }}
+          name: packer-logs-minimal-apache
+          path: builds/proxmox/linux/debian/12/minimal/packer-*.log
+          retention-days: 7
+
+  build-hardened-docker:
+    name: Build Hardened Docker
+    runs-on: self-hosted
+    timeout-minutes: 60
+    needs: build-minimal-apache
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Packer
+        uses: hashicorp/setup-packer@main
+        with:
+          version: "latest"
+
+      - name: Initialize Packer
+        working-directory: builds/proxmox/linux/debian/12/hardened
+        run: packer init .
+
+      - name: Validate Packer configuration
+        continue-on-error: true
+        working-directory: builds/proxmox/linux/debian/12/hardened
+        env:
+          PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
+          PKR_VAR_token_id: ${{ secrets.PROXMOX_TOKEN_ID }}
+          PKR_VAR_token_secret: ${{ secrets.PROXMOX_TOKEN_SECRET }}
+          PKR_VAR_node: ${{ secrets.PROXMOX_NODE }}
+          PKR_VAR_pool: ${{ secrets.PROXMOX_POOL }}
+          PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
+        run: packer validate -only="debian_12_hardened_docker_only.proxmox-clone.debian_12_hardened_docker" . || true
+
+      - name: Build Hardened Docker Template
+        working-directory: builds/proxmox/linux/debian/12/hardened
+        env:
+          PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
+          PKR_VAR_token_id: ${{ secrets.PROXMOX_TOKEN_ID }}
+          PKR_VAR_token_secret: ${{ secrets.PROXMOX_TOKEN_SECRET }}
+          PKR_VAR_node: ${{ secrets.PROXMOX_NODE }}
+          PKR_VAR_pool: ${{ secrets.PROXMOX_POOL }}
+          PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
+        run: |
+          echo "Building hardened Docker from base template..."
+          packer build -timestamp-ui -only="debian_12_hardened_docker_only.proxmox-clone.debian_12_hardened_docker" .
+
+      - name: Upload Packer logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: packer-logs-hardened-docker
+          path: builds/proxmox/linux/debian/12/hardened/packer-*.log
+          retention-days: 7
+
+  build-minimal-docker:
+    name: Build Minimal Docker
+    runs-on: self-hosted
+    timeout-minutes: 60
+    needs: build-hardened-docker
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Packer
+        uses: hashicorp/setup-packer@main
+        with:
+          version: "latest"
+
+      - name: Initialize Packer
+        working-directory: builds/proxmox/linux/debian/12/minimal
+        run: packer init .
+
+      - name: Validate Packer configuration
+        continue-on-error: true
+        working-directory: builds/proxmox/linux/debian/12/minimal
+        env:
+          PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
+          PKR_VAR_token_id: ${{ secrets.PROXMOX_TOKEN_ID }}
+          PKR_VAR_token_secret: ${{ secrets.PROXMOX_TOKEN_SECRET }}
+          PKR_VAR_node: ${{ secrets.PROXMOX_NODE }}
+          PKR_VAR_pool: ${{ secrets.PROXMOX_POOL }}
+          PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
+        run: packer validate -only="debian_12_minimal_docker_only.proxmox-clone.debian_12_minimal_docker" . || true
+
+      - name: Build Minimal Docker Template
+        working-directory: builds/proxmox/linux/debian/12/minimal
+        env:
+          PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
+          PKR_VAR_token_id: ${{ secrets.PROXMOX_TOKEN_ID }}
+          PKR_VAR_token_secret: ${{ secrets.PROXMOX_TOKEN_SECRET }}
+          PKR_VAR_node: ${{ secrets.PROXMOX_NODE }}
+          PKR_VAR_pool: ${{ secrets.PROXMOX_POOL }}
+          PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
+        run: |
+          echo "Building minimal Docker from base template..."
+          packer build -timestamp-ui -only="debian_12_minimal_docker_only.proxmox-clone.debian_12_minimal_docker" .
+
+      - name: Upload Packer logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: packer-logs-minimal-docker
+          path: builds/proxmox/linux/debian/12/minimal/packer-*.log
+          retention-days: 7
+
+  build-hardened-mysql:
+    name: Build Hardened MySQL
+    runs-on: self-hosted
+    timeout-minutes: 60
+    needs: build-minimal-docker
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Packer
+        uses: hashicorp/setup-packer@main
+        with:
+          version: "latest"
+
+      - name: Initialize Packer
+        working-directory: builds/proxmox/linux/debian/12/hardened
+        run: packer init .
+
+      - name: Validate Packer configuration
+        continue-on-error: true
+        working-directory: builds/proxmox/linux/debian/12/hardened
+        env:
+          PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
+          PKR_VAR_token_id: ${{ secrets.PROXMOX_TOKEN_ID }}
+          PKR_VAR_token_secret: ${{ secrets.PROXMOX_TOKEN_SECRET }}
+          PKR_VAR_node: ${{ secrets.PROXMOX_NODE }}
+          PKR_VAR_pool: ${{ secrets.PROXMOX_POOL }}
+          PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
+        run: packer validate -only="debian_12_hardened_mysql_only.proxmox-clone.debian_12_hardened_mysql" . || true
+
+      - name: Build Hardened MySQL Template
+        working-directory: builds/proxmox/linux/debian/12/hardened
+        env:
+          PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
+          PKR_VAR_token_id: ${{ secrets.PROXMOX_TOKEN_ID }}
+          PKR_VAR_token_secret: ${{ secrets.PROXMOX_TOKEN_SECRET }}
+          PKR_VAR_node: ${{ secrets.PROXMOX_NODE }}
+          PKR_VAR_pool: ${{ secrets.PROXMOX_POOL }}
+          PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
+        run: |
+          echo "Building hardened MySQL from base template..."
+          packer build -timestamp-ui -only="debian_12_hardened_mysql_only.proxmox-clone.debian_12_hardened_mysql" .
+
+      - name: Upload Packer logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: packer-logs-hardened-mysql
+          path: builds/proxmox/linux/debian/12/hardened/packer-*.log
+          retention-days: 7
+
+  build-minimal-mysql:
+    name: Build Minimal MySQL
+    runs-on: self-hosted
+    timeout-minutes: 60
+    needs: build-hardened-mysql
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Packer
+        uses: hashicorp/setup-packer@main
+        with:
+          version: "latest"
+
+      - name: Initialize Packer
+        working-directory: builds/proxmox/linux/debian/12/minimal
+        run: packer init .
+
+      - name: Validate Packer configuration
+        continue-on-error: true
+        working-directory: builds/proxmox/linux/debian/12/minimal
+        env:
+          PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
+          PKR_VAR_token_id: ${{ secrets.PROXMOX_TOKEN_ID }}
+          PKR_VAR_token_secret: ${{ secrets.PROXMOX_TOKEN_SECRET }}
+          PKR_VAR_node: ${{ secrets.PROXMOX_NODE }}
+          PKR_VAR_pool: ${{ secrets.PROXMOX_POOL }}
+          PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
+        run: packer validate -only="debian_12_minimal_mysql_only.proxmox-clone.debian_12_minimal_mysql" . || true
+
+      - name: Build Minimal MySQL Template
+        working-directory: builds/proxmox/linux/debian/12/minimal
+        env:
+          PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
+          PKR_VAR_token_id: ${{ secrets.PROXMOX_TOKEN_ID }}
+          PKR_VAR_token_secret: ${{ secrets.PROXMOX_TOKEN_SECRET }}
+          PKR_VAR_node: ${{ secrets.PROXMOX_NODE }}
+          PKR_VAR_pool: ${{ secrets.PROXMOX_POOL }}
+          PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
+        run: |
+          echo "Building minimal MySQL from base template..."
+          packer build -timestamp-ui -only="debian_12_minimal_mysql_only.proxmox-clone.debian_12_minimal_mysql" .
+
+      - name: Upload Packer logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: packer-logs-minimal-mysql
+          path: builds/proxmox/linux/debian/12/minimal/packer-*.log
+          retention-days: 7
+
+  build-hardened-tomcat:
+    name: Build Hardened Tomcat
+    runs-on: self-hosted
+    timeout-minutes: 60
+    needs: build-minimal-mysql
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Packer
+        uses: hashicorp/setup-packer@main
+        with:
+          version: "latest"
+
+      - name: Initialize Packer
+        working-directory: builds/proxmox/linux/debian/12/hardened
+        run: packer init .
+
+      - name: Validate Packer configuration
+        continue-on-error: true
+        working-directory: builds/proxmox/linux/debian/12/hardened
+        env:
+          PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
+          PKR_VAR_token_id: ${{ secrets.PROXMOX_TOKEN_ID }}
+          PKR_VAR_token_secret: ${{ secrets.PROXMOX_TOKEN_SECRET }}
+          PKR_VAR_node: ${{ secrets.PROXMOX_NODE }}
+          PKR_VAR_pool: ${{ secrets.PROXMOX_POOL }}
+          PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
+        run: packer validate -only="debian_12_hardened_tomcat_only.proxmox-clone.debian_12_hardened_tomcat" . || true
+
+      - name: Build Hardened Tomcat Template
+        working-directory: builds/proxmox/linux/debian/12/hardened
+        env:
+          PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
+          PKR_VAR_token_id: ${{ secrets.PROXMOX_TOKEN_ID }}
+          PKR_VAR_token_secret: ${{ secrets.PROXMOX_TOKEN_SECRET }}
+          PKR_VAR_node: ${{ secrets.PROXMOX_NODE }}
+          PKR_VAR_pool: ${{ secrets.PROXMOX_POOL }}
+          PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
+        run: |
+          echo "Building hardened Tomcat from base template..."
+          packer build -timestamp-ui -only="debian_12_hardened_tomcat_only.proxmox-clone.debian_12_hardened_tomcat" .
+
+      - name: Upload Packer logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: packer-logs-hardened-tomcat
+          path: builds/proxmox/linux/debian/12/hardened/packer-*.log
+          retention-days: 7
+
+  build-minimal-tomcat:
+    name: Build Minimal Tomcat
+    runs-on: self-hosted
+    timeout-minutes: 60
+    needs: build-hardened-tomcat
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Packer
+        uses: hashicorp/setup-packer@main
+        with:
+          version: "latest"
+
+      - name: Initialize Packer
+        working-directory: builds/proxmox/linux/debian/12/minimal
+        run: packer init .
+
+      - name: Validate Packer configuration
+        continue-on-error: true
+        working-directory: builds/proxmox/linux/debian/12/minimal
+        env:
+          PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
+          PKR_VAR_token_id: ${{ secrets.PROXMOX_TOKEN_ID }}
+          PKR_VAR_token_secret: ${{ secrets.PROXMOX_TOKEN_SECRET }}
+          PKR_VAR_node: ${{ secrets.PROXMOX_NODE }}
+          PKR_VAR_pool: ${{ secrets.PROXMOX_POOL }}
+          PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
+        run: packer validate -only="debian_12_minimal_tomcat_only.proxmox-clone.debian_12_minimal_tomcat" . || true
+
+      - name: Build Minimal Tomcat Template
+        working-directory: builds/proxmox/linux/debian/12/minimal
+        env:
+          PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
+          PKR_VAR_token_id: ${{ secrets.PROXMOX_TOKEN_ID }}
+          PKR_VAR_token_secret: ${{ secrets.PROXMOX_TOKEN_SECRET }}
+          PKR_VAR_node: ${{ secrets.PROXMOX_NODE }}
+          PKR_VAR_pool: ${{ secrets.PROXMOX_POOL }}
+          PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
+        run: |
+          echo "Building minimal Tomcat from base template..."
+          packer build -timestamp-ui -only="debian_12_minimal_tomcat_only.proxmox-clone.debian_12_minimal_tomcat" .
+
+      - name: Upload Packer logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: packer-logs-minimal-tomcat
           path: builds/proxmox/linux/debian/12/minimal/packer-*.log
           retention-days: 7
 
   build-summary:
     name: Build Summary
     runs-on: self-hosted
-    needs: [build-hardened, build-minimal]
+    needs: [build-hardened-apache, build-minimal-apache, build-hardened-docker, build-minimal-docker, build-hardened-mysql, build-minimal-mysql, build-hardened-tomcat, build-minimal-tomcat]
     if: always()
     
     steps:
       - name: Generate Summary
         run: |
-          echo "## Debian 12 Hardened and Minimal Builds Summary" >> $GITHUB_STEP_SUMMARY
+          echo "## Debian 12 Sequential Build Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### Build Results:" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "#### Hardened Builds:" >> $GITHUB_STEP_SUMMARY
-          echo "- **Hardened Apache (VM 9001)**: ${{ needs.build-hardened.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Hardened Apache (VM 9001)**: ${{ needs.build-hardened-apache.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Hardened Docker (VM 9002)**: ${{ needs.build-hardened-docker.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Hardened MySQL (VM 9003)**: ${{ needs.build-hardened-mysql.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Hardened Tomcat (VM 9004)**: ${{ needs.build-hardened-tomcat.result }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "#### Minimal Builds:" >> $GITHUB_STEP_SUMMARY
-          echo "- **Minimal Apache (VM 9005)**: ${{ needs.build-minimal.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Minimal Apache (VM 9005)**: ${{ needs.build-minimal-apache.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Minimal Docker (VM 9006)**: ${{ needs.build-minimal-docker.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Minimal MySQL (VM 9007)**: ${{ needs.build-minimal-mysql.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Minimal Tomcat (VM 9008)**: ${{ needs.build-minimal-tomcat.result }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### Templates Created:" >> $GITHUB_STEP_SUMMARY
-          echo "- **Hardened Apache** includes Ansible provisioning with security-focused configurations" >> $GITHUB_STEP_SUMMARY
-          echo "- **Minimal Apache** includes Ansible provisioning optimized for resource efficiency" >> $GITHUB_STEP_SUMMARY
+          echo "All builds executed sequentially from base template (VM 9000)." >> $GITHUB_STEP_SUMMARY
+          echo "- **Hardened** variants include security-focused configurations" >> $GITHUB_STEP_SUMMARY
+          echo "- **Minimal** variants optimized for resource efficiency" >> $GITHUB_STEP_SUMMARY
