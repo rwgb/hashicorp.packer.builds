@@ -5,7 +5,9 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
+  issues: write
 
 env:
   PACKER_LOG: "1"
@@ -583,3 +585,183 @@ jobs:
           echo "All builds executed sequentially from base template (VM 9000)." >> $GITHUB_STEP_SUMMARY
           echo "- **Hardened** variants include security-focused configurations" >> $GITHUB_STEP_SUMMARY
           echo "- **Minimal** variants optimized for resource efficiency" >> $GITHUB_STEP_SUMMARY
+
+  autofix-ci:
+    name: Autofix CI Failures
+    runs-on: self-hosted
+    needs: [build-hardened-apache, build-minimal-apache, build-hardened-docker, build-minimal-docker, build-hardened-mysql, build-minimal-mysql, build-hardened-tomcat, build-minimal-tomcat]
+    if: |
+      always() && (
+        needs.build-hardened-apache.result == 'failure' ||
+        needs.build-minimal-apache.result == 'failure' ||
+        needs.build-hardened-docker.result == 'failure' ||
+        needs.build-minimal-docker.result == 'failure' ||
+        needs.build-hardened-mysql.result == 'failure' ||
+        needs.build-minimal-mysql.result == 'failure' ||
+        needs.build-hardened-tomcat.result == 'failure' ||
+        needs.build-minimal-tomcat.result == 'failure'
+      )
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts/
+        continue-on-error: true
+
+      - name: Setup Python for Claude API
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Anthropic SDK
+        run: pip install anthropic
+
+      - name: Analyze failures and create fix with Claude
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BUILD_RESULTS: |
+            Hardened Apache: ${{ needs.build-hardened-apache.result }}
+            Minimal Apache: ${{ needs.build-minimal-apache.result }}
+            Hardened Docker: ${{ needs.build-hardened-docker.result }}
+            Minimal Docker: ${{ needs.build-minimal-docker.result }}
+            Hardened MySQL: ${{ needs.build-hardened-mysql.result }}
+            Minimal MySQL: ${{ needs.build-minimal-mysql.result }}
+            Hardened Tomcat: ${{ needs.build-hardened-tomcat.result }}
+            Minimal Tomcat: ${{ needs.build-minimal-tomcat.result }}
+        run: |
+          python3 << 'PYTHON_SCRIPT'
+          import os
+          import json
+          import subprocess
+          from anthropic import Anthropic
+          from pathlib import Path
+          
+          # Initialize Claude client
+          client = Anthropic(api_key=os.environ['ANTHROPIC_API_KEY'])
+          
+          # Collect error logs
+          artifacts_path = Path('artifacts')
+          error_logs = []
+          
+          if artifacts_path.exists():
+              for log_dir in artifacts_path.glob('packer-logs-*'):
+                  for log_file in log_dir.glob('*.log'):
+                      try:
+                          content = log_file.read_text()
+                          error_logs.append(f"\\n=== {log_file.name} ===\\n{content[-5000:]}")  # Last 5000 chars
+                      except Exception as e:
+                          print(f"Error reading {log_file}: {e}")
+          
+          # Prepare context
+          context = f\"\"\"
+          Debian 12 Packer Build Failure Analysis
+          
+          Build Results:
+          {os.environ.get('BUILD_RESULTS', 'No results available')}
+          
+          Error Logs:
+          {''.join(error_logs) if error_logs else 'No log files found'}
+          
+          Repository Architecture:
+          - builds/proxmox/linux/debian/12/hardened/ - HCL configs for hardened builds
+          - builds/proxmox/linux/debian/12/minimal/ - HCL configs for minimal builds
+          - builds/proxmox/ansible/ - Ansible playbooks for provisioning
+          - .github/workflows/ - CI workflow definitions
+          
+          Build Architecture:
+          - Base template VM (ID 9000) must exist before running
+          - 8 sequential builds: 4 hardened + 4 minimal variants
+          - Roles: apache, docker, mysql, tomcat
+          - Uses proxmox-clone builder with ansible-local provisioner
+          - Each build creates VMs 9001-9008
+          
+          Common failure patterns:
+          - VM ID conflicts (handled with continue-on-error logic)
+          - Ansible provisioning errors (syntax, task failures)
+          - SSH connection timeouts or authentication issues
+          - Package installation failures in Ansible
+          - Proxmox API authentication or connectivity problems
+          - Resource allocation issues (CPU, RAM, disk)
+          - Cloud-init not completing in time
+          
+          Task:
+          Analyze the build failures and provide:
+          1. Root cause analysis of each failure
+          2. Specific file paths and line numbers that need changes
+          3. Exact code changes needed to fix the issues
+          4. Explanation of why these changes resolve the problems
+          5. Step-by-step remediation plan
+          \"\"\"
+          
+          # Call Claude API
+          try:
+              message = client.messages.create(
+                  model="claude-sonnet-4-20250514",
+                  max_tokens=4096,
+                  messages=[{
+                      "role": "user",
+                      "content": context
+                  }]
+              )
+              
+              analysis = message.content[0].text
+              
+              # Save analysis to file
+              with open('claude_analysis.md', 'w') as f:
+                  f.write("# CI Failure Analysis by Claude\\n\\n")
+                  f.write(analysis)
+              
+              print("\\n=== Claude Analysis ===")
+              print(analysis)
+              print("\\n=== Analysis saved to claude_analysis.md ===")
+              
+              # Create issue with analysis
+              issue_body = f\"\"\"
+          ## Automated CI Failure Analysis
+          
+          **Workflow Run:** ${{{{ github.server_url }}}}/${{{{ github.repository }}}}/actions/runs/${{{{ github.run_id }}}}
+          
+          ### Build Results
+          {os.environ.get('BUILD_RESULTS', 'No results available')}
+          
+          ### Claude AI Analysis
+          
+          {analysis}
+          
+          ---
+          *This analysis was automatically generated by Claude AI (claude-sonnet-4-20250514)*
+          *Review the attached artifacts for complete build logs*
+          \"\"\"
+              
+              # Create GitHub issue using gh CLI
+              subprocess.run([
+                  'gh', 'issue', 'create',
+                  '--title', f'CI Failure: Debian 12 Build (Run #{os.environ.get("GITHUB_RUN_NUMBER", "unknown")})',
+                  '--body', issue_body,
+                  '--label', 'ci-failure,automated'
+              ], check=True)
+              
+              print("\\n=== GitHub issue created successfully ===")
+              
+          except Exception as e:
+              print(f"Error calling Claude API or creating issue: {e}")
+              import traceback
+              traceback.print_exc()
+              exit(1)
+          
+          PYTHON_SCRIPT
+
+      - name: Upload Claude analysis
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: claude-analysis
+          path: claude_analysis.md
+          retention-days: 30
