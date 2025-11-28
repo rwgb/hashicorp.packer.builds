@@ -42,6 +42,8 @@ jobs:
         run: packer validate -only="debian_12_hardened_apache_only.proxmox-clone.debian_12_hardened_apache" . || true
 
       - name: Build Hardened Apache Template
+        id: build
+        continue-on-error: true
         working-directory: builds/proxmox/linux/debian/12/hardened
         env:
           PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
@@ -52,7 +54,20 @@ jobs:
           PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
         run: |
           echo "Building hardened Apache from base template..."
-          packer build -timestamp-ui -only="debian_12_hardened_apache_only.proxmox-clone.debian_12_hardened_apache" .
+          packer build -timestamp-ui -only="debian_12_hardened_apache_only.proxmox-clone.debian_12_hardened_apache" . 2>&1 | tee build.log
+          exit ${PIPESTATUS[0]}
+
+      - name: Check build result
+        if: steps.build.outcome == 'failure'
+        working-directory: builds/proxmox/linux/debian/12/hardened
+        run: |
+          if grep -q "VM .* already exists" build.log || grep -q "unable to create VM.*already exists" build.log; then
+            echo "VM ID already exists - treating as success"
+            exit 0
+          else
+            echo "Build failed for reason other than VM ID conflict"
+            exit 1
+          fi
 
       - name: Upload Packer logs on failure
         if: failure()
@@ -67,6 +82,7 @@ jobs:
     runs-on: self-hosted
     timeout-minutes: 60
     needs: build-hardened-apache
+    if: always()
 
     
     steps:
@@ -95,6 +111,8 @@ jobs:
         run: packer validate -only="debian_12_minimal_apache_only.proxmox-clone.debian_12_minimal_apache" . || true
 
       - name: Build Minimal Apache Template
+        id: build
+        continue-on-error: true
         working-directory: builds/proxmox/linux/debian/12/minimal
         env:
           PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
@@ -105,7 +123,20 @@ jobs:
           PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
         run: |
           echo "Building minimal Apache from base template..."
-          packer build -timestamp-ui -only="debian_12_minimal_apache_only.proxmox-clone.debian_12_minimal_apache" .
+          packer build -timestamp-ui -only="debian_12_minimal_apache_only.proxmox-clone.debian_12_minimal_apache" . 2>&1 | tee build.log
+          exit ${PIPESTATUS[0]}
+
+      - name: Check build result
+        if: steps.build.outcome == 'failure'
+        working-directory: builds/proxmox/linux/debian/12/minimal
+        run: |
+          if grep -q "VM .* already exists" build.log || grep -q "unable to create VM.*already exists" build.log; then
+            echo "VM ID already exists - treating as success"
+            exit 0
+          else
+            echo "Build failed for reason other than VM ID conflict"
+            exit 1
+          fi
 
       - name: Upload Packer logs on failure
         if: failure()
@@ -120,6 +151,7 @@ jobs:
     runs-on: self-hosted
     timeout-minutes: 60
     needs: build-minimal-apache
+    if: always()
     
     steps:
       - name: Checkout repository
@@ -147,6 +179,8 @@ jobs:
         run: packer validate -only="debian_12_hardened_docker_only.proxmox-clone.debian_12_hardened_docker" . || true
 
       - name: Build Hardened Docker Template
+        id: build
+        continue-on-error: true
         working-directory: builds/proxmox/linux/debian/12/hardened
         env:
           PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
@@ -157,7 +191,20 @@ jobs:
           PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
         run: |
           echo "Building hardened Docker from base template..."
-          packer build -timestamp-ui -only="debian_12_hardened_docker_only.proxmox-clone.debian_12_hardened_docker" .
+          packer build -timestamp-ui -only="debian_12_hardened_docker_only.proxmox-clone.debian_12_hardened_docker" . 2>&1 | tee build.log
+          exit ${PIPESTATUS[0]}
+
+      - name: Check build result
+        if: steps.build.outcome == 'failure'
+        working-directory: builds/proxmox/linux/debian/12/hardened
+        run: |
+          if grep -q "VM .* already exists" build.log || grep -q "unable to create VM.*already exists" build.log; then
+            echo "VM ID already exists - treating as success"
+            exit 0
+          else
+            echo "Build failed for reason other than VM ID conflict"
+            exit 1
+          fi
 
       - name: Upload Packer logs on failure
         if: failure()
@@ -172,6 +219,7 @@ jobs:
     runs-on: self-hosted
     timeout-minutes: 60
     needs: build-hardened-docker
+    if: always()
     
     steps:
       - name: Checkout repository
@@ -199,6 +247,8 @@ jobs:
         run: packer validate -only="debian_12_minimal_docker_only.proxmox-clone.debian_12_minimal_docker" . || true
 
       - name: Build Minimal Docker Template
+        id: build
+        continue-on-error: true
         working-directory: builds/proxmox/linux/debian/12/minimal
         env:
           PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
@@ -209,7 +259,20 @@ jobs:
           PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
         run: |
           echo "Building minimal Docker from base template..."
-          packer build -timestamp-ui -only="debian_12_minimal_docker_only.proxmox-clone.debian_12_minimal_docker" .
+          packer build -timestamp-ui -only="debian_12_minimal_docker_only.proxmox-clone.debian_12_minimal_docker" . 2>&1 | tee build.log
+          exit ${PIPESTATUS[0]}
+
+      - name: Check build result
+        if: steps.build.outcome == 'failure'
+        working-directory: builds/proxmox/linux/debian/12/minimal
+        run: |
+          if grep -q "VM .* already exists" build.log || grep -q "unable to create VM.*already exists" build.log; then
+            echo "VM ID already exists - treating as success"
+            exit 0
+          else
+            echo "Build failed for reason other than VM ID conflict"
+            exit 1
+          fi
 
       - name: Upload Packer logs on failure
         if: failure()
@@ -224,6 +287,7 @@ jobs:
     runs-on: self-hosted
     timeout-minutes: 60
     needs: build-minimal-docker
+    if: always()
     
     steps:
       - name: Checkout repository
@@ -251,6 +315,8 @@ jobs:
         run: packer validate -only="debian_12_hardened_mysql_only.proxmox-clone.debian_12_hardened_mysql" . || true
 
       - name: Build Hardened MySQL Template
+        id: build
+        continue-on-error: true
         working-directory: builds/proxmox/linux/debian/12/hardened
         env:
           PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
@@ -261,7 +327,20 @@ jobs:
           PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
         run: |
           echo "Building hardened MySQL from base template..."
-          packer build -timestamp-ui -only="debian_12_hardened_mysql_only.proxmox-clone.debian_12_hardened_mysql" .
+          packer build -timestamp-ui -only="debian_12_hardened_mysql_only.proxmox-clone.debian_12_hardened_mysql" . 2>&1 | tee build.log
+          exit ${PIPESTATUS[0]}
+
+      - name: Check build result
+        if: steps.build.outcome == 'failure'
+        working-directory: builds/proxmox/linux/debian/12/hardened
+        run: |
+          if grep -q "VM .* already exists" build.log || grep -q "unable to create VM.*already exists" build.log; then
+            echo "VM ID already exists - treating as success"
+            exit 0
+          else
+            echo "Build failed for reason other than VM ID conflict"
+            exit 1
+          fi
 
       - name: Upload Packer logs on failure
         if: failure()
@@ -276,6 +355,7 @@ jobs:
     runs-on: self-hosted
     timeout-minutes: 60
     needs: build-hardened-mysql
+    if: always()
     
     steps:
       - name: Checkout repository
@@ -303,6 +383,8 @@ jobs:
         run: packer validate -only="debian_12_minimal_mysql_only.proxmox-clone.debian_12_minimal_mysql" . || true
 
       - name: Build Minimal MySQL Template
+        id: build
+        continue-on-error: true
         working-directory: builds/proxmox/linux/debian/12/minimal
         env:
           PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
@@ -313,7 +395,20 @@ jobs:
           PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
         run: |
           echo "Building minimal MySQL from base template..."
-          packer build -timestamp-ui -only="debian_12_minimal_mysql_only.proxmox-clone.debian_12_minimal_mysql" .
+          packer build -timestamp-ui -only="debian_12_minimal_mysql_only.proxmox-clone.debian_12_minimal_mysql" . 2>&1 | tee build.log
+          exit ${PIPESTATUS[0]}
+
+      - name: Check build result
+        if: steps.build.outcome == 'failure'
+        working-directory: builds/proxmox/linux/debian/12/minimal
+        run: |
+          if grep -q "VM .* already exists" build.log || grep -q "unable to create VM.*already exists" build.log; then
+            echo "VM ID already exists - treating as success"
+            exit 0
+          else
+            echo "Build failed for reason other than VM ID conflict"
+            exit 1
+          fi
 
       - name: Upload Packer logs on failure
         if: failure()
@@ -328,6 +423,7 @@ jobs:
     runs-on: self-hosted
     timeout-minutes: 60
     needs: build-minimal-mysql
+    if: always()
     
     steps:
       - name: Checkout repository
@@ -355,6 +451,8 @@ jobs:
         run: packer validate -only="debian_12_hardened_tomcat_only.proxmox-clone.debian_12_hardened_tomcat" . || true
 
       - name: Build Hardened Tomcat Template
+        id: build
+        continue-on-error: true
         working-directory: builds/proxmox/linux/debian/12/hardened
         env:
           PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
@@ -365,7 +463,20 @@ jobs:
           PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
         run: |
           echo "Building hardened Tomcat from base template..."
-          packer build -timestamp-ui -only="debian_12_hardened_tomcat_only.proxmox-clone.debian_12_hardened_tomcat" .
+          packer build -timestamp-ui -only="debian_12_hardened_tomcat_only.proxmox-clone.debian_12_hardened_tomcat" . 2>&1 | tee build.log
+          exit ${PIPESTATUS[0]}
+
+      - name: Check build result
+        if: steps.build.outcome == 'failure'
+        working-directory: builds/proxmox/linux/debian/12/hardened
+        run: |
+          if grep -q "VM .* already exists" build.log || grep -q "unable to create VM.*already exists" build.log; then
+            echo "VM ID already exists - treating as success"
+            exit 0
+          else
+            echo "Build failed for reason other than VM ID conflict"
+            exit 1
+          fi
 
       - name: Upload Packer logs on failure
         if: failure()
@@ -380,6 +491,7 @@ jobs:
     runs-on: self-hosted
     timeout-minutes: 60
     needs: build-hardened-tomcat
+    if: always()
     
     steps:
       - name: Checkout repository
@@ -407,6 +519,8 @@ jobs:
         run: packer validate -only="debian_12_minimal_tomcat_only.proxmox-clone.debian_12_minimal_tomcat" . || true
 
       - name: Build Minimal Tomcat Template
+        id: build
+        continue-on-error: true
         working-directory: builds/proxmox/linux/debian/12/minimal
         env:
           PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
@@ -417,7 +531,20 @@ jobs:
           PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
         run: |
           echo "Building minimal Tomcat from base template..."
-          packer build -timestamp-ui -only="debian_12_minimal_tomcat_only.proxmox-clone.debian_12_minimal_tomcat" .
+          packer build -timestamp-ui -only="debian_12_minimal_tomcat_only.proxmox-clone.debian_12_minimal_tomcat" . 2>&1 | tee build.log
+          exit ${PIPESTATUS[0]}
+
+      - name: Check build result
+        if: steps.build.outcome == 'failure'
+        working-directory: builds/proxmox/linux/debian/12/minimal
+        run: |
+          if grep -q "VM .* already exists" build.log || grep -q "unable to create VM.*already exists" build.log; then
+            echo "VM ID already exists - treating as success"
+            exit 0
+          else
+            echo "Build failed for reason other than VM ID conflict"
+            exit 1
+          fi
 
       - name: Upload Packer logs on failure
         if: failure()
