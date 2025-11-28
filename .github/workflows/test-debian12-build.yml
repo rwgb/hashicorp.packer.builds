@@ -626,6 +626,10 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_SERVER_URL: ${{ github.server_url }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
+          GITHUB_RUN_NUMBER: ${{ github.run_number }}
           BUILD_RESULTS: |
             Hardened Apache: ${{ needs.build-hardened-apache.result }}
             Minimal Apache: ${{ needs.build-minimal-apache.result }}
@@ -726,7 +730,7 @@ jobs:
               issue_body = f\"\"\"
           ## Automated CI Failure Analysis
           
-          **Workflow Run:** ${{{{ github.server_url }}}}/${{{{ github.repository }}}}/actions/runs/${{{{ github.run_id }}}}
+          **Workflow Run:** {os.environ.get('GITHUB_SERVER_URL')}/{os.environ.get('GITHUB_REPOSITORY')}/actions/runs/{os.environ.get('GITHUB_RUN_ID')}
           
           ### Build Results
           {os.environ.get('BUILD_RESULTS', 'No results available')}
