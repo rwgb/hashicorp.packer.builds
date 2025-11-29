@@ -620,7 +620,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install Anthropic SDK
-        run: pip install anthropic
+        run: pip install anthropic requests
 
       - name: Analyze failures and create fix with Claude
         env:
@@ -644,6 +644,7 @@ jobs:
           import os
           import json
           import subprocess
+          import requests
           from anthropic import Anthropic
           from pathlib import Path
           
@@ -744,21 +745,52 @@ jobs:
           *Review the attached artifacts for complete build logs*
           """
               
-              # Create GitHub issue using gh CLI
-              subprocess.run([
-                  'gh', 'issue', 'create',
-                  '--title', f'CI Failure: Debian 12 Build (Run #{os.environ.get("GITHUB_RUN_NUMBER", "unknown")})',
-                  '--body', issue_body,
-                  '--label', 'ci-failure,automated'
-              ], check=True)
-              
-              print("\n=== GitHub issue created successfully ===")
+              # Create GitHub issue using REST API
+              try:
+                  github_token = os.environ.get('GITHUB_TOKEN')
+                  repo = os.environ.get('GITHUB_REPOSITORY')  # format: owner/repo
+                  
+                  if not github_token or not repo:
+                      print("\n=== Warning: Missing GITHUB_TOKEN or GITHUB_REPOSITORY ===")
+                      print("Skipping issue creation.")
+                  else:
+                      # Create issue via GitHub REST API
+                      api_url = f"https://api.github.com/repos/{repo}/issues"
+                      headers = {
+                          'Authorization': f'token {github_token}',
+                          'Accept': 'application/vnd.github.v3+json',
+                          'Content-Type': 'application/json'
+                      }
+                      
+                      issue_data = {
+                          'title': f'CI Failure: Debian 12 Build (Run #{os.environ.get("GITHUB_RUN_NUMBER", "unknown")})',
+                          'body': issue_body,
+                          'labels': ['ci-failure', 'automated']
+                      }
+                      
+                      response = requests.post(api_url, headers=headers, json=issue_data)
+                      
+                      if response.status_code == 201:
+                          issue_url = response.json().get('html_url')
+                          print(f"\n=== GitHub issue created successfully ===")
+                          print(f"Issue URL: {issue_url}")
+                      else:
+                          print(f"\n=== Warning: Failed to create GitHub issue ===")
+                          print(f"Status code: {response.status_code}")
+                          print(f"Response: {response.text}")
+                          print("Analysis has been saved to claude_analysis.md artifact.")
+                          
+              except Exception as e:
+                  print(f"\n=== Warning: Error creating GitHub issue ===")
+                  print(f"Error: {e}")
+                  print("Analysis has been saved to claude_analysis.md artifact.")
               
           except Exception as e:
               print(f"Error calling Claude API or creating issue: {e}")
               import traceback
               traceback.print_exc()
-              exit(1)
+              # Don't exit with error - we still want to upload the partial results
+              print("\n=== Continuing despite errors to upload any available analysis ===")
           
           PYTHON_SCRIPT
 
