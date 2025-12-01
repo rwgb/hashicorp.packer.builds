@@ -25,6 +25,24 @@ variable "pool" {
   description = "The name of the resource pool in which to create the virtual machine"
 }
 
+variable "iso_storage_pool" {
+  type        = string
+  description = "The Proxmox storage pool where ISO files are stored"
+  default     = "local"
+}
+
+variable "disk_storage_pool" {
+  type        = string
+  description = "The Proxmox storage pool for VM disks"
+  default     = "local-lvm"
+}
+
+variable "cloud_init_storage_pool" {
+  type        = string
+  description = "The Proxmox storage pool for cloud-init drives"
+  default     = "local-lvm"
+}
+
 variable "insecure_tls" {
   type        = bool
   description = "Defaults to true. Whether or not HTTPS certificate of the proxmox server should be validated"
@@ -43,7 +61,32 @@ variable "password" {
   default     = "packer"
 }
 
+variable "guest_os_language" {
+  type        = string
+  description = "The operating system language that should be installed"
+  default     = "en_US"
+}
+
+variable "guest_os_keyboard" {
+  type        = string
+  description = "The keyboard language that should be installed"
+  default     = "en_US"
+}
+
+variable "guest_os_timezone" {
+  type        = string
+  description = "The timezone that the virtual machine should be set with"
+  default     = "UTC"
+}
+
+variable "additional_packages" {
+  type        = list(string)
+  description = "A list of additional packages to install in the virtual machine"
+  default     = []
+}
+
 variable "build_key" {
   type        = string
   description = "The public key file to connect to the vm"
+  default     = null
 }

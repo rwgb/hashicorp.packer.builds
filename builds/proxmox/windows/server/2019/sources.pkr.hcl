@@ -12,7 +12,7 @@ source "proxmox-iso" "windows_server_2k19_data_center_base" {
   task_timeout             = "20m"
 
   // virtual machine settings
-  vm_name         = "ws2k19dcbase"
+  vm_name         = "server-2019-base"
   memory          = 4096
   cores           = 2
   sockets         = 2
@@ -23,7 +23,7 @@ source "proxmox-iso" "windows_server_2k19_data_center_base" {
   // install media
   boot_iso {
     type         = "scsi"
-    iso_file     = "local:iso/en_windows_server_2019_updated_aug_2019_x64_dvd_cdf24600.iso"
+    iso_file     = "${var.iso_storage_pool}:iso/17763.3650.221105-1748.rs5_release_svc_refresh_SERVER_EVAL_x64FRE_en-us.iso"
     iso_checksum = "sha256:930d902d3880ba6462acc6f54ccabd2bf3f39f1c4514f08a02b3714f8ecf166e"
     unmount      = true
   }
@@ -32,7 +32,7 @@ source "proxmox-iso" "windows_server_2k19_data_center_base" {
   additional_iso_files {
     type             = "sata"
     cd_label         = "2k19_drivers"
-    iso_storage_pool = "packer_iso"
+    iso_storage_pool = var.iso_storage_pool
     cd_files = [
       "${path.cwd}/drivers",
       "../../scripts"
@@ -56,7 +56,7 @@ source "proxmox-iso" "windows_server_2k19_data_center_base" {
   // disk settings
   disks {
     type         = "scsi"
-    storage_pool = "local-lvm"
+    storage_pool = var.disk_storage_pool
     disk_size    = "32G"
   }
 
@@ -111,7 +111,7 @@ source "proxmox-clone" "windows_server_2k19_data_center_base" {
   // disk settings
   disks {
     type         = "scsi"
-    storage_pool = "local-lvm"
+    storage_pool = var.disk_storage_pool
     disk_size    = "32G"
   }
 
@@ -126,7 +126,7 @@ source "proxmox-clone" "windows_server_2k19_data_center_base" {
   additional_iso_files {
     type             = "sata"
     cd_label         = "autounattend"
-    iso_storage_pool = "packer_iso"
+    iso_storage_pool = var.iso_storage_pool
     cd_content = {
       "autounattend.xml" = templatefile("${abspath(path.root)}/data/autounattend.pkrtpl.hcl", {
         is_efi            = false
@@ -145,7 +145,7 @@ source "proxmox-clone" "windows_server_2k19_data_center_base" {
 
   // cloud init settings
   cloud_init              = true
-  cloud_init_storage_pool = "cidata"
+  cloud_init_storage_pool = var.cloud_init_storage_pool
 
   // boot settings
   boot_wait    = "5s"
