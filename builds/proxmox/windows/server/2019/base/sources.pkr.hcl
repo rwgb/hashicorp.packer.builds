@@ -21,6 +21,7 @@ source "proxmox-iso" "windows_server_2k19_data_center_base" {
   disable_kvm     = true
   scsi_controller = "virtio-scsi-single"
   tags            = "windows;server-2019;data_center;template;base"
+  template_description = "Windows Server 2019 Datacenter Base Template\nBuild Version: ${local.build_version}\nBuilt on: ${local.build_date}\nAuthor: ${local.git_author}\nCommitter: ${local.git_committer}\nCommit Timestamp: ${local.git_timestamp}\n${local.build_by}"
 
   // install media
   boot_iso {

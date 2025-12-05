@@ -56,7 +56,7 @@ build {
   }
   */
   // commenting out for base build.
-  /*
+  
   provisioner "windows-update" {
     pause_before    = "30s"
     search_criteria = "IsInstalled=0"
@@ -68,7 +68,7 @@ build {
       "include:$true"
     ]
   }
-*/
+
   // Sysprep to generalize the image
   provisioner "powershell" {
     inline = [
