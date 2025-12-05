@@ -11,8 +11,8 @@ source "proxmox-clone" "windows_server_2k19_minimal" {
   insecure_skip_tls_verify = var.insecure_tls
 
   // virtual machine settings
-  clone_vm_id     = 2000
-  vm_id           = 2002
+  clone_vm_id     = 9010
+  vm_id           = 9011
   vm_name         = "win-server-2019-minimal"
   memory          = 4096
   cores           = 2

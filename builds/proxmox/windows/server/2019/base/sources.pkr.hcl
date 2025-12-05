@@ -14,9 +14,9 @@ source "proxmox-iso" "windows_server_2k19_data_center_base" {
   // virtual machine settings
   vm_id           = 9010
   vm_name         = "win-server-2019-base"
-  memory          = 4096
-  cores           = 2
-  sockets         = 2
+  memory          = 8192
+  cores           = 4
+  sockets         = 4
   qemu_agent      = true
   disable_kvm     = true
   scsi_controller = "virtio-scsi-single"
@@ -47,7 +47,7 @@ source "proxmox-iso" "windows_server_2k19_data_center_base" {
         inst_os_language  = "en-US"
         inst_os_keyboard  = "en-US"
         inst_os_image     = "Windows Server 2019 SERVERDATACENTER"
-        kms_key           = "WMDGN-G9PQG-XVVXX-R3X43-63DFG"
+        kms_key           = "" # "WMDGN-G9PQG-XVVXX-R3X43-63DFG"
         guest_os_language = "en-US"
         guest_os_keyboard = "en-US"
         guest_os_timezone = "CST"
@@ -81,7 +81,7 @@ source "proxmox-iso" "windows_server_2k19_data_center_base" {
   winrm_username = var.username
   winrm_password = var.password
   winrm_port     = 5985
-  winrm_timeout  = "10m"
+  winrm_timeout  = "60m"
   winrm_insecure = true
   winrm_use_ssl  = false
   winrm_use_ntlm = false
@@ -138,7 +138,7 @@ source "proxmox-clone" "windows_server_2k19_data_center_base" {
         inst_os_language  = "en-US"
         inst_os_keyboard  = "en-US"
         inst_os_image     = "Windows Server 2019 SERVERDATACENTER"
-        kms_key           = "WMDGN-G9PQG-XVVXX-R3X43–63DFG"
+        kms_key           = "" # "WMDGN-G9PQG-XVVXX-R3X43–63DFG"
         guest_os_language = "en-US"
         guest_os_keyboard = "en-US"
         guest_os_timezone = "CST"

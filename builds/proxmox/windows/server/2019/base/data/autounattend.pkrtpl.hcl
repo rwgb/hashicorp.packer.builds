@@ -145,7 +145,7 @@
             <FullName>${username}</FullName>
             <Organization>${username}</Organization>
             <ProductKey>
-               <Key>${kms_key}</Key>
+               <!-- <Key>${kms_key}</Key> -->
                <WillShowUI>OnError</WillShowUI>
             </ProductKey>
          </UserData>
