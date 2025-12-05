@@ -37,7 +37,7 @@ source "proxmox-iso" "windows_server_2k19_data_center_base" {
     iso_storage_pool = var.iso_storage_pool
     cd_files = [
       "${path.cwd}/drivers",
-      "../../scripts"
+      "../../../scripts"
     ]
     cd_content = {
       "autounattend.xml" = templatefile("${abspath(path.root)}/data/autounattend.pkrtpl.hcl", {

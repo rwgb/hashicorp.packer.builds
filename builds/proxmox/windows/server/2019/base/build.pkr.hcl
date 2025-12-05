@@ -69,6 +69,15 @@ build {
     ]
   }
 */
+  // Sysprep to generalize the image
+  provisioner "powershell" {
+    inline = [
+      "Write-Host 'Running Sysprep to generalize the image...'",
+      "& $env:SystemRoot\\System32\\Sysprep\\Sysprep.exe /generalize /oobe /quit /mode:vm",
+      "while($true) { $imageState = Get-ItemProperty HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Setup\\State | Select-Object ImageState; if($imageState.ImageState -ne 'IMAGE_STATE_GENERALIZE_RESEAL_TO_OOBE') { Write-Host $imageState.ImageState; Start-Sleep -s 10 } else { break } }"
+    ]
+  }
+
   post-processor "manifest" {
     output     = local.manifest_output
     strip_path = true
