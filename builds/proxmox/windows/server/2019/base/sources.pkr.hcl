@@ -12,15 +12,15 @@ source "proxmox-iso" "windows_server_2k19_data_center_base" {
   task_timeout             = "20m"
 
   // virtual machine settings
-  vm_id           = 9010
-  vm_name         = "win-server-2019-base"
-  memory          = 8192
-  cores           = 4
-  sockets         = 4
-  qemu_agent      = true
-  disable_kvm     = true
-  scsi_controller = "virtio-scsi-single"
-  tags            = "windows;server-2019;data_center;template;base"
+  vm_id                = 9010
+  vm_name              = "win-server-2019-base"
+  memory               = 8192
+  cores                = 2
+  sockets              = 2
+  qemu_agent           = true
+  disable_kvm          = true
+  scsi_controller      = "virtio-scsi-single"
+  tags                 = "windows;server-2019;data_center;template;base"
   template_description = "Windows Server 2019 Datacenter Base Template\nBuild Version: ${local.build_version}\nBuilt on: ${local.build_date}\nAuthor: ${local.git_author}\nCommitter: ${local.git_committer}\nCommit Timestamp: ${local.git_timestamp}\n${local.build_by}"
 
   // install media
@@ -68,10 +68,6 @@ source "proxmox-iso" "windows_server_2k19_data_center_base" {
     bridge   = "vmbr0"
     firewall = false
   }
-
-  // cloud init settings
-  cloud_init              = true
-  cloud_init_storage_pool = "cidata"
 
   // boot settings
   boot_wait    = "5s"

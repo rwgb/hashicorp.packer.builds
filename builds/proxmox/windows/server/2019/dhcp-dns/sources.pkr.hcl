@@ -1,5 +1,5 @@
-// proxmox-clone source for minimal Windows Server 2019 build
-source "proxmox-clone" "windows_server_2k19_minimal" {
+// proxmox-clone source for Windows Server 2019 DHCP/DNS Server
+source "proxmox-clone" "windows_server_2k19_dhcp_dns" {
   // proxmox connection info
   proxmox_url = "https://${var.proxmox_host}:8006/api2/json"
   username    = var.token_id     # api token id
@@ -12,22 +12,23 @@ source "proxmox-clone" "windows_server_2k19_minimal" {
 
   // virtual machine settings
   clone_vm_id     = 9010
-  vm_id           = 9011
-  vm_name         = "win-server-2019-minimal"
+  vm_id           = 9013
+  vm_name         = "win-server-2019-dhcp-dns"
   memory          = 4096
   cores           = 2
   sockets         = 2
   qemu_agent      = true
   disable_kvm     = true
   scsi_controller = "virtio-scsi-single"
-  task_timeout    = "20m"
-  tags            = "windows;server-2019;minimal;template"
+  task_timeout    = "30m"
+  tags            = "windows;server-2019;dhcp;dns;template"
+  template_description = "Windows Server 2019 DHCP/DNS Server Template\nBuilt with Packer\nConfigured with Ansible"
 
   // disk settings
   disks {
     type         = "scsi"
     storage_pool = var.disk_storage_pool
-    disk_size    = "32G"
+    disk_size    = "40G"
   }
 
   // network settings
