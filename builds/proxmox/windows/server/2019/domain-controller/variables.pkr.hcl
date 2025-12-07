@@ -36,12 +36,6 @@ variable "insecure_tls" {
 }
 
 // Storage variables
-variable "iso_storage_pool" {
-  type        = string
-  description = "The Proxmox storage pool where ISO files are stored"
-  default     = "local"
-}
-
 variable "disk_storage_pool" {
   type        = string
   description = "Storage pool for VM disks"
@@ -59,24 +53,6 @@ variable "password" {
   type        = string
   description = "Administrator password"
   sensitive   = true
-}
-
-variable "guest_os_language" {
-  type        = string
-  description = "The operating system language"
-  default     = "en-US"
-}
-
-variable "guest_os_keyboard" {
-  type        = string
-  description = "The keyboard language"
-  default     = "en-US"
-}
-
-variable "guest_os_timezone" {
-  type        = string
-  description = "The timezone"
-  default     = "UTC"
 }
 
 // Domain variables

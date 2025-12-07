@@ -44,7 +44,7 @@ build {
     "source.proxmox-iso.windows_server_2k19_data_center_base",
   ]
   // redundant scripts. keeping provisioner for future builds
-/*
+  /*
   provisioner "powershell" {
     environment_vars = [
       "BUILD_USER=${var.username}"
@@ -56,7 +56,7 @@ build {
       "../../../scripts/windows-prepare.ps1"
     ]
   }
-*/
+
   provisioner "windows-update" {
     pause_before    = "30s"
     search_criteria = "IsInstalled=0"
@@ -68,12 +68,23 @@ build {
       "include:$true"
     ]
   }
+*/
+  // Copy sysprep unattend.xml to skip OOBE prompts on cloned VMs
+  provisioner "file" {
+    content = templatefile("${path.root}/data/unattend.pkrtpl.hcl", {
+      inst_os_language = var.guest_os_language
+      inst_os_keyboard = var.guest_os_keyboard
+      password         = var.password
+    })
+    destination = "C:\\Windows\\System32\\Sysprep\\unattend.xml"
+  }
+
   // Sysprep to generalize the image
   provisioner "powershell" {
     inline = [
       "Write-Host 'Running Sysprep to generalize the image...'",
-      "& $env:SystemRoot\\System32\\Sysprep\\Sysprep.exe /generalize /oobe /quit /mode:vm",
-      "while($true) { $imageState = Get-ItemProperty HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Setup\\State | Select-Object ImageState; if($imageState.ImageState -ne 'IMAGE_STATE_GENERALIZE_RESEAL_TO_OOBE') { Write-Host $imageState.ImageState; Start-Sleep -s 10 } else { break } }"
+      "& $env:SystemRoot\\System32\\Sysprep\\Sysprep.exe /generalize /oobe /shutdown /unattend:C:\\Windows\\System32\\Sysprep\\unattend.xml /mode:vm",
+      "Write-Host 'Sysprep command executed. VM will shutdown automatically.'"
     ]
   }
 

@@ -1,0 +1,22 @@
+{
+  "builds": [
+    {
+      "name": "windows_server_2k19_domain_controller",
+      "builder_type": "proxmox-clone",
+      "files": null,
+      "artifact_id": "9012",
+      "packer_run_uuid": "4014f403-f269-231e-0c26-237a32c0c9c1",
+      "custom_data": {
+        "author": "Ralph Brynard \u003cralph.brynard@gmail.com\u003e",
+        "build_date": "2025-12-07 21:38 UTC",
+        "build_type": "domain-controller",
+        "build_username": "Administrator",
+        "build_version": "2a16977b0ee0b219c222fa4c95e043ccf0515870",
+        "committer": "Ralph Brynard \u003cralph.brynard@gmail.com\u003e",
+        "domain_name": "dundermifflin.com",
+        "timestamp": "2025-12-06T20:31:57Z"
+      }
+    }
+  ],
+  "last_run_uuid": "4014f403-f269-231e-0c26-237a32c0c9c1"
+}

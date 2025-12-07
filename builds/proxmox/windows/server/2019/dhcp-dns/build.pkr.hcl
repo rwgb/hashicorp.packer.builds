@@ -56,12 +56,7 @@ build {
   provisioner "ansible" {
     playbook_file = local.ansible_playbook
     user          = var.username
-    use_proxy     = false
-    ansible_env_vars = [
-      "ANSIBLE_HOST_KEY_CHECKING=False",
-      "ANSIBLE_WINRM_SCHEME=http",
-      "ANSIBLE_WINRM_TRANSPORT=basic"
-    ]
+    use_proxy     = true
     extra_arguments = [
       "--extra-vars",
       "ansible_user=${var.username} ansible_password=${var.password} ansible_connection=winrm ansible_winrm_server_cert_validation=ignore dns_zone=${var.dns_zone} dhcp_scope_name=${var.dhcp_scope_name} dhcp_scope_start=${var.dhcp_scope_start} dhcp_scope_end=${var.dhcp_scope_end} dhcp_subnet=${var.dhcp_subnet} dhcp_gateway=${var.dhcp_gateway}"
