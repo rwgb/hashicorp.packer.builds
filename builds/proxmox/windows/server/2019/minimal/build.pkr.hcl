@@ -36,13 +36,11 @@ locals {
 
 // build block
 build {
-  name = "windows_server_2k19"
+  name = "windows_server_2k19_minimal"
   sources = [
-    //"source.proxmox-clone.windows_server_2k19_data_center_base",
-    "source.proxmox-iso.windows_server_2k19_data_center_base",
+    "source.proxmox-clone.windows_server_2k19_minimal"
   ]
-  // redundant scripts. keeping provisioner for future builds
-  /*
+
   provisioner "powershell" {
     environment_vars = [
       "BUILD_USER=${var.username}"
@@ -50,13 +48,11 @@ build {
     elevated_user     = var.username
     elevated_password = var.password
     scripts = [
-      "../../scripts/windows-init.ps1",
-      "../../scripts/windows-prepare.ps1"
+      "../../../scripts/windows-init.ps1",
+      "../../../scripts/windows-prepare.ps1"
     ]
   }
-  */
-  // commenting out for base build.
-  /*
+
   provisioner "windows-update" {
     pause_before    = "30s"
     search_criteria = "IsInstalled=0"
@@ -68,7 +64,7 @@ build {
       "include:$true"
     ]
   }
-*/
+
   post-processor "manifest" {
     output     = local.manifest_output
     strip_path = true

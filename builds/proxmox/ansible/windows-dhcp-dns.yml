@@ -1,0 +1,164 @@
+---
+# Ansible playbook for Windows Server 2019 DHCP/DNS Server
+- name: Configure Windows Server 2019 as DHCP/DNS Server
+  hosts: all
+  gather_facts: yes
+  
+  vars:
+    dns_zone: "{{ dns_zone | default('lab.local') }}"
+    dns_reverse_zone: "{{ dns_reverse_zone | default('1.168.192.in-addr.arpa') }}"
+    dhcp_scope_name: "{{ dhcp_scope_name | default('Lab Network') }}"
+    dhcp_scope_start: "{{ dhcp_scope_start | default('192.168.1.100') }}"
+    dhcp_scope_end: "{{ dhcp_scope_end | default('192.168.1.200') }}"
+    dhcp_subnet: "{{ dhcp_subnet | default('255.255.255.0') }}"
+    dhcp_gateway: "{{ dhcp_gateway | default('192.168.1.1') }}"
+    dns_forwarders:
+      - 8.8.8.8
+      - 1.1.1.1
+
+  tasks:
+    - name: Set computer name
+      win_hostname:
+        name: DHCP-DNS01
+      register: hostname_result
+
+    - name: Reboot if hostname changed
+      win_reboot:
+        reboot_timeout: 600
+      when: hostname_result.reboot_required
+
+    - name: Install DNS Server Windows Feature
+      win_feature:
+        name:
+          - DNS
+          - RSAT-DNS-Server
+        state: present
+        include_management_tools: yes
+      register: dns_feature
+
+    - name: Install DHCP Server Windows Feature
+      win_feature:
+        name:
+          - DHCP
+          - RSAT-DHCP
+        state: present
+        include_management_tools: yes
+      register: dhcp_feature
+
+    - name: Reboot after feature installation
+      win_reboot:
+        reboot_timeout: 600
+      when: dns_feature.reboot_required or dhcp_feature.reboot_required
+
+    - name: Configure DNS forwarders
+      win_shell: |
+        {% for forwarder in dns_forwarders %}
+        Add-DnsServerForwarder -IPAddress {{ forwarder }} -PassThru
+        {% endfor %}
+      ignore_errors: yes
+
+    - name: Create primary DNS zone
+      win_shell: |
+        Add-DnsServerPrimaryZone -Name "{{ dns_zone }}" -ReplicationScope "None" -PassThru
+      ignore_errors: yes
+
+    - name: Create reverse lookup zone
+      win_shell: |
+        Add-DnsServerPrimaryZone -NetworkId "192.168.1.0/24" -ReplicationScope "None" -PassThru
+      ignore_errors: yes
+
+    - name: Configure DNS server settings
+      win_shell: |
+        Set-DnsServerSetting -ComputerName localhost -RoundRobin $true -LocalNetPriority $true
+        Set-DnsServerScavenging -ScavengingState $true -RefreshInterval 7.00:00:00 -NoRefreshInterval 7.00:00:00 -ScavengingInterval 7.00:00:00 -ApplyOnAllZones
+      ignore_errors: yes
+
+    - name: Add DHCP Server to Active Directory (if domain joined)
+      win_shell: |
+        Add-DhcpServerInDC -DnsName "{{ ansible_fqdn }}" -IPAddress "{{ ansible_ip_addresses[0] }}"
+      ignore_errors: yes
+
+    - name: Create DHCP scope
+      win_shell: |
+        Add-DhcpServerv4Scope -Name "{{ dhcp_scope_name }}" -StartRange "{{ dhcp_scope_start }}" -EndRange "{{ dhcp_scope_end }}" -SubnetMask "{{ dhcp_subnet }}" -State Active -PassThru
+
+    - name: Set DHCP scope options - Gateway
+      win_shell: |
+        Set-DhcpServerv4OptionValue -ScopeId "{{ dhcp_scope_start.rsplit('.', 1)[0] }}.0" -Router "{{ dhcp_gateway }}"
+
+    - name: Set DHCP scope options - DNS Servers
+      win_shell: |
+        Set-DhcpServerv4OptionValue -ScopeId "{{ dhcp_scope_start.rsplit('.', 1)[0] }}.0" -DnsServer "{{ ansible_ip_addresses[0] }}"
+
+    - name: Set DHCP scope options - Domain Name
+      win_shell: |
+        Set-DhcpServerv4OptionValue -ScopeId "{{ dhcp_scope_start.rsplit('.', 1)[0] }}.0" -DnsDomain "{{ dns_zone }}"
+
+    - name: Configure DHCP server settings
+      win_shell: |
+        Set-DhcpServerv4DnsSetting -ComputerName localhost -DynamicUpdates "Always" -DeleteDnsRRonLeaseExpiry $True
+
+    - name: Enable DHCP audit logging
+      win_shell: |
+        Set-DhcpServerAuditLog -Enable $true -Path "C:\Windows\System32\dhcp"
+
+    - name: Configure DHCP failover (if second server exists)
+      win_shell: |
+        # Placeholder for DHCP failover configuration
+        # Add-DhcpServerv4Failover -ComputerName localhost -PartnerServer "DHCP-DNS02" -Name "DHCP-Failover" -ScopeId "192.168.1.0"
+      ignore_errors: yes
+
+    - name: Configure Windows Firewall for DNS
+      win_firewall_rule:
+        name: "{{ item.name }}"
+        localport: "{{ item.port }}"
+        action: allow
+        direction: in
+        protocol: "{{ item.protocol }}"
+        state: present
+        enabled: yes
+      loop:
+        - { name: 'DNS-TCP', port: '53', protocol: 'tcp' }
+        - { name: 'DNS-UDP', port: '53', protocol: 'udp' }
+
+    - name: Configure Windows Firewall for DHCP
+      win_firewall_rule:
+        name: "{{ item.name }}"
+        localport: "{{ item.port }}"
+        action: allow
+        direction: in
+        protocol: udp
+        state: present
+        enabled: yes
+      loop:
+        - { name: 'DHCP-Server', port: '67' }
+        - { name: 'DHCP-Failover', port: '647' }
+
+    - name: Enable DNS service
+      win_service:
+        name: DNS
+        state: started
+        start_mode: auto
+
+    - name: Enable DHCP service
+      win_service:
+        name: DHCPServer
+        state: started
+        start_mode: auto
+
+    - name: Display server information
+      debug:
+        msg: |
+          DHCP/DNS Server Configuration Complete
+          Computer Name: DHCP-DNS01
+          DNS Zone: {{ dns_zone }}
+          DHCP Scope: {{ dhcp_scope_name }}
+          IP Range: {{ dhcp_scope_start }} - {{ dhcp_scope_end }}
+          Gateway: {{ dhcp_gateway }}
+          DNS Forwarders: {{ dns_forwarders | join(', ') }}
+          
+          Next Steps:
+          1. Add DNS records as needed
+          2. Configure DHCP reservations
+          3. Configure DNS zone transfers if needed
+          4. Test DHCP lease assignments

@@ -16,7 +16,7 @@ Set-NetConnectionProfile -Name $connectionProfile.Name -NetworkCategory Public
 
 # Set the Windows Remote Management configuration.
 Write-Output 'Setting the Windows Remote Management configuration...'
-winrm quickconfig -quiet
+winrm quickconfig -quiet -force
 winrm set winrm/config/service '@{AllowUnencrypted="true"}'
 winrm set winrm/config/service/auth '@{Basic="true"}'
 
@@ -86,7 +86,7 @@ try {
             # Run the downloaded MSI installer.
             Write-Output "Running QEMU GA MSI Installer..."
             $logFilePath="$env:TEMP/quemu-ga-installation.log"
-            Start-Process -Wait -FilePath "msiexec.exe" -ArgumentList "/i", "$env:TEMP\qemu-ga-$arch.msi", "/L*v", $logFilePath
+            Start-Process -Wait -FilePath "msiexec.exe" -ArgumentList "/i", "$env:TEMP\qemu-ga-$arch.msi", "/qn", "/norestart", "/L*v", $logFilePath
             Write-Output "Installation of QEMU GA MSI completed."
         }
         else {

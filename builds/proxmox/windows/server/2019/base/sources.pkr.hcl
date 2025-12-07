@@ -12,15 +12,16 @@ source "proxmox-iso" "windows_server_2k19_data_center_base" {
   task_timeout             = "20m"
 
   // virtual machine settings
-  vm_id           = 9010
-  vm_name         = "win-server-2019-base"
-  memory          = 4096
-  cores           = 2
-  sockets         = 2
-  qemu_agent      = true
-  disable_kvm     = true
-  scsi_controller = "virtio-scsi-single"
-  tags            = "windows;server-2019;data_center;template;base"
+  vm_id                = 9010
+  vm_name              = "win-server-2019-base"
+  memory               = 8192
+  cores                = 2
+  sockets              = 2
+  qemu_agent           = true
+  disable_kvm          = true
+  scsi_controller      = "virtio-scsi-single"
+  tags                 = "windows;server-2019;data_center;template;base"
+  template_description = "Windows Server 2019 Datacenter Base Template\nBuild Version: ${local.build_version}\nBuilt on: ${local.build_date}\nAuthor: ${local.git_author}\nCommitter: ${local.git_committer}\nCommit Timestamp: ${local.git_timestamp}\n${local.build_by}"
 
   // install media
   boot_iso {
@@ -37,7 +38,7 @@ source "proxmox-iso" "windows_server_2k19_data_center_base" {
     iso_storage_pool = var.iso_storage_pool
     cd_files = [
       "${path.cwd}/drivers",
-      "../../scripts"
+      "../../../scripts"
     ]
     cd_content = {
       "autounattend.xml" = templatefile("${abspath(path.root)}/data/autounattend.pkrtpl.hcl", {
@@ -47,7 +48,7 @@ source "proxmox-iso" "windows_server_2k19_data_center_base" {
         inst_os_language  = "en-US"
         inst_os_keyboard  = "en-US"
         inst_os_image     = "Windows Server 2019 SERVERDATACENTER"
-        kms_key           = "WMDGN-G9PQG-XVVXX-R3X43-63DFG"
+        kms_key           = "" # "WMDGN-G9PQG-XVVXX-R3X43-63DFG"
         guest_os_language = "en-US"
         guest_os_keyboard = "en-US"
         guest_os_timezone = "CST"
@@ -68,10 +69,6 @@ source "proxmox-iso" "windows_server_2k19_data_center_base" {
     firewall = false
   }
 
-  // cloud init settings
-  cloud_init              = true
-  cloud_init_storage_pool = "cidata"
-
   // boot settings
   boot_wait    = "5s"
   boot_command = ["<spacebar><spacebar>"]
@@ -81,7 +78,7 @@ source "proxmox-iso" "windows_server_2k19_data_center_base" {
   winrm_username = var.username
   winrm_password = var.password
   winrm_port     = 5985
-  winrm_timeout  = "10m"
+  winrm_timeout  = "60m"
   winrm_insecure = true
   winrm_use_ssl  = false
   winrm_use_ntlm = false
@@ -138,7 +135,7 @@ source "proxmox-clone" "windows_server_2k19_data_center_base" {
         inst_os_language  = "en-US"
         inst_os_keyboard  = "en-US"
         inst_os_image     = "Windows Server 2019 SERVERDATACENTER"
-        kms_key           = "WMDGN-G9PQG-XVVXX-R3X43–63DFG"
+        kms_key           = "" # "WMDGN-G9PQG-XVVXX-R3X43–63DFG"
         guest_os_language = "en-US"
         guest_os_keyboard = "en-US"
         guest_os_timezone = "CST"

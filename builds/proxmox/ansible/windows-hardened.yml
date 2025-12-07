@@ -1,0 +1,330 @@
+---
+# Ansible playbook for Windows Server 2019 Hardened Configuration
+# Based on CIS Microsoft Windows Server 2019 Benchmark
+- name: Harden Windows Server 2019
+  hosts: all
+  gather_facts: yes
+  
+  tasks:
+    # Account Policies
+    - name: Configure password policy - minimum length
+      win_security_policy:
+        section: System Access
+        key: MinimumPasswordLength
+        value: 14
+
+    - name: Configure password policy - complexity
+      win_security_policy:
+        section: System Access
+        key: PasswordComplexity
+        value: 1
+
+    - name: Configure password policy - maximum age
+      win_security_policy:
+        section: System Access
+        key: MaximumPasswordAge
+        value: 60
+
+    - name: Configure password policy - minimum age
+      win_security_policy:
+        section: System Access
+        key: MinimumPasswordAge
+        value: 1
+
+    - name: Configure password policy - history
+      win_security_policy:
+        section: System Access
+        key: PasswordHistorySize
+        value: 24
+
+    - name: Configure account lockout threshold
+      win_security_policy:
+        section: System Access
+        key: LockoutBadCount
+        value: 5
+
+    - name: Configure account lockout duration
+      win_security_policy:
+        section: System Access
+        key: LockoutDuration
+        value: 30
+
+    # Windows Firewall
+    - name: Enable Windows Firewall for all profiles
+      win_firewall:
+        state: enabled
+        profiles:
+          - Domain
+          - Private
+          - Public
+
+    - name: Configure Windows Firewall - Block inbound by default
+      win_shell: |
+        Set-NetFirewallProfile -Profile Domain,Public,Private -DefaultInboundAction Block -DefaultOutboundAction Allow
+
+    # Disable unnecessary services
+    - name: Disable unnecessary Windows services
+      win_service:
+        name: "{{ item }}"
+        state: stopped
+        start_mode: disabled
+      loop:
+        - RemoteRegistry
+        - RemoteAccess
+        - SSDPSRV
+        - upnphost
+        - WMPNetworkSvc
+        - WerSvc
+        - Spooler
+        - Browser
+        - lmhosts
+      ignore_errors: yes
+
+    # Audit Policies
+    - name: Enable audit policy - Account Logon
+      win_shell: |
+        auditpol /set /category:"Account Logon" /success:enable /failure:enable
+
+    - name: Enable audit policy - Account Management
+      win_shell: |
+        auditpol /set /category:"Account Management" /success:enable /failure:enable
+
+    - name: Enable audit policy - Logon/Logoff
+      win_shell: |
+        auditpol /set /category:"Logon/Logoff" /success:enable /failure:enable
+
+    - name: Enable audit policy - Object Access
+      win_shell: |
+        auditpol /set /category:"Object Access" /success:enable /failure:enable
+
+    - name: Enable audit policy - Policy Change
+      win_shell: |
+        auditpol /set /category:"Policy Change" /success:enable /failure:enable
+
+    - name: Enable audit policy - Privilege Use
+      win_shell: |
+        auditpol /set /category:"Privilege Use" /success:enable /failure:enable
+
+    - name: Enable audit policy - System
+      win_shell: |
+        auditpol /set /category:"System" /success:enable /failure:enable
+
+    # Registry Security Settings
+    - name: Disable SMBv1
+      win_regedit:
+        path: HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters
+        name: SMB1
+        data: 0
+        type: dword
+
+    - name: Enable SMB signing (server)
+      win_regedit:
+        path: HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters
+        name: RequireSecuritySignature
+        data: 1
+        type: dword
+
+    - name: Enable SMB signing (client)
+      win_regedit:
+        path: HKLM:\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters
+        name: RequireSecuritySignature
+        data: 1
+        type: dword
+
+    - name: Disable LLMNR
+      win_regedit:
+        path: HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient
+        name: EnableMulticast
+        data: 0
+        type: dword
+
+    - name: Disable NetBIOS over TCP/IP
+      win_regedit:
+        path: HKLM:\SYSTEM\CurrentControlSet\Services\NetBT\Parameters
+        name: NodeType
+        data: 2
+        type: dword
+
+    - name: Configure LSA protection
+      win_regedit:
+        path: HKLM:\SYSTEM\CurrentControlSet\Control\Lsa
+        name: RunAsPPL
+        data: 1
+        type: dword
+
+    - name: Enable Credential Guard prerequisites
+      win_regedit:
+        path: HKLM:\SYSTEM\CurrentControlSet\Control\Lsa
+        name: LsaCfgFlags
+        data: 1
+        type: dword
+
+    - name: Disable Windows Script Host
+      win_regedit:
+        path: HKLM:\SOFTWARE\Microsoft\Windows Script Host\Settings
+        name: Enabled
+        data: 0
+        type: dword
+
+    - name: Disable AutoRun/AutoPlay
+      win_regedit:
+        path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer
+        name: NoDriveTypeAutoRun
+        data: 255
+        type: dword
+
+    - name: Configure screen saver timeout
+      win_regedit:
+        path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System
+        name: InactivityTimeoutSecs
+        data: 900
+        type: dword
+
+    - name: Enable secure logon (Ctrl+Alt+Del)
+      win_regedit:
+        path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System
+        name: DisableCAD
+        data: 0
+        type: dword
+
+    # Windows Defender
+    - name: Enable Windows Defender Real-time Protection
+      win_shell: |
+        Set-MpPreference -DisableRealtimeMonitoring $false
+
+    - name: Enable Windows Defender Cloud Protection
+      win_shell: |
+        Set-MpPreference -MAPSReporting Advanced
+
+    - name: Enable Windows Defender Sample Submission
+      win_shell: |
+        Set-MpPreference -SubmitSamplesConsent SendAllSamples
+
+    - name: Configure Windows Defender scan schedule
+      win_shell: |
+        Set-MpPreference -ScanScheduleDay Everyday -ScanScheduleTime 02:00:00
+
+    # TLS/SSL Configuration
+    - name: Disable SSL 2.0
+      win_regedit:
+        path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 2.0\Server
+        name: Enabled
+        data: 0
+        type: dword
+
+    - name: Disable SSL 3.0
+      win_regedit:
+        path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 3.0\Server
+        name: Enabled
+        data: 0
+        type: dword
+
+    - name: Disable TLS 1.0
+      win_regedit:
+        path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Server
+        name: Enabled
+        data: 0
+        type: dword
+
+    - name: Disable TLS 1.1
+      win_regedit:
+        path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Server
+        name: Enabled
+        data: 0
+        type: dword
+
+    - name: Enable TLS 1.2
+      win_regedit:
+        path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server
+        name: Enabled
+        data: 1
+        type: dword
+
+    # Event Log Configuration
+    - name: Configure Security event log size
+      win_shell: |
+        wevtutil sl Security /ms:196608000
+
+    - name: Configure Application event log size
+      win_shell: |
+        wevtutil sl Application /ms:32768000
+
+    - name: Configure System event log size
+      win_shell: |
+        wevtutil sl System /ms:32768000
+
+    # Windows Updates
+    - name: Configure Windows Update to auto-download
+      win_regedit:
+        path: HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU
+        name: AUOptions
+        data: 3
+        type: dword
+
+    - name: Enable automatic updates
+      win_regedit:
+        path: HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU
+        name: NoAutoUpdate
+        data: 0
+        type: dword
+
+    # Remove unnecessary features
+    - name: Remove PowerShell v2
+      win_optional_feature:
+        name: MicrosoftWindowsPowerShellV2Root
+        state: absent
+      ignore_errors: yes
+
+    - name: Remove SMBv1 feature
+      win_optional_feature:
+        name: SMB1Protocol
+        state: absent
+      ignore_errors: yes
+
+    # User Rights Assignment
+    - name: Restrict remote desktop users
+      win_shell: |
+        $RDP = [ADSI]"WinNT://./Remote Desktop Users,group"
+        # Add specific users/groups as needed
+
+    - name: Configure interactive logon message
+      win_regedit:
+        path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System
+        name: LegalNoticeCaption
+        data: "Authorized Access Only"
+        type: string
+
+    - name: Configure interactive logon message text
+      win_regedit:
+        path: HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System
+        name: LegalNoticeText
+        data: "This system is for authorized use only. All activity is monitored and logged."
+        type: string
+
+    - name: Display hardening summary
+      debug:
+        msg: |
+          Windows Server 2019 Hardening Complete
+          
+          Applied Configurations:
+          - Password policies strengthened (14 char min, complexity required)
+          - Account lockout policy configured (5 attempts)
+          - Windows Firewall enabled and configured
+          - Unnecessary services disabled
+          - Comprehensive audit policies enabled
+          - SMBv1 disabled
+          - SMB signing enabled
+          - LLMNR and NetBIOS disabled
+          - LSA protection enabled
+          - Windows Defender configured
+          - TLS 1.2 enforced (SSL 2.0/3.0, TLS 1.0/1.1 disabled)
+          - Event log sizes increased
+          - Automatic updates configured
+          - PowerShell v2 removed
+          
+          Recommendations:
+          1. Review and test all applications for compatibility
+          2. Configure additional firewall rules as needed
+          3. Implement additional monitoring and logging
+          4. Regular security assessments
+          5. Keep system updated with latest patches

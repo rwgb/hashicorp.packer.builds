@@ -1,0 +1,56 @@
+// Variable definitions
+variable "proxmox_host" {
+  type        = string
+  description = "IP address or resolvable hostname of the proxmox host"
+}
+
+variable "token_id" {
+  type        = string
+  description = "API Token ID in $username@pve!$token_id format"
+}
+
+variable "token_secret" {
+  type        = string
+  description = "The API token secret"
+  sensitive   = true
+}
+
+variable "node" {
+  type        = string
+  description = "The proxmox node on which to build the virtual machine"
+}
+
+variable "pool" {
+  type        = string
+  description = "The name of the resource pool in which to create the virtual machine"
+}
+
+variable "disk_storage_pool" {
+  type        = string
+  description = "The Proxmox storage pool for VM disks"
+  default     = "local-lvm"
+}
+
+variable "cloud_init_storage_pool" {
+  type        = string
+  description = "The Proxmox storage pool for cloud-init drives"
+  default     = "local-lvm"
+}
+
+variable "insecure_tls" {
+  type        = bool
+  description = "Defaults to true. Whether or not HTTPS certificate of the proxmox server should be validated"
+  default     = true
+}
+
+variable "username" {
+  type        = string
+  description = "The build username to use for WinRM connections"
+  default     = "packer"
+}
+
+variable "password" {
+  type        = string
+  description = "The password to use for the build user"
+  default     = "packer"
+}
