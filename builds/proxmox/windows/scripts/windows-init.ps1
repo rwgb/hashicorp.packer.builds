@@ -3,27 +3,59 @@
     Enables Windows Remote Management on Windows builds, downloads QEMU GA MSI installer, and runs it.
 #>
 
-$ErrorActionPreference = 'Stop'
-
 # Set network connection profile to Private mode.
 Write-Output 'Setting the network connection profile to Public...'
-$connectionProfile = Get-NetConnectionProfile
-While ($connectionProfile.Name -eq 'Identifying...') {
-    Start-Sleep -Seconds 10
+try {
     $connectionProfile = Get-NetConnectionProfile
+    $timeout = 0
+    While ($connectionProfile.Name -eq 'Identifying...' -and $timeout -lt 30) {
+        Start-Sleep -Seconds 10
+        $timeout += 10
+        $connectionProfile = Get-NetConnectionProfile
+    }
+    Set-NetConnectionProfile -Name $connectionProfile.Name -NetworkCategory Public
+} catch {
+    Write-Output "Warning: Could not set network profile: $($_.Exception.Message)"
 }
-Set-NetConnectionProfile -Name $connectionProfile.Name -NetworkCategory Public
 
 # Set the Windows Remote Management configuration.
 Write-Output 'Setting the Windows Remote Management configuration...'
-winrm quickconfig -quiet -force
-winrm set winrm/config/service '@{AllowUnencrypted="true"}'
-winrm set winrm/config/service/auth '@{Basic="true"}'
+try {
+    # Enable WinRM service
+    Set-Service -Name WinRM -StartupType Automatic
+    Start-Service WinRM
+    
+    # Configure WinRM
+    winrm quickconfig -quiet -force
+    winrm set winrm/config/service '@{AllowUnencrypted="true"}'
+    winrm set winrm/config/service/auth '@{Basic="true"}'
+    winrm set winrm/config/service/auth '@{CredSSP="true"}'
+    
+    # Set trusted hosts to allow all
+    winrm set winrm/config/client '@{TrustedHosts="*"}'
+    
+    # Configure WinRM listener
+    $listeners = winrm enumerate winrm/config/listener
+    if ($listeners -notmatch "HTTP") {
+        winrm create winrm/config/listener?Address=*+Transport=HTTP
+    }
+    
+    # Restart WinRM to apply changes
+    Restart-Service WinRM
+    Start-Sleep -Seconds 5
+    Write-Output 'WinRM configuration completed successfully.'
+} catch {
+    Write-Output "Warning: WinRM configuration issue: $($_.Exception.Message)"
+}
 
 # Allow Windows Remote Management in the Windows Firewall.
 Write-Output 'Allowing Windows Remote Management in the Windows Firewall...'
-netsh advfirewall firewall set rule group="Windows Remote Administration" new enable=yes
-netsh advfirewall firewall set rule name="Windows Remote Management (HTTP-In)" new enable=yes action=allow
+try {
+    netsh advfirewall firewall set rule group="Windows Remote Administration" new enable=yes
+    netsh advfirewall firewall set rule name="Windows Remote Management (HTTP-In)" new enable=yes action=allow
+} catch {
+    Write-Output "Warning: Firewall rule issue: $($_.Exception.Message)"
+}
 
 # Drop the firewall while building and re-enable as a standalone provisioner in the Packer file if needs be.
 netsh Advfirewall set allprofiles state off 

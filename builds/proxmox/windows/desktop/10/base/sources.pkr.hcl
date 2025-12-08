@@ -88,5 +88,5 @@ source "proxmox-iso" "windows_10_22h2_base" {
   winrm_timeout  = "120m"
   winrm_insecure = true
   winrm_use_ssl  = false
-  winrm_use_ntlm = false
+  winrm_use_ntlm = true
 }
