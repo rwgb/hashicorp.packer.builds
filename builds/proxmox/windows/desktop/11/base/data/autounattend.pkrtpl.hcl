@@ -192,8 +192,6 @@
             <HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
             <NetworkLocation>Work</NetworkLocation>
             <ProtectYourPC>3</ProtectYourPC>
-            <SkipUserOOBE>true</SkipUserOOBE>
-            <SkipMachineOOBE>true</SkipMachineOOBE>
          </OOBE>
          <UserAccounts>
             <AdministratorPassword>
@@ -237,12 +235,6 @@
                <Description>Initial Configuration</Description>
             </SynchronousCommand>            
          </FirstLogonCommands>
-      </component>
-      <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
-         <InputLocale>${guest_os_keyboard}</InputLocale>
-         <SystemLocale>${guest_os_language}</SystemLocale>
-         <UILanguage>${guest_os_language}</UILanguage>
-         <UserLocale>${guest_os_language}</UserLocale>
       </component>
    </settings>
 </unattend>

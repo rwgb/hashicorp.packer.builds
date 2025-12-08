@@ -1,5 +1,5 @@
-// proxmox-iso source for Windows 10 22H2 Base
-source "proxmox-iso" "windows_10_22h2_base" {
+// proxmox-iso source for Windows 11 Base
+source "proxmox-iso" "windows_11_base" {
   // proxmox connection info
   proxmox_url = "https://${var.proxmox_host}:8006/api2/json"
   username    = var.token_id     # api token id
@@ -12,21 +12,21 @@ source "proxmox-iso" "windows_10_22h2_base" {
   task_timeout             = "20m"
 
   // virtual machine settings
-  vm_id                = 9020
-  vm_name              = "win-10-22h2-base"
-  memory               = 8192
-  cores                = 3
+  vm_id                = 9021
+  vm_name              = "win-11-base"
+  memory               = 4096
+  cores                = 2
   sockets              = 2
   qemu_agent           = true
   disable_kvm          = true
   scsi_controller      = "virtio-scsi-single"
-  tags                 = "windows;desktop;windows-10;22h2;template;base"
-  template_description = "Windows 10 22H2 Professional Base Template\nBuild Version: ${local.build_version}\nBuilt on: ${local.build_date}\nAuthor: ${local.git_author}\nCommitter: ${local.git_committer}\nCommit Timestamp: ${local.git_timestamp}\n${local.build_by}"
+  tags                 = "windows;desktop;windows-11;template;base"
+  template_description = "Windows 11 Enterprise Base Template\nBuild Version: ${local.build_version}\nBuilt on: ${local.build_date}\nAuthor: ${local.git_author}\nCommitter: ${local.git_committer}\nCommit Timestamp: ${local.git_timestamp}\n${local.build_by}"
 
   // install media
   boot_iso {
     type         = "scsi"
-    iso_file     = "local:iso/Win10_22H2_English_x64v1.iso"
+    iso_file     = "local:iso/26200.6584.250915-1905.25h2_ge_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso"
     iso_checksum = "none"
     unmount      = true
   }
@@ -34,7 +34,7 @@ source "proxmox-iso" "windows_10_22h2_base" {
   // cd files
   additional_iso_files {
     type             = "sata"
-    cd_label         = "win10_drivers"
+    cd_label         = "win11_drivers"
     iso_storage_pool = var.iso_storage_pool
     cd_files = [
       "${path.cwd}/drivers",
@@ -42,13 +42,13 @@ source "proxmox-iso" "windows_10_22h2_base" {
     ]
     cd_content = {
       "autounattend.xml" = templatefile("${abspath(path.root)}/data/autounattend.pkrtpl.hcl", {
-        is_efi           = false
-        username         = var.username
-        password         = var.password
-        inst_os_language = var.guest_os_language
-        inst_os_keyboard = var.guest_os_keyboard
-        inst_os_image    = "Windows 10 Pro N for Workstations"
-        kms_key          = "9FNHH-K3HBT-3W4TD-6383H-6XYWF"
+        is_efi            = false
+        username          = var.username
+        password          = var.password
+        inst_os_language  = var.guest_os_language
+        inst_os_keyboard  = var.guest_os_keyboard
+        inst_os_image     = "Windows 11 Enterprise Evaluation"
+        kms_key           = ""
         guest_os_language = var.guest_os_language
         guest_os_keyboard = var.guest_os_keyboard
         guest_os_timezone = var.guest_os_timezone
@@ -72,20 +72,14 @@ source "proxmox-iso" "windows_10_22h2_base" {
 
   // boot settings
   boot_wait    = "5s"
-  boot_command = [
-    "<spacebar><spacebar>",
-    "<wait10><wait10><wait10>",
-    "<enter><wait>",
-    "<enter><wait>",
-    "<enter><wait>"
-  ]
+  boot_command = ["<spacebar><spacebar>"]
 
   // communicator settings
   communicator   = "winrm"
   winrm_username = var.username
   winrm_password = var.password
   winrm_port     = 5985
-  winrm_timeout  = "120m"
+  winrm_timeout  = "60m"
   winrm_insecure = true
   winrm_use_ssl  = false
   winrm_use_ntlm = false

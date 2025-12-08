@@ -59,7 +59,7 @@ variable "password" {
 variable "domain_name" {
   type        = string
   description = "Active Directory domain name"
-  default     = "lab.local"
+  default     = "dundermifflin.com"
 }
 
 variable "domain_netbios_name" {
