@@ -14,11 +14,18 @@ source "proxmox-iso" "windows_11_25h2_base" {
   // virtual machine settings
   vm_id                = 9021
   vm_name              = "win-11-25h2-base"
+  bios                 = "ovmf"
+  machine              = "q35"
+  efi_config {
+    efi_storage_pool  = var.disk_storage_pool
+    efi_type          = "4m"
+    pre_enrolled_keys = true
+  }
   memory               = 8192
   cores                = 3
   sockets              = 2
   qemu_agent           = true
-  disable_kvm          = true
+  disable_kvm          = false
   scsi_controller      = "virtio-scsi-single"
   tags                 = "windows;desktop;windows-11;25h2;template;base"
   template_description = "Windows 11 25H2 Enterprise Evaluation Base Template\nBuild Version: ${local.build_version}\nBuilt on: ${local.build_date}\nAuthor: ${local.git_author}\nCommitter: ${local.git_committer}\nCommit Timestamp: ${local.git_timestamp}\n${local.build_by}"
@@ -29,9 +36,9 @@ source "proxmox-iso" "windows_11_25h2_base" {
     tpm_version      = "v2.0"
   }
 
-  // install media
+  // install media - use IDE for better compatibility with Windows installer
   boot_iso {
-    type         = "scsi"
+    type         = "ide"
     iso_file     = "local:iso/26200.6584.250915-1905.25h2_ge_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso"
     iso_checksum = "none"
     unmount      = true
@@ -48,7 +55,7 @@ source "proxmox-iso" "windows_11_25h2_base" {
     ]
     cd_content = {
       "autounattend.xml" = templatefile("${abspath(path.root)}/data/autounattend.pkrtpl.hcl", {
-        is_efi            = false
+        is_efi            = true
         username          = var.username
         password          = var.password
         inst_os_language  = var.guest_os_language
@@ -76,14 +83,10 @@ source "proxmox-iso" "windows_11_25h2_base" {
     firewall = false
   }
 
-  // boot settings
+  // boot settings - UEFI takes longer to initialize
   boot_wait = "5s"
   boot_command = [
-    "<spacebar><spacebar>",
-    "<wait10><wait10><wait10>",
-    "<enter><wait>",
-    "<enter><wait>",
-    "<enter><wait>"
+    "<enter><wait><enter><wait><enter>",
   ]
 
   // communicator settings
