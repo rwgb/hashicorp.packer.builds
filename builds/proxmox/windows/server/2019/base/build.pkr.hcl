@@ -6,12 +6,12 @@ packer {
       version = ">= 1.1.3"
       source  = "github.com/hashicorp/proxmox"
     }
-    /*
+    
     windows-update = {
       source  = "github.com/rgl/windows-update"
       version = ">= 0.14.3"
     }
-    */
+  
     git = {
       source  = "github.com/ethanmdavidson/git"
       version = ">= 0.4.3"
@@ -56,7 +56,7 @@ build {
       "../../../scripts/windows-prepare.ps1"
     ]
   }
-
+*/
   provisioner "windows-update" {
     pause_before    = "30s"
     search_criteria = "IsInstalled=0"
@@ -68,7 +68,7 @@ build {
       "include:$true"
     ]
   }
-*/
+
   // Copy sysprep unattend.xml to skip OOBE prompts on cloned VMs
   provisioner "file" {
     content = templatefile("${path.root}/data/unattend.pkrtpl.hcl", {
