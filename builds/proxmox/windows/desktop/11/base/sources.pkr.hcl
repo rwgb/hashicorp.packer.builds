@@ -25,7 +25,7 @@ source "proxmox-iso" "windows_11_25h2_base" {
 
   // Windows 11 requires TPM - add virtual TPM
   tpm_config {
-    tpm_storage_pool = var.iso_storage_pool
+    tpm_storage_pool = var.disk_storage_pool
     tpm_version      = "v2.0"
   }
 
