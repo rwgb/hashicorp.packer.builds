@@ -224,15 +224,21 @@
          </UserAccounts>
          <FirstLogonCommands>
             <SynchronousCommand wcm:action="add">
+               <CommandLine>cmd /c net user Administrator /active:yes</CommandLine>
+               <Description>Enable Built-in Administrator Account</Description>
+               <Order>1</Order>
+               <RequiresUserInput>false</RequiresUserInput>
+            </SynchronousCommand>
+            <SynchronousCommand wcm:action="add">
                <CommandLine>%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -Command "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force"</CommandLine>
                <Description>Set Execution Policy 64-Bit</Description>
-               <Order>1</Order>
+               <Order>2</Order>
                <RequiresUserInput>true</RequiresUserInput>
             </SynchronousCommand>
             <SynchronousCommand wcm:action="add">
                <CommandLine>%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -Command "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force"</CommandLine>
                <Description>Set Execution Policy 32-Bit</Description>
-               <Order>2</Order>
+               <Order>3</Order>
                <RequiresUserInput>true</RequiresUserInput>
             </SynchronousCommand>
             <SynchronousCommand wcm:action="add">
@@ -241,8 +247,14 @@
                <Description>Initial Configuration</Description>
             </SynchronousCommand>
             <SynchronousCommand wcm:action="add">
-               <CommandLine>%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -File E:\scripts\windows-prepare.ps1</CommandLine>
+               <CommandLine>cmd /c setx BUILD_USER "${username}" /M</CommandLine>
+               <Description>Set BUILD_USER Environment Variable</Description>
                <Order>5</Order>
+               <RequiresUserInput>false</RequiresUserInput>
+            </SynchronousCommand>
+            <SynchronousCommand wcm:action="add">
+               <CommandLine>%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -File E:\scripts\windows-prepare.ps1</CommandLine>
+               <Order>6</Order>
                <Description>Initial Configuration</Description>
             </SynchronousCommand>            
          </FirstLogonCommands>
