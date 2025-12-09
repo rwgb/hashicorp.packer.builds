@@ -81,12 +81,13 @@ source "proxmox-iso" "windows_10_22h2_base" {
   ]
 
   // communicator settings
-  communicator   = "winrm"
-  winrm_username = var.username
-  winrm_password = var.password
-  winrm_port     = 5985
-  winrm_timeout  = "120m"
-  winrm_insecure = true
-  winrm_use_ssl  = false
-  winrm_use_ntlm = true
+  communicator     = "winrm"
+  winrm_username   = var.username
+  winrm_password   = var.password
+  winrm_port       = 5985
+  winrm_timeout    = "120m"
+  winrm_insecure   = true
+  winrm_use_ssl    = false
+  winrm_use_ntlm   = false
+  winrm_no_proxy   = true
 }

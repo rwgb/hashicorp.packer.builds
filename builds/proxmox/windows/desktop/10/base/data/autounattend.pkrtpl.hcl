@@ -209,18 +209,6 @@
                <Value>${password}</Value>
                <PlainText>true</PlainText>
             </AdministratorPassword>
-            <LocalAccounts>
-               <LocalAccount wcm:action="add">
-                  <Password>
-                     <Value>${password}</Value>
-                     <PlainText>true</PlainText>
-                  </Password>
-                  <Group>administrators</Group>
-                  <DisplayName>${username}</DisplayName>
-                  <Name>${username}</Name>
-                  <Description>Build Account</Description>
-               </LocalAccount>
-            </LocalAccounts>
          </UserAccounts>
          <FirstLogonCommands>
             <SynchronousCommand wcm:action="add">
