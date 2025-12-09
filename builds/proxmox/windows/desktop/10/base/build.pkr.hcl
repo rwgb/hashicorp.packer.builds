@@ -42,7 +42,7 @@ build {
   sources = [
     "source.proxmox-iso.windows_10_22h2_base"
   ]
-
+/*
   provisioner "windows-update" {
     pause_before    = "30s"
     search_criteria = "IsInstalled=0"
@@ -54,6 +54,7 @@ build {
       "include:$true"
     ]
   }
+  */
 
   // Copy sysprep unattend.xml to skip OOBE prompts on cloned VMs
   provisioner "file" {
