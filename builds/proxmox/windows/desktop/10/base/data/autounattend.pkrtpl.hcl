@@ -191,7 +191,8 @@
                <PlainText>true</PlainText>
             </Password>
             <Enabled>true</Enabled>
-            <Username>${username}</Username>
+            <LogonCount>1</LogonCount>
+            <Username>Administrator</Username>
          </AutoLogon>
          <OOBE>
             <HideEULAPage>true</HideEULAPage>

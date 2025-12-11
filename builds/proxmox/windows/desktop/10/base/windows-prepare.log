@@ -1,0 +1,46 @@
+[2025-12-11 07:55:02] [INFO] === Starting windows-prepare.ps1 script ===
+[2025-12-11 07:55:04] [INFO] BUILD_USERNAME parameter: 
+[2025-12-11 07:55:04] [INFO] Current User: Administrator
+[2025-12-11 07:55:04] [INFO] Computer Name: DESKTOP-L8O3CES
+[2025-12-11 07:55:05] [INFO] Disabling local password complexity policy (Attempt 1 of 2)
+[2025-12-11 07:55:06] [INFO] Exporting security policy to: C:\secpol.cfg
+[2025-12-11 07:55:10] [INFO] Password complexity already disabled
+[2025-12-11 07:55:10] [INFO] Disabling local password complexity policy - SUCCESS
+[2025-12-11 07:55:10] [INFO] Creating local user:  with matching password (Attempt 1 of 2)
+[2025-12-11 07:55:11] [ERROR] Creating local user:  with matching password - FAILED: BUILD_USER environment variable is not set.
+[2025-12-11 07:55:11] [INFO] Retrying in 5 seconds...
+[2025-12-11 07:55:16] [INFO] Creating local user:  with matching password (Attempt 2 of 2)
+[2025-12-11 07:55:16] [ERROR] Creating local user:  with matching password - FAILED: BUILD_USER environment variable is not set.
+[2025-12-11 07:55:16] [WARN] Creating local user:  with matching password - FAILED after 2 attempts
+[2025-12-11 07:55:16] [INFO] Setting the Windows Explorer options
+[2025-12-11 07:55:16] [INFO] Configuring Explorer to show hidden files...
+[2025-12-11 07:55:17] [INFO] Configuring Explorer to show file extensions...
+[2025-12-11 07:55:17] [INFO] Configuring Explorer to show drives with no media...
+[2025-12-11 07:55:17] [INFO] Disabling sync provider notifications...
+[2025-12-11 07:55:17] [INFO] Setting the Windows Explorer options - SUCCESS
+[2025-12-11 07:55:17] [INFO] Disabling system hibernation (Attempt 1 of 2)
+[2025-12-11 07:55:17] [INFO] Turning off hibernation...
+[2025-12-11 07:55:18] [INFO] Setting hibernation file size to 0...
+[2025-12-11 07:55:18] [INFO] Disabling system hibernation - SUCCESS
+[2025-12-11 07:55:18] [INFO] Disabling legacy TLS versions...
+[2025-12-11 07:55:18] [INFO] Disabling TLS 1.0
+[2025-12-11 07:55:18] [INFO] Creating registry paths for TLS 1.0...
+[2025-12-11 07:55:20] [INFO] Created HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Server
+[2025-12-11 07:55:20] [INFO] Created HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Client
+[2025-12-11 07:55:20] [INFO] Setting TLS 1.0 registry values...
+[2025-12-11 07:55:21] [INFO] TLS 1.0 disabled successfully
+[2025-12-11 07:55:21] [INFO] Disabling TLS 1.0 - SUCCESS
+[2025-12-11 07:55:21] [INFO] Disabling TLS 1.1
+[2025-12-11 07:55:21] [INFO] Creating registry paths for TLS 1.1...
+[2025-12-11 07:55:22] [INFO] Created HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Server
+[2025-12-11 07:55:22] [INFO] Created HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Client
+[2025-12-11 07:55:22] [INFO] Setting TLS 1.1 registry values...
+[2025-12-11 07:55:23] [INFO] TLS 1.1 disabled successfully
+[2025-12-11 07:55:23] [INFO] Disabling TLS 1.1 - SUCCESS
+[2025-12-11 07:55:23] [INFO] Starting Cloudbase-Init installation...
+[2025-12-11 07:55:23] [INFO] Downloading and installing Cloudbase-Init (Attempt 1 of 3)
+[2025-12-11 07:55:23] [INFO] Downloading Cloudbase-Init from: https://cloudbase.it/downloads/CloudbaseInitSetup_Stable_x64.msi
+[2025-12-11 07:55:48] [ERROR] Downloading and installing Cloudbase-Init - FAILED: Unable to connect to the remote server
+[2025-12-11 07:55:48] [INFO] Retrying in 5 seconds...
+[2025-12-11 07:55:53] [INFO] Downloading and installing Cloudbase-Init (Attempt 2 of 3)
+[2025-12-11 07:55:53] [INFO] Downloading Cloudbase-Init from: https://cloudbase.it/downloads/CloudbaseInitSetup_Stable_x64.msi
