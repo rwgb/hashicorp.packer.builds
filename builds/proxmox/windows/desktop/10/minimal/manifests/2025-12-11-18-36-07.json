@@ -1,0 +1,21 @@
+{
+  "builds": [
+    {
+      "name": "windows_10_22h2_minimal",
+      "builder_type": "proxmox-clone",
+      "files": null,
+      "artifact_id": "9021",
+      "packer_run_uuid": "e6a75f71-34b9-8b17-e741-8fbffb579924",
+      "custom_data": {
+        "author": "Ralph Brynard \u003cralph.brynard@gmail.com\u003e",
+        "build_date": "2025-12-11 18:36 UTC",
+        "build_type": "minimal",
+        "build_username": "Administrator",
+        "build_version": "963cb2ade6dd495ebfe71ac4805c6c909a4e4d05",
+        "committer": "Ralph Brynard \u003cralph.brynard@gmail.com\u003e",
+        "timestamp": "2025-12-11T18:23:30Z"
+      }
+    }
+  ],
+  "last_run_uuid": "e6a75f71-34b9-8b17-e741-8fbffb579924"
+}
