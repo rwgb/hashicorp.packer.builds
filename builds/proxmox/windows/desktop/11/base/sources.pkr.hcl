@@ -12,8 +12,8 @@ source "proxmox-iso" "windows_11_base" {
   task_timeout             = "20m"
 
   // virtual machine settings
-  vm_id                = 9021
-  vm_name              = "win-11-base"
+  vm_id                = 9023
+  vm_name              = "win-11-25H2-base"
   memory               = 4096
   cores                = 2
   sockets              = 2
