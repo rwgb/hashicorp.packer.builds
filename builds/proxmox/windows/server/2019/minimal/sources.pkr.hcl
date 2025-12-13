@@ -22,6 +22,7 @@ source "proxmox-clone" "windows_server_2k19_minimal" {
   scsi_controller = "virtio-scsi-single"
   task_timeout    = "20m"
   tags            = "windows;server-2019;minimal;template"
+  template_description = "Windows Server 2019 Datacenter Minimal Template\nBuild Version: ${local.build_version}\nBuilt on: ${local.build_date}\nAuthor: ${local.git_author}\nCommitter: ${local.git_committer}\nCommit Timestamp: ${local.git_timestamp}\n${local.build_by}"
 
   // disk settings
   disks {

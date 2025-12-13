@@ -1,0 +1,15 @@
+# Packer cache
+packer_cache/
+
+# Build logs
+*.log
+
+# Crash logs
+crash.log
+
+# Secrets
+*.secret
+variables.pkrvars.hcl
+
+# OS files
+.DS_Store
