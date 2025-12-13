@@ -1,0 +1,900 @@
+2025/12/12 16:49:37 [INFO] Packer version: 1.14.2 [go1.23.2 darwin amd64]
+2025/12/12 16:49:37 Old default config directory found: /Users/ralph.brynard/.packer.d
+2025/12/12 16:49:37 [INFO] PACKER_CONFIG env var not set; checking the default config file path
+2025/12/12 16:49:37 [INFO] PACKER_CONFIG env var set; attempting to open config file: /Users/ralph.brynard/.packerconfig
+2025/12/12 16:49:37 [WARN] Config file doesn't exist: /Users/ralph.brynard/.packerconfig
+2025/12/12 16:49:37 Old default config directory found: /Users/ralph.brynard/.packer.d
+2025/12/12 16:49:37 [INFO] Setting cache directory: /Users/ralph.brynard/.cache/packer
+2025/12/12 16:49:37 Old default config directory found: /Users/ralph.brynard/.packer.d
+2025/12/12 16:49:37 [TRACE] listing potential installations for "github.com/hashicorp/proxmox" that match ">= 1.1.3". plugingetter.ListInstallationsOptions{PluginDirectory:"/Users/ralph.brynard/.packer.d/plugins", BinaryInstallationOptions:plugingetter.BinaryInstallationOptions{APIVersionMajor:"5", APIVersionMinor:"0", OS:"darwin", ARCH:"amd64", Ext:"", Checksummers:[]plugingetter.Checksummer{plugingetter.Checksummer{Type:"sha256", Hash:(*sha256.digest)(0xc000175080)}}, ReleasesOnly:false}}
+2025/12/12 16:49:37 [TRACE] Found the following "github.com/hashicorp/proxmox" installations: [{/Users/ralph.brynard/.packer.d/plugins/github.com/hashicorp/proxmox/packer-plugin-proxmox_v1.1.8_x5.0_darwin_amd64 v1.1.8 x5.0},{/Users/ralph.brynard/.packer.d/plugins/github.com/hashicorp/proxmox/packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 v1.2.2 x5.0},{/Users/ralph.brynard/.packer.d/plugins/github.com/hashicorp/proxmox/packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 v1.2.3 x5.0}]
+2025/12/12 16:49:37 [INFO] found external [-packer-default-plugin-name- clone iso] builders from proxmox plugin
+2025/12/12 16:49:37 [TRACE] listing potential installations for "github.com/rgl/windows-update" that match ">= 0.14.3". plugingetter.ListInstallationsOptions{PluginDirectory:"/Users/ralph.brynard/.packer.d/plugins", BinaryInstallationOptions:plugingetter.BinaryInstallationOptions{APIVersionMajor:"5", APIVersionMinor:"0", OS:"darwin", ARCH:"amd64", Ext:"", Checksummers:[]plugingetter.Checksummer{plugingetter.Checksummer{Type:"sha256", Hash:(*sha256.digest)(0xc000175080)}}, ReleasesOnly:false}}
+2025/12/12 16:49:37 [TRACE] Found the following "github.com/rgl/windows-update" installations: [{/Users/ralph.brynard/.packer.d/plugins/github.com/rgl/windows-update/packer-plugin-windows-update_v0.16.8_x5.0_darwin_amd64 v0.16.8 x5.0},{/Users/ralph.brynard/.packer.d/plugins/github.com/rgl/windows-update/packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 v0.16.10 x5.0}]
+2025/12/12 16:49:37 found external [-packer-default-plugin-name-] provisioner from windows-update plugin
+2025/12/12 16:49:37 [TRACE] listing potential installations for "github.com/ethanmdavidson/git" that match ">= 0.4.3". plugingetter.ListInstallationsOptions{PluginDirectory:"/Users/ralph.brynard/.packer.d/plugins", BinaryInstallationOptions:plugingetter.BinaryInstallationOptions{APIVersionMajor:"5", APIVersionMinor:"0", OS:"darwin", ARCH:"amd64", Ext:"", Checksummers:[]plugingetter.Checksummer{plugingetter.Checksummer{Type:"sha256", Hash:(*sha256.digest)(0xc000175080)}}, ReleasesOnly:false}}
+2025/12/12 16:49:37 [TRACE] Found the following "github.com/ethanmdavidson/git" installations: [{/Users/ralph.brynard/.packer.d/plugins/github.com/ethanmdavidson/git/packer-plugin-git_v0.6.4_x5.0_darwin_amd64 v0.6.4 x5.0}]
+2025/12/12 16:49:37 found external [commit repository tree] datasource from git plugin
+2025/12/12 16:49:37 [TRACE] listing potential installations for <nil> that match "". plugingetter.ListInstallationsOptions{PluginDirectory:"/Users/ralph.brynard/.packer.d/plugins", BinaryInstallationOptions:plugingetter.BinaryInstallationOptions{APIVersionMajor:"5", APIVersionMinor:"0", OS:"darwin", ARCH:"amd64", Ext:"", Checksummers:[]plugingetter.Checksummer{plugingetter.Checksummer{Type:"sha256", Hash:(*sha256.digest)(0xc000716280)}}, ReleasesOnly:false}}
+2025/12/12 16:49:38 [INFO] found external [clone iso supervisor] builders from vsphere plugin
+2025/12/12 16:49:38 [INFO] found external [-packer-default-plugin-name- template] post-processors from vsphere plugin
+2025/12/12 16:49:38 plugin "/Users/ralph.brynard/.packer.d/plugins/github.com/hashicorp/vsphere/packer-plugin-vsphere_v1.4.2_x5.0_darwin_amd64" does not support Protobuf, forcing use of Gob
+2025/12/12 16:49:38 found external [-packer-default-plugin-name-] provisioner from windows-update plugin
+2025/12/12 16:49:39 [INFO] found external [chroot ebs ebssurrogate ebsvolume instance] builders from amazon plugin
+2025/12/12 16:49:39 [INFO] found external [import] post-processors from amazon plugin
+2025/12/12 16:49:39 found external [ami parameterstore secretsmanager] datasource from amazon plugin
+2025/12/12 16:49:39 found external [-packer-default-plugin-name- local] provisioner from ansible plugin
+2025/12/12 16:49:39 found external [commit repository tree] datasource from git plugin
+2025/12/12 16:49:39 [INFO] found external [-packer-default-plugin-name- clone iso] builders from proxmox plugin
+2025/12/12 16:49:39 found external [-packer-default-plugin-name-] datasource from sshkey plugin
+2025/12/12 16:49:39 [TRACE] validateValue: not active for proxmox_host, so skipping
+2025/12/12 16:49:39 [TRACE] validateValue: not active for pool, so skipping
+2025/12/12 16:49:39 [TRACE] validateValue: not active for disk_storage_pool, so skipping
+2025/12/12 16:49:39 [TRACE] validateValue: not active for insecure_tls, so skipping
+2025/12/12 16:49:39 [TRACE] validateValue: not active for token_id, so skipping
+2025/12/12 16:49:39 [TRACE] validateValue: not active for token_secret, so skipping
+2025/12/12 16:49:39 [TRACE] validateValue: not active for node, so skipping
+2025/12/12 16:49:39 [TRACE] validateValue: not active for cloud_init_storage_pool, so skipping
+2025/12/12 16:49:39 [TRACE] validateValue: not active for username, so skipping
+2025/12/12 16:49:39 [TRACE] validateValue: not active for password, so skipping
+2025/12/12 16:49:39 [INFO] Starting external plugin /Users/ralph.brynard/.packer.d/plugins/github.com/ethanmdavidson/git/packer-plugin-git_v0.6.4_x5.0_darwin_amd64 start datasource commit
+2025/12/12 16:49:39 Starting plugin: /Users/ralph.brynard/.packer.d/plugins/github.com/ethanmdavidson/git/packer-plugin-git_v0.6.4_x5.0_darwin_amd64 []string{"/Users/ralph.brynard/.packer.d/plugins/github.com/ethanmdavidson/git/packer-plugin-git_v0.6.4_x5.0_darwin_amd64", "start", "datasource", "commit"}
+2025/12/12 16:49:39 Waiting for RPC address for: /Users/ralph.brynard/.packer.d/plugins/github.com/ethanmdavidson/git/packer-plugin-git_v0.6.4_x5.0_darwin_amd64
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 Plugin address: unix /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer-plugin4103224820
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 Waiting for connection...
+2025/12/12 16:49:39 Received unix RPC address for /Users/ralph.brynard/.packer.d/plugins/github.com/ethanmdavidson/git/packer-plugin-git_v0.6.4_x5.0_darwin_amd64: addr is /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer-plugin4103224820
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 Serving a plugin connection...
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 [TRACE] starting datasource commit
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 [DEBUG] - common: sending ConfigSpec as gob
+2025/12/12 16:49:39 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 [DEBUG] - common: sending ConfigSpec as gob
+2025/12/12 16:49:39 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/12 16:49:39 [INFO] (telemetry) Starting datasource git-commit
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 Starting execution
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 Finding repository from './../../../../' (/Users/ralph.brynard/rwgb.github.projects/hashicorp.packer.builds/builds/proxmox)
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 Repo opened
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 Hash found: '28c66393081b38606579f6b1cd613366677b1a1b'
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 Branches found
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 Commit found: 'commit 28c66393081b38606579f6b1cd613366677b1a1b
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: Author: Ralph Brynard <ralph.brynard@gmail.com>
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: Date:   Fri Dec 12 14:51:48 2025 -0600
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin:     committing current changes
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: '
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 output.Hash: '28c66393081b38606579f6b1cd613366677b1a1b'
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 Adding branch 'dev'
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 Not in branch 'feature/windows_11_25H2_base' (8d14f4d1ab51aca16faadf9dcd37c40ec80f0c7e)
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 Not in branch 'feature/windows_11_base' (67cb753589b581b946f7791b7fba36795880459f)
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 Not in branch 'main' (c465b445b66970d2009490cfdddd34bdc5df078a)
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 len(output.Branches): '1'
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 output.Author: 'Ralph Brynard <ralph.brynard@gmail.com>'
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 output.Committer: 'Ralph Brynard <ralph.brynard@gmail.com>'
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 output.Timestamp: '2025-12-12T20:51:48Z'
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 len(output.PGPSignature): '228'
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 len(output.Message): '27'
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 output.TreeHash: '6e19cbffce9f9ebc5ae2b53a63e0f7f8a434bee5'
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 Adding parent hash: '329033a3b4179164d70c7ea09985d6d9f7692efd'
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 len(output.ParentHashes): '1'
+2025/12/12 16:49:39 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 [DEBUG] - datasource: sending Execute as gob
+2025/12/12 16:49:39 [DEBUG] - datasource: receiving Execute as gob
+2025/12/12 16:49:39 [INFO] (telemetry) ending git-commit
+2025/12/12 16:49:39 [INFO] Starting external plugin /Users/ralph.brynard/.packer.d/plugins/github.com/hashicorp/proxmox/packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 start builder clone
+2025/12/12 16:49:39 Starting plugin: /Users/ralph.brynard/.packer.d/plugins/github.com/hashicorp/proxmox/packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 []string{"/Users/ralph.brynard/.packer.d/plugins/github.com/hashicorp/proxmox/packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64", "start", "builder", "clone"}
+2025/12/12 16:49:39 Waiting for RPC address for: /Users/ralph.brynard/.packer.d/plugins/github.com/hashicorp/proxmox/packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64
+2025/12/12 16:49:39 Received unix RPC address for /Users/ralph.brynard/.packer.d/plugins/github.com/hashicorp/proxmox/packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64: addr is /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer-plugin4280624265
+2025/12/12 16:49:39 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 Plugin address: unix /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer-plugin4280624265
+2025/12/12 16:49:39 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 Waiting for connection...
+2025/12/12 16:49:39 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 Serving a plugin connection...
+2025/12/12 16:49:39 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 [TRACE] starting builder clone
+2025/12/12 16:49:39 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 [DEBUG] - common: sending ConfigSpec as gob
+2025/12/12 16:49:39 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/12 16:49:39 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 CPU type not set, using default 'kvm64'
+2025/12/12 16:49:39 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 OS not set, using default 'other'
+2025/12/12 16:49:39 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 Disk 0 format not set, using default 'raw'
+2025/12/12 16:49:39 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 Disk 0 cache mode not set, using default 'none'
+2025/12/12 16:49:39 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 [DEBUG] - common: sending ConfigSpec as gob
+2025/12/12 16:49:39 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/12 16:49:39 [INFO] Starting external plugin /usr/local/bin/packer execute packer-provisioner-file
+2025/12/12 16:49:39 Starting plugin: /usr/local/bin/packer []string{"/usr/local/bin/packer", "execute", "packer-provisioner-file"}
+2025/12/12 16:49:39 Waiting for RPC address for: /usr/local/bin/packer
+2025/12/12 16:49:39 packer-provisioner-file plugin: [INFO] Packer version: 1.14.2 [go1.23.2 darwin amd64]
+2025/12/12 16:49:39 packer-provisioner-file plugin: Old default config directory found: /Users/ralph.brynard/.packer.d
+2025/12/12 16:49:39 packer-provisioner-file plugin: [INFO] PACKER_CONFIG env var not set; checking the default config file path
+2025/12/12 16:49:39 packer-provisioner-file plugin: [INFO] PACKER_CONFIG env var set; attempting to open config file: /Users/ralph.brynard/.packerconfig
+2025/12/12 16:49:39 packer-provisioner-file plugin: [WARN] Config file doesn't exist: /Users/ralph.brynard/.packerconfig
+2025/12/12 16:49:39 packer-provisioner-file plugin: Old default config directory found: /Users/ralph.brynard/.packer.d
+2025/12/12 16:49:39 packer-provisioner-file plugin: [INFO] Setting cache directory: /Users/ralph.brynard/.cache/packer
+2025/12/12 16:49:39 packer-provisioner-file plugin: Old default config directory found: /Users/ralph.brynard/.packer.d
+2025/12/12 16:49:39 packer-provisioner-file plugin: Plugin address: unix /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer-plugin3621112166
+2025/12/12 16:49:39 packer-provisioner-file plugin: Waiting for connection...
+2025/12/12 16:49:39 Received unix RPC address for /usr/local/bin/packer: addr is /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer-plugin3621112166
+2025/12/12 16:49:39 packer-provisioner-file plugin: Serving a plugin connection...
+2025/12/12 16:49:39 packer-provisioner-file plugin: [DEBUG] - common: sending ConfigSpec as gob
+2025/12/12 16:49:39 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/12 16:49:39 packer-provisioner-file plugin: [DEBUG] - common: sending ConfigSpec as gob
+2025/12/12 16:49:39 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/12 16:49:39 [INFO] Starting external plugin /usr/local/bin/packer execute packer-provisioner-powershell
+2025/12/12 16:49:39 Starting plugin: /usr/local/bin/packer []string{"/usr/local/bin/packer", "execute", "packer-provisioner-powershell"}
+2025/12/12 16:49:39 Waiting for RPC address for: /usr/local/bin/packer
+2025/12/12 16:49:39 packer-provisioner-powershell plugin: [INFO] Packer version: 1.14.2 [go1.23.2 darwin amd64]
+2025/12/12 16:49:39 packer-provisioner-powershell plugin: Old default config directory found: /Users/ralph.brynard/.packer.d
+2025/12/12 16:49:39 packer-provisioner-powershell plugin: [INFO] PACKER_CONFIG env var not set; checking the default config file path
+2025/12/12 16:49:39 packer-provisioner-powershell plugin: [INFO] PACKER_CONFIG env var set; attempting to open config file: /Users/ralph.brynard/.packerconfig
+2025/12/12 16:49:39 packer-provisioner-powershell plugin: [WARN] Config file doesn't exist: /Users/ralph.brynard/.packerconfig
+2025/12/12 16:49:39 packer-provisioner-powershell plugin: Old default config directory found: /Users/ralph.brynard/.packer.d
+2025/12/12 16:49:39 packer-provisioner-powershell plugin: [INFO] Setting cache directory: /Users/ralph.brynard/.cache/packer
+2025/12/12 16:49:39 packer-provisioner-powershell plugin: Old default config directory found: /Users/ralph.brynard/.packer.d
+2025/12/12 16:49:39 packer-provisioner-powershell plugin: Plugin address: unix /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer-plugin1012043498
+2025/12/12 16:49:39 packer-provisioner-powershell plugin: Waiting for connection...
+2025/12/12 16:49:39 Received unix RPC address for /usr/local/bin/packer: addr is /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer-plugin1012043498
+2025/12/12 16:49:39 packer-provisioner-powershell plugin: Serving a plugin connection...
+2025/12/12 16:49:39 packer-provisioner-powershell plugin: [DEBUG] - common: sending ConfigSpec as gob
+2025/12/12 16:49:39 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/12 16:49:39 packer-provisioner-powershell plugin: Using script default execute command powershell -executionpolicy bypass "& { if (Test-Path variable:global:ProgressPreference){set-variable -name variable:global:ProgressPreference -value 'SilentlyContinue'};. {{.Vars}}; &'{{.Path}}'; exit $LastExitCode }"
+2025/12/12 16:49:39 packer-provisioner-powershell plugin: Using script default elevated execute command powershell -executionpolicy bypass "& { if (Test-Path variable:global:ProgressPreference){set-variable -name variable:global:ProgressPreference -value 'SilentlyContinue'};. {{.Vars}}; &'{{.Path}}'; exit $LastExitCode }"
+2025/12/12 16:49:39 packer-provisioner-powershell plugin: [DEBUG] - common: sending ConfigSpec as gob
+2025/12/12 16:49:39 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/12 16:49:39 [INFO] Starting external plugin /Users/ralph.brynard/.packer.d/plugins/github.com/rgl/windows-update/packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 start provisioner -packer-default-plugin-name-
+2025/12/12 16:49:39 Starting plugin: /Users/ralph.brynard/.packer.d/plugins/github.com/rgl/windows-update/packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 []string{"/Users/ralph.brynard/.packer.d/plugins/github.com/rgl/windows-update/packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64", "start", "provisioner", "-packer-default-plugin-name-"}
+2025/12/12 16:49:39 Waiting for RPC address for: /Users/ralph.brynard/.packer.d/plugins/github.com/rgl/windows-update/packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64
+2025/12/12 16:49:39 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 Starting packer-plugin-windows-update (version 0.16.10; commit ff14adbf39ce9d26397f90faa1a15fda6136ca58; date 2025-04-29T01:23:50Z)
+2025/12/12 16:49:39 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 Plugin address: unix /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer-plugin1426604270
+2025/12/12 16:49:39 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 Waiting for connection...
+2025/12/12 16:49:39 Received unix RPC address for /Users/ralph.brynard/.packer.d/plugins/github.com/rgl/windows-update/packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64: addr is /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer-plugin1426604270
+2025/12/12 16:49:39 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 Serving a plugin connection...
+2025/12/12 16:49:39 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 [TRACE] starting provisioner -packer-default-plugin-name-
+2025/12/12 16:49:39 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 [DEBUG] - common: sending ConfigSpec as gob
+2025/12/12 16:49:39 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/12 16:49:39 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 [DEBUG] - common: sending ConfigSpec as gob
+2025/12/12 16:49:39 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/12 16:49:39 [INFO] Starting external plugin /usr/local/bin/packer execute packer-post-processor-manifest
+2025/12/12 16:49:39 Starting plugin: /usr/local/bin/packer []string{"/usr/local/bin/packer", "execute", "packer-post-processor-manifest"}
+2025/12/12 16:49:39 Waiting for RPC address for: /usr/local/bin/packer
+2025/12/12 16:49:39 packer-post-processor-manifest plugin: [INFO] Packer version: 1.14.2 [go1.23.2 darwin amd64]
+2025/12/12 16:49:39 packer-post-processor-manifest plugin: Old default config directory found: /Users/ralph.brynard/.packer.d
+2025/12/12 16:49:39 packer-post-processor-manifest plugin: [INFO] PACKER_CONFIG env var not set; checking the default config file path
+2025/12/12 16:49:39 packer-post-processor-manifest plugin: [INFO] PACKER_CONFIG env var set; attempting to open config file: /Users/ralph.brynard/.packerconfig
+2025/12/12 16:49:39 packer-post-processor-manifest plugin: [WARN] Config file doesn't exist: /Users/ralph.brynard/.packerconfig
+2025/12/12 16:49:39 packer-post-processor-manifest plugin: Old default config directory found: /Users/ralph.brynard/.packer.d
+2025/12/12 16:49:39 packer-post-processor-manifest plugin: [INFO] Setting cache directory: /Users/ralph.brynard/.cache/packer
+2025/12/12 16:49:39 packer-post-processor-manifest plugin: Old default config directory found: /Users/ralph.brynard/.packer.d
+2025/12/12 16:49:39 packer-post-processor-manifest plugin: Plugin address: unix /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer-plugin3816373805
+2025/12/12 16:49:39 packer-post-processor-manifest plugin: Waiting for connection...
+2025/12/12 16:49:39 Received unix RPC address for /usr/local/bin/packer: addr is /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer-plugin3816373805
+2025/12/12 16:49:39 packer-post-processor-manifest plugin: Serving a plugin connection...
+2025/12/12 16:49:39 packer-post-processor-manifest plugin: [DEBUG] - common: sending ConfigSpec as gob
+2025/12/12 16:49:39 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/12 16:49:39 packer-post-processor-manifest plugin: [DEBUG] - common: sending ConfigSpec as gob
+2025/12/12 16:49:39 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/12 16:49:39 ui: [1;32mwindows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: output will be in this color.[0m
+2025/12/12 16:49:39 ui: 
+2025/12/12 16:49:39 Build debug mode: false
+2025/12/12 16:49:39 Force build: false
+2025/12/12 16:49:39 On error: ask
+2025/12/12 16:49:39 Waiting on builds to complete...
+2025/12/12 16:49:39 Starting build run: windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal
+2025/12/12 16:49:39 Running builder: proxmox-clone
+2025/12/12 16:49:39 [INFO] (telemetry) Starting builder proxmox-clone.windows_server_2k19_minimal
+2025/12/12 16:49:39 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 using token auth
+2025/12/12 16:49:39 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Creating ephemeral key pair for SSH communicator...[0m
+2025/12/12 16:49:39 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Created ephemeral SSH key pair for communicator[0m
+2025/12/12 16:49:39 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 disk discovered on source vm at scsi0
+2025/12/12 16:49:39 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 Mapping Disk to scsi0
+2025/12/12 16:49:39 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 scsi0 occupied, trying next device index
+2025/12/12 16:49:39 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:49:39 Mapping Disk to scsi1
+2025/12/12 16:49:39 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Creating VM[0m
+2025/12/12 16:50:10 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Starting VM[0m
+2025/12/12 16:50:12 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:50:12 No boot command given, skipping
+2025/12/12 16:50:15 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:50:15 [DEBUG] Unable to get address during connection step: 500 QEMU guest agent is not running
+2025/12/12 16:50:15 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:50:15 Waiting for WinRM, up to timeout: 2h0m0s
+2025/12/12 16:50:15 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for WinRM to become available...[0m
+2025/12/12 16:50:18 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:50:18 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:50:26 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:50:26 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:50:34 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:50:34 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:50:42 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:50:42 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:50:50 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:50:50 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:50:58 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:50:58 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:51:06 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:51:06 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:51:14 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:51:14 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:51:22 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:51:22 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:51:30 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:51:30 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:51:38 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:51:38 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:51:46 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:51:46 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:51:54 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:51:54 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:52:03 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:52:03 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:52:11 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:52:11 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:52:19 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:52:19 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:52:27 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:52:27 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:52:35 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:52:35 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:52:43 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:52:43 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:52:51 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:52:51 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:52:59 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:52:59 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:53:07 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:53:07 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:53:15 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:53:15 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:53:23 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:53:23 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:53:31 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:53:31 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:53:39 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:53:39 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:53:47 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:53:47 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:53:55 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:53:55 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:54:03 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:54:03 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:54:11 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:54:11 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:54:19 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:54:19 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:54:27 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:54:27 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:54:35 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:54:35 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:54:43 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:54:43 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:54:51 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:54:51 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:54:59 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:54:59 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:55:08 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:55:08 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:55:16 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:55:16 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:55:24 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:55:24 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:55:32 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:55:32 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:55:40 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:55:40 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:55:48 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:55:48 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:55:56 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:55:56 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:56:04 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:56:04 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:56:12 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:56:12 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:56:20 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:56:20 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:56:28 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:56:28 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:56:36 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:56:36 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:56:44 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:56:44 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:56:52 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:56:52 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:57:00 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:57:00 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:57:08 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:57:08 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/12 16:57:16 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:57:16 [INFO] Attempting WinRM connection...
+2025/12/12 16:57:16 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:57:16 [DEBUG] connecting to remote shell using WinRM
+2025/12/12 16:57:46 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:57:46 [ERROR] connection error: unknown error Post "http://169.254.79.166:5985/wsman": dial tcp 169.254.79.166:5985: i/o timeout
+2025/12/12 16:57:46 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:57:46 [ERROR] WinRM connection err: unknown error Post "http://169.254.79.166:5985/wsman": dial tcp 169.254.79.166:5985: i/o timeout
+2025/12/12 16:57:51 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:57:51 [INFO] Attempting WinRM connection...
+2025/12/12 16:57:51 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:57:51 [DEBUG] connecting to remote shell using WinRM
+2025/12/12 16:58:16 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:58:16 Checking that WinRM is connected with: 'powershell.exe -EncodedCommand JABQAHIAbwBnAHIAZQBzAHMAUAByAGUAZgBlAHIAZQBuAGMAZQAgAD0AIAAnAFMAaQBsAGUAbgB0AGwAeQBDAG8AbgB0AGkAbgB1AGUAJwA7AGkAZgAgACgAVABlAHMAdAAtAFAAYQB0AGgAIAB2AGEAcgBpAGEAYgBsAGUAOgBnAGwAbwBiAGEAbAA6AFAAcgBvAGcAcgBlAHMAcwBQAHIAZQBmAGUAcgBlAG4AYwBlACkAewAkAFAAcgBvAGcAcgBlAHMAcwBQAHIAZQBmAGUAcgBlAG4AYwBlAD0AJwBTAGkAbABlAG4AdABsAHkAQwBvAG4AdABpAG4AdQBlACcAfQA7ACAAZQBjAGgAbwAgACIAVwBpAG4AUgBNACAAYwBvAG4AbgBlAGMAdABlAGQALgAiAA=='
+2025/12/12 16:58:20 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 16:58:20 [INFO] starting remote command: powershell.exe -EncodedCommand JABQAHIAbwBnAHIAZQBzAHMAUAByAGUAZgBlAHIAZQBuAGMAZQAgAD0AIAAnAFMAaQBsAGUAbgB0AGwAeQBDAG8AbgB0AGkAbgB1AGUAJwA7AGkAZgAgACgAVABlAHMAdAAtAFAAYQB0AGgAIAB2AGEAcgBpAGEAYgBsAGUAOgBnAGwAbwBiAGEAbAA6AFAAcgBvAGcAcgBlAHMAcwBQAHIAZQBmAGUAcgBlAG4AYwBlACkAewAkAFAAcgBvAGcAcgBlAHMAcwBQAHIAZQBmAGUAcgBlAG4AYwBlAD0AJwBTAGkAbABlAG4AdABsAHkAQwBvAG4AdABpAG4AdQBlACcAfQA7ACAAZQBjAGgAbwAgACIAVwBpAG4AUgBNACAAYwBvAG4AbgBlAGMAdABlAGQALgAiAA==
+2025/12/12 17:01:05 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: WinRM connected.[0m
+2025/12/12 17:01:10 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 17:01:10 [INFO] command 'powershell.exe -EncodedCommand JABQAHIAbwBnAHIAZQBzAHMAUAByAGUAZgBlAHIAZQBuAGMAZQAgAD0AIAAnAFMAaQBsAGUAbgB0AGwAeQBDAG8AbgB0AGkAbgB1AGUAJwA7AGkAZgAgACgAVABlAHMAdAAtAFAAYQB0AGgAIAB2AGEAcgBpAGEAYgBsAGUAOgBnAGwAbwBiAGEAbAA6AFAAcgBvAGcAcgBlAHMAcwBQAHIAZQBmAGUAcgBlAG4AYwBlACkAewAkAFAAcgBvAGcAcgBlAHMAcwBQAHIAZQBmAGUAcgBlAG4AYwBlAD0AJwBTAGkAbABlAG4AdABsAHkAQwBvAG4AdABpAG4AdQBlACcAfQA7ACAAZQBjAGgAbwAgACIAVwBpAG4AUgBNACAAYwBvAG4AbgBlAGMAdABlAGQALgAiAA==' exited with code: 0
+2025/12/12 17:01:10 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 17:01:10 Connected to machine
+2025/12/12 17:01:10 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Connected to WinRM![0m
+2025/12/12 17:01:10 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 17:01:10 Running the provision hook
+2025/12/12 17:01:10 [INFO] (telemetry) Starting provisioner file
+2025/12/12 17:01:10 packer-provisioner-file plugin: [DEBUG] - common: sending ConfigSpec as gob
+2025/12/12 17:01:10 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/12 17:01:10 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Uploading ../../../scripts/install_config.ini => C:\Windows\Temp\install_config.ini[0m
+2025/12/12 17:01:10 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 17:01:10 Uploading file to 'C:\Windows\Temp\install_config.ini'
+2025/12/12 17:01:10 packer-provisioner-file plugin: [INFO] 16301 bytes written for 'uploadData'
+2025/12/12 17:01:10 [INFO] 16301 bytes written for 'uploadData'
+2025/12/12 17:02:18 packer-provisioner-file plugin: closing
+2025/12/12 17:02:18 closing
+2025/12/12 17:02:18 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 17:02:18 closing
+2025/12/12 17:02:19 [INFO] (telemetry) ending file
+2025/12/12 17:02:19 [INFO] (telemetry) Starting provisioner powershell
+2025/12/12 17:02:19 packer-provisioner-powershell plugin: [DEBUG] - common: sending ConfigSpec as gob
+2025/12/12 17:02:19 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/12 17:02:19 packer-provisioner-powershell plugin: Using script default execute command powershell -executionpolicy bypass "& { if (Test-Path variable:global:ProgressPreference){set-variable -name variable:global:ProgressPreference -value 'SilentlyContinue'};. {{.Vars}}; &'{{.Path}}'; exit $LastExitCode }"
+2025/12/12 17:02:19 packer-provisioner-powershell plugin: Using script default elevated execute command powershell -executionpolicy bypass "& { if (Test-Path variable:global:ProgressPreference){set-variable -name variable:global:ProgressPreference -value 'SilentlyContinue'};. {{.Vars}}; &'{{.Path}}'; exit $LastExitCode }"
+2025/12/12 17:02:19 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Provisioning with Powershell...[0m
+2025/12/12 17:02:19 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Provisioning with powershell script: ../../../scripts/install-eset-agent.ps1[0m
+2025/12/12 17:02:19 packer-provisioner-powershell plugin: Opening ../../../scripts/install-eset-agent.ps1 for reading
+2025/12/12 17:02:19 packer-provisioner-powershell plugin: Uploading env vars to c:/Windows/Temp/packer-ps-env-vars-693c9efb-e5ec-485f-3f81-9d50e34a9e99.ps1
+2025/12/12 17:02:19 packer-provisioner-powershell plugin: [INFO] 156 bytes written for 'uploadData'
+2025/12/12 17:02:19 [INFO] 156 bytes written for 'uploadData'
+2025/12/12 17:02:19 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 17:02:19 Uploading file to 'c:/Windows/Temp/packer-ps-env-vars-693c9efb-e5ec-485f-3f81-9d50e34a9e99.ps1'
+2025/12/12 17:03:09 packer-provisioner-powershell plugin: Building elevated command wrapper for: powershell -executionpolicy bypass "& { if (Test-Path variable:global:ProgressPreference){set-variable -name variable:global:ProgressPreference -value 'SilentlyContinue'};. c:/Windows/Temp/packer-ps-env-vars-693c9efb-e5ec-485f-3f81-9d50e34a9e99.ps1; &'c:/Windows/Temp/script-693c9efb-f11a-54b1-f2b0-2860353a84b8.ps1'; exit $LastExitCode }"
+2025/12/12 17:03:09 packer-provisioner-powershell plugin: Command [powershell -executionpolicy bypass "& { if (Test-Path variable:global:ProgressPreference){set-variable -name variable:global:ProgressPreference -value 'SilentlyContinue'};. c:/Windows/Temp/packer-ps-env-vars-693c9efb-e5ec-485f-3f81-9d50e34a9e99.ps1; &'c:/Windows/Temp/script-693c9efb-f11a-54b1-f2b0-2860353a84b8.ps1'; exit $LastExitCode }" > %SYSTEMROOT%/Temp/packer-693c9f2d-8942-f08b-bd2d-3f543a29a475.out 2>&1] converted to [powershell -executionpolicy bypass &#34;&amp; { if (Test-Path variable:global:ProgressPreference){set-variable -name variable:global:ProgressPreference -value &#39;SilentlyContinue&#39;};. c:/Windows/Temp/packer-ps-env-vars-693c9efb-e5ec-485f-3f81-9d50e34a9e99.ps1; &amp;&#39;c:/Windows/Temp/script-693c9efb-f11a-54b1-f2b0-2860353a84b8.ps1&#39;; exit $LastExitCode }&#34; &gt; %SYSTEMROOT%/Temp/packer-693c9f2d-8942-f08b-bd2d-3f543a29a475.out 2&gt;&amp;1] for use in XML string
+2025/12/12 17:03:09 packer-provisioner-powershell plugin: Uploading elevated shell wrapper for command [powershell -executionpolicy bypass "& { if (Test-Path variable:global:ProgressPreference){set-variable -name variable:global:ProgressPreference -value 'SilentlyContinue'};. c:/Windows/Temp/packer-ps-env-vars-693c9efb-e5ec-485f-3f81-9d50e34a9e99.ps1; &'c:/Windows/Temp/script-693c9efb-f11a-54b1-f2b0-2860353a84b8.ps1'; exit $LastExitCode }" > %SYSTEMROOT%/Temp/packer-693c9f2d-8942-f08b-bd2d-3f543a29a475.out 2>&1] to [C:/Windows/Temp/packer-elevated-shell-693c9f2d-0cde-3833-3fcb-8f37e031c875.ps1]
+2025/12/12 17:03:09 packer-provisioner-powershell plugin: [INFO] 3510 bytes written for 'uploadData'
+2025/12/12 17:03:09 [INFO] 3510 bytes written for 'uploadData'
+2025/12/12 17:03:09 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 17:03:09 Uploading file to 'C:/Windows/Temp/packer-elevated-shell-693c9f2d-0cde-3833-3fcb-8f37e031c875.ps1'
+2025/12/12 17:04:00 packer-provisioner-powershell plugin: [INFO] 4049 bytes written for 'uploadData'
+2025/12/12 17:04:00 [INFO] 4049 bytes written for 'uploadData'
+2025/12/12 17:04:00 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 17:04:00 Uploading file to 'c:/Windows/Temp/script-693c9efb-f11a-54b1-f2b0-2860353a84b8.ps1'
+2025/12/12 17:04:56 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 17:04:56 [INFO] starting remote command: powershell -executionpolicy bypass -file "C:/Windows/Temp/packer-elevated-shell-693c9f2d-0cde-3833-3fcb-8f37e031c875.ps1"
+2025/12/12 17:06:14 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: =======================================[0m
+2025/12/12 17:06:14 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: ESET Protect Agent Installation[0m
+2025/12/12 17:06:14 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: =======================================[0m
+2025/12/12 17:06:14 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal:[0m
+2025/12/12 17:06:14 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Found configuration file: C:\Windows\Temp\install_config.ini[0m
+2025/12/12 17:06:14 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal:[0m
+2025/12/12 17:06:14 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Downloading ESET Protect Agent from: https://download.eset.com/com/eset/apps/business/era/agent/latest/agent_x64.msi[0m
+2025/12/12 17:06:24 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Download completed successfully[0m
+2025/12/12 17:06:24 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Installer saved to: C:\Windows\Temp\agent_x64.msi[0m
+2025/12/12 17:06:25 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Installer file size: 49.66 MB[0m
+2025/12/12 17:06:25 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal:[0m
+2025/12/12 17:06:25 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Installing ESET Protect Agent...[0m
+2025/12/12 17:06:25 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Installation log will be saved to: C:\Users\ADMINI~1\AppData\Local\Temp\era-agent-install.log[0m
+2025/12/12 17:06:25 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Starting silent installation...[0m
+2025/12/12 17:08:33 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal:[0m
+2025/12/12 17:08:33 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: =======================================[0m
+2025/12/12 17:08:33 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: ESET Protect Agent installed successfully[0m
+2025/12/12 17:08:33 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: =======================================[0m
+2025/12/12 17:08:33 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal:[0m
+2025/12/12 17:08:33 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Cleaning up installer file...[0m
+2025/12/12 17:08:33 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Installer file removed successfully[0m
+2025/12/12 17:08:33 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal:[0m
+2025/12/12 17:08:33 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: ESET Protect Agent installation completed[0m
+2025/12/12 17:08:33 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Installation log: C:\Users\ADMINI~1\AppData\Local\Temp\era-agent-install.log[0m
+2025/12/12 17:08:35 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 17:08:35 [INFO] command 'powershell -executionpolicy bypass -file "C:/Windows/Temp/packer-elevated-shell-693c9f2d-0cde-3833-3fcb-8f37e031c875.ps1"' exited with code: 0
+2025/12/12 17:08:35 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 17:08:35 [INFO] RPC endpoint: Communicator ended with: 0
+2025/12/12 17:08:35 [INFO] 898 bytes written for 'stdout'
+2025/12/12 17:08:35 [INFO] 0 bytes written for 'stderr'
+2025/12/12 17:08:35 [INFO] RPC client: Communicator ended with: 0
+2025/12/12 17:08:35 [INFO] RPC endpoint: Communicator ended with: 0
+2025/12/12 17:08:35 packer-provisioner-powershell plugin: [INFO] 898 bytes written for 'stdout'
+2025/12/12 17:08:35 packer-provisioner-powershell plugin: [INFO] 0 bytes written for 'stderr'
+2025/12/12 17:08:35 packer-provisioner-powershell plugin: [INFO] RPC client: Communicator ended with: 0
+2025/12/12 17:08:35 packer-provisioner-powershell plugin: c:/Windows/Temp/script-693c9efb-f11a-54b1-f2b0-2860353a84b8.ps1 returned with exit code 0
+2025/12/12 17:08:35 packer-provisioner-powershell plugin: [INFO] 511 bytes written for 'uploadData'
+2025/12/12 17:08:35 [INFO] 511 bytes written for 'uploadData'
+2025/12/12 17:08:35 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 17:08:35 Uploading file to 'c:/Windows/Temp/packer-cleanup-693c9efb-8b32-74a4-5f2d-5216f2c1aa10.ps1'
+2025/12/12 17:09:28 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 17:09:28 [INFO] starting remote command: powershell -executionpolicy bypass "& { if (Test-Path variable:global:ProgressPreference){set-variable -name variable:global:ProgressPreference -value 'SilentlyContinue'};. c:/Windows/Temp/packer-ps-env-vars-693c9efb-e5ec-485f-3f81-9d50e34a9e99.ps1; &'c:/Windows/Temp/packer-cleanup-693c9efb-8b32-74a4-5f2d-5216f2c1aa10.ps1'; exit $LastExitCode }"
+2025/12/12 17:09:49 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 17:09:49 [INFO] command 'powershell -executionpolicy bypass "& { if (Test-Path variable:global:ProgressPreference){set-variable -name variable:global:ProgressPreference -value 'SilentlyContinue'};. c:/Windows/Temp/packer-ps-env-vars-693c9efb-e5ec-485f-3f81-9d50e34a9e99.ps1; &'c:/Windows/Temp/packer-cleanup-693c9efb-8b32-74a4-5f2d-5216f2c1aa10.ps1'; exit $LastExitCode }"' exited with code: 0
+2025/12/12 17:09:49 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 17:09:49 [INFO] RPC endpoint: Communicator ended with: 0
+2025/12/12 17:09:49 [INFO] 0 bytes written for 'stdout'
+2025/12/12 17:09:49 [INFO] 0 bytes written for 'stderr'
+2025/12/12 17:09:49 [INFO] RPC client: Communicator ended with: 0
+2025/12/12 17:09:49 [INFO] RPC endpoint: Communicator ended with: 0
+2025/12/12 17:09:49 packer-provisioner-powershell plugin: [INFO] 0 bytes written for 'stdout'
+2025/12/12 17:09:49 packer-provisioner-powershell plugin: [INFO] 0 bytes written for 'stderr'
+2025/12/12 17:09:49 packer-provisioner-powershell plugin: [INFO] RPC client: Communicator ended with: 0
+2025/12/12 17:09:49 [INFO] (telemetry) ending powershell
+2025/12/12 17:09:49 [INFO] (telemetry) Starting provisioner windows-update
+2025/12/12 17:09:49 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Pausing 30s before the next provisioner...[0m
+2025/12/12 17:10:19 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 17:10:19 [DEBUG] - common: sending ConfigSpec as gob
+2025/12/12 17:10:19 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/12 17:10:19 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Uploading the Windows update elevated script...[0m
+2025/12/12 17:10:19 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 17:10:19 [INFO] 4786 bytes written for 'uploadData'
+2025/12/12 17:10:19 [INFO] 4786 bytes written for 'uploadData'
+2025/12/12 17:10:19 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 17:10:19 Uploading file to 'C:/Windows/Temp/packer-windows-update-elevated.ps1'
+2025/12/12 17:11:00 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Uploading the Windows update check for reboot required elevated script...[0m
+2025/12/12 17:11:00 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 17:11:00 [INFO] 4247 bytes written for 'uploadData'
+2025/12/12 17:11:00 [INFO] 4247 bytes written for 'uploadData'
+2025/12/12 17:11:00 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 17:11:00 Uploading file to 'C:/Windows/Temp/packer-windows-update-pending-reboot-elevated.ps1'
+2025/12/12 17:11:38 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Uploading the Windows update script...[0m
+2025/12/12 17:11:38 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 17:11:38 [INFO] 12519 bytes written for 'uploadData'
+2025/12/12 17:11:38 [INFO] 12519 bytes written for 'uploadData'
+2025/12/12 17:11:38 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 17:11:38 Uploading file to 'C:/Windows/Temp/packer-windows-update.ps1'
+2025/12/12 17:12:17 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Running Windows update...[0m
+2025/12/12 17:12:18 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 17:12:18 [INFO] starting remote command: PowerShell -ExecutionPolicy Bypass -OutputFormat Text -File C:/Windows/Temp/packer-windows-update-elevated.ps1
+2025/12/12 17:13:36 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Searching for Windows updates...[0m
+2025/12/12 17:13:57 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 98% cpu; 34% memory)...[0m
+2025/12/12 17:14:55 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 36% memory)...[0m
+2025/12/12 17:15:59 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 95% cpu; 38% memory)...[0m
+2025/12/12 17:16:05 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Found Windows update (2021-03-09; 3.12 MB): 2021-01 Update for Windows Server 2019 for x64-based Systems (KB4589208)[0m
+2025/12/12 17:16:05 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Found Windows update (2022-08-09; 0.07 MB): 2022-08 Security Update for Windows Server 2019 for x64-based Systems (KB5012170)[0m
+2025/12/12 17:16:05 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Found Windows update (2025-10-14; 83.93 MB): 2025-10 Cumulative Update for .NET Framework 3.5, 4.7.2 and 4.8 for Windows Server 2019 for x64 (KB5066738)[0m
+2025/12/12 17:16:05 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Found Windows update (2025-12-09; 80.41 MB): Windows Malicious Software Removal Tool x64 - v5.138 (KB890830)[0m
+2025/12/12 17:16:05 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Skipped (filter) Windows update (2025-12-12; 202.79 MB): Security Intelligence Update for Microsoft Defender Antivirus - KB2267602 (Version 1.443.74.0) - Current Channel (Broad)[0m
+2025/12/12 17:16:05 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Found Windows update (2025-12-09; 17521.93 MB): 2025-12 Cumulative Update for Windows Server 2019 (1809) for x64-based Systems (KB5071544)[0m
+2025/12/12 17:16:05 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Downloading Windows updates (5 updates; 17689.46 MB)...[0m
+2025/12/12 17:17:10 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 38% memory)...[0m
+2025/12/12 17:18:04 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 83% cpu; 46% memory)...[0m
+2025/12/12 17:19:08 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 80% cpu; 39% memory)...[0m
+2025/12/12 17:20:15 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 40% memory)...[0m
+2025/12/12 17:21:17 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 42% memory)...[0m
+2025/12/12 17:22:18 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 36% memory)...[0m
+2025/12/12 17:23:21 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 36% memory)...[0m
+2025/12/12 17:24:24 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 37% memory)...[0m
+2025/12/12 17:25:28 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 37% memory)...[0m
+2025/12/12 17:26:31 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 37% memory)...[0m
+2025/12/12 17:27:34 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 38% memory)...[0m
+2025/12/12 17:28:37 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 38% memory)...[0m
+2025/12/12 17:29:40 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 38% memory)...[0m
+2025/12/12 17:30:43 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 39% memory)...[0m
+2025/12/12 17:31:46 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 39% memory)...[0m
+2025/12/12 17:32:50 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 39% memory)...[0m
+2025/12/12 17:33:53 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 39% memory)...[0m
+2025/12/12 17:34:56 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 39% memory)...[0m
+2025/12/12 17:35:59 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 37% memory)...[0m
+2025/12/12 17:37:02 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 37% memory)...[0m
+2025/12/12 17:38:05 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 37% memory)...[0m
+2025/12/12 17:39:09 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 37% memory)...[0m
+2025/12/12 17:40:12 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 38% memory)...[0m
+2025/12/12 17:41:16 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 40% memory)...[0m
+2025/12/12 17:42:19 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 42% memory)...[0m
+2025/12/12 17:43:22 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 41% memory)...[0m
+2025/12/12 17:44:25 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 41% memory)...[0m
+2025/12/12 17:45:28 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 40% memory)...[0m
+2025/12/12 17:46:31 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 39% memory)...[0m
+2025/12/12 17:47:34 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 80% cpu; 38% memory)...[0m
+2025/12/12 17:48:38 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 34% cpu; 39% memory)...[0m
+2025/12/12 17:49:41 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 50% cpu; 38% memory)...[0m
+2025/12/12 17:50:44 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 63% cpu; 38% memory)...[0m
+2025/12/12 17:51:47 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 60% cpu; 37% memory)...[0m
+2025/12/12 17:52:50 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 28% cpu; 37% memory)...[0m
+2025/12/12 17:53:53 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 51% cpu; 37% memory)...[0m
+2025/12/12 17:54:57 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 39% cpu; 37% memory)...[0m
+2025/12/12 17:56:00 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 49% cpu; 37% memory)...[0m
+2025/12/12 17:57:03 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 17% cpu; 37% memory)...[0m
+2025/12/12 17:58:06 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 27% cpu; 37% memory)...[0m
+2025/12/12 17:58:31 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Installing Windows updates...[0m
+2025/12/12 17:59:09 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 62% cpu; 40% memory)...[0m
+2025/12/12 18:00:12 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 80% cpu; 41% memory)...[0m
+2025/12/12 18:01:15 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 14% cpu; 41% memory)...[0m
+2025/12/12 18:02:18 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 72% cpu; 40% memory)...[0m
+2025/12/12 18:03:22 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 92% cpu; 40% memory)...[0m
+2025/12/12 18:04:25 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 72% cpu; 45% memory)...[0m
+2025/12/12 18:05:28 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 62% cpu; 45% memory)...[0m
+2025/12/12 18:06:32 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 67% cpu; 45% memory)...[0m
+2025/12/12 18:07:35 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 69% cpu; 46% memory)...[0m
+2025/12/12 18:08:38 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 66% cpu; 47% memory)...[0m
+2025/12/12 18:09:41 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 75% cpu; 49% memory)...[0m
+2025/12/12 18:10:46 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 52% memory)...[0m
+2025/12/12 18:11:50 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 94% cpu; 53% memory)...[0m
+2025/12/12 18:12:53 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 88% cpu; 56% memory)...[0m
+2025/12/12 18:13:57 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 58% memory)...[0m
+2025/12/12 18:15:00 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 63% memory)...[0m
+2025/12/12 18:16:03 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 64% memory)...[0m
+2025/12/12 18:17:06 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 85% cpu; 64% memory)...[0m
+2025/12/12 18:18:09 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 86% cpu; 70% memory)...[0m
+2025/12/12 18:19:12 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 67% cpu; 70% memory)...[0m
+2025/12/12 18:20:16 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 88% cpu; 71% memory)...[0m
+2025/12/12 18:21:19 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 67% cpu; 71% memory)...[0m
+2025/12/12 18:22:22 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 69% cpu; 71% memory)...[0m
+2025/12/12 18:23:25 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 59% cpu; 72% memory)...[0m
+2025/12/12 18:24:28 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 74% cpu; 72% memory)...[0m
+2025/12/12 18:25:31 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 52% cpu; 73% memory)...[0m
+2025/12/12 18:26:35 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 36% cpu; 73% memory)...[0m
+2025/12/12 18:27:38 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 49% cpu; 74% memory)...[0m
+2025/12/12 18:28:41 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 89% cpu; 71% memory)...[0m
+2025/12/12 18:29:44 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 47% cpu; 72% memory)...[0m
+2025/12/12 18:30:48 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 34% cpu; 70% memory)...[0m
+2025/12/12 18:31:51 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 39% cpu; 72% memory)...[0m
+2025/12/12 18:32:54 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 29% cpu; 73% memory)...[0m
+2025/12/12 18:33:57 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 23% cpu; 73% memory)...[0m
+2025/12/12 18:35:00 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 17% cpu; 73% memory)...[0m
+2025/12/12 18:36:03 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 32% cpu; 73% memory)...[0m
+2025/12/12 18:37:06 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 26% cpu; 73% memory)...[0m
+2025/12/12 18:38:09 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 59% cpu; 73% memory)...[0m
+2025/12/12 18:39:12 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 39% cpu; 73% memory)...[0m
+2025/12/12 18:40:15 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 79% cpu; 68% memory)...[0m
+2025/12/12 18:41:19 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 25% cpu; 72% memory)...[0m
+2025/12/12 18:42:22 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 54% cpu; 73% memory)...[0m
+2025/12/12 18:43:25 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 66% cpu; 73% memory)...[0m
+2025/12/12 18:44:28 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 40% cpu; 73% memory)...[0m
+2025/12/12 18:45:31 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 64% cpu; 73% memory)...[0m
+2025/12/12 18:46:34 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 15% cpu; 59% memory)...[0m
+2025/12/12 18:47:37 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 4% cpu; 58% memory)...[0m
+2025/12/12 18:48:40 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 1% cpu; 61% memory)...[0m
+2025/12/12 18:49:43 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 21% cpu; 61% memory)...[0m
+2025/12/12 18:50:46 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 1% cpu; 62% memory)...[0m
+2025/12/12 18:51:49 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 46% cpu; 58% memory)...[0m
+2025/12/12 18:52:52 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 55% cpu; 60% memory)...[0m
+2025/12/12 18:53:55 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 69% cpu; 59% memory)...[0m
+2025/12/12 18:54:59 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 47% cpu; 60% memory)...[0m
+2025/12/12 18:56:02 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 47% cpu; 60% memory)...[0m
+2025/12/12 18:57:05 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 42% cpu; 61% memory)...[0m
+2025/12/12 18:58:08 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 55% cpu; 61% memory)...[0m
+2025/12/12 18:59:11 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 41% cpu; 61% memory)...[0m
+2025/12/12 19:00:14 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 34% cpu; 62% memory)...[0m
+2025/12/12 19:01:17 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 5% cpu; 63% memory)...[0m
+2025/12/12 19:02:20 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 33% cpu; 63% memory)...[0m
+2025/12/12 19:03:23 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 55% cpu; 63% memory)...[0m
+2025/12/12 19:04:26 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 41% cpu; 63% memory)...[0m
+2025/12/12 19:05:29 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 7% cpu; 62% memory)...[0m
+2025/12/12 19:06:32 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 40% cpu; 62% memory)...[0m
+2025/12/12 19:07:35 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 1% cpu; 63% memory)...[0m
+2025/12/12 19:08:39 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 39% cpu; 62% memory)...[0m
+2025/12/12 19:09:42 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 35% cpu; 63% memory)...[0m
+2025/12/12 19:10:44 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 49% cpu; 64% memory)...[0m
+2025/12/12 19:11:48 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 59% cpu; 68% memory)...[0m
+2025/12/12 19:12:51 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 0% cpu; 66% memory)...[0m
+2025/12/12 19:13:55 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 52% cpu; 65% memory)...[0m
+2025/12/12 19:14:58 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 1% cpu; 66% memory)...[0m
+2025/12/12 19:16:01 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 18% cpu; 67% memory)...[0m
+2025/12/12 19:17:04 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 18% cpu; 66% memory)...[0m
+2025/12/12 19:18:07 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 45% cpu; 65% memory)...[0m
+2025/12/12 19:19:10 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 98% cpu; 70% memory)...[0m
+2025/12/12 19:20:14 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 47% cpu; 62% memory)...[0m
+2025/12/12 19:21:17 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 5% cpu; 62% memory)...[0m
+2025/12/12 19:22:20 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 20% cpu; 62% memory)...[0m
+2025/12/12 19:23:23 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 65% memory)...[0m
+2025/12/12 19:24:26 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 50% cpu; 63% memory)...[0m
+2025/12/12 19:25:29 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 0% cpu; 63% memory)...[0m
+2025/12/12 19:26:32 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 31% cpu; 61% memory)...[0m
+2025/12/12 19:27:35 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 30% cpu; 62% memory)...[0m
+2025/12/12 19:28:38 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 37% cpu; 61% memory)...[0m
+2025/12/12 19:29:41 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 24% cpu; 62% memory)...[0m
+2025/12/12 19:30:44 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 46% cpu; 63% memory)...[0m
+2025/12/12 19:31:47 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 52% cpu; 61% memory)...[0m
+2025/12/12 19:32:50 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 31% cpu; 60% memory)...[0m
+2025/12/12 19:33:53 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 1% cpu; 61% memory)...[0m
+2025/12/12 19:34:56 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 41% cpu; 60% memory)...[0m
+2025/12/12 19:35:59 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 20% cpu; 60% memory)...[0m
+2025/12/12 19:37:02 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 5% cpu; 59% memory)...[0m
+2025/12/12 19:38:05 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 19% cpu; 59% memory)...[0m
+2025/12/12 19:39:09 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 61% cpu; 59% memory)...[0m
+2025/12/12 19:40:12 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 24% cpu; 61% memory)...[0m
+2025/12/12 19:41:15 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 49% cpu; 59% memory)...[0m
+2025/12/12 19:42:18 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 37% cpu; 59% memory)...[0m
+2025/12/12 19:43:21 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 1% cpu; 60% memory)...[0m
+2025/12/12 19:44:24 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 34% cpu; 60% memory)...[0m
+2025/12/12 19:45:27 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 51% cpu; 60% memory)...[0m
+2025/12/12 19:46:31 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 42% cpu; 59% memory)...[0m
+2025/12/12 19:47:34 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 1% cpu; 60% memory)...[0m
+2025/12/12 19:48:37 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 34% cpu; 59% memory)...[0m
+2025/12/12 19:49:40 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 31% cpu; 59% memory)...[0m
+2025/12/12 19:50:43 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 0% cpu; 60% memory)...[0m
+2025/12/12 19:51:46 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 46% cpu; 60% memory)...[0m
+2025/12/12 19:52:49 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 38% cpu; 60% memory)...[0m
+2025/12/12 19:53:52 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 46% cpu; 53% memory)...[0m
+2025/12/12 19:54:55 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 32% cpu; 54% memory)...[0m
+2025/12/12 19:55:58 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 25% cpu; 55% memory)...[0m
+2025/12/12 19:57:01 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 21% cpu; 57% memory)...[0m
+2025/12/12 19:58:04 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 33% cpu; 59% memory)...[0m
+2025/12/12 19:59:07 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 5% cpu; 60% memory)...[0m
+2025/12/12 20:00:10 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 24% cpu; 60% memory)...[0m
+2025/12/12 20:01:13 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 29% cpu; 60% memory)...[0m
+2025/12/12 20:02:16 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 0% cpu; 61% memory)...[0m
+2025/12/12 20:03:19 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 45% cpu; 61% memory)...[0m
+2025/12/12 20:04:22 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 0% cpu; 62% memory)...[0m
+2025/12/12 20:05:26 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 0% cpu; 62% memory)...[0m
+2025/12/12 20:06:29 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 1% cpu; 62% memory)...[0m
+2025/12/12 20:07:32 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 2% cpu; 63% memory)...[0m
+2025/12/12 20:08:35 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 0% cpu; 64% memory)...[0m
+2025/12/12 20:09:38 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 50% cpu; 66% memory)...[0m
+2025/12/12 20:10:41 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 1% cpu; 66% memory)...[0m
+2025/12/12 20:11:44 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 46% cpu; 67% memory)...[0m
+2025/12/12 20:12:48 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 39% cpu; 68% memory)...[0m
+2025/12/12 20:13:51 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 42% cpu; 69% memory)...[0m
+2025/12/12 20:14:54 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 1% cpu; 69% memory)...[0m
+2025/12/12 20:15:57 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 14% cpu; 69% memory)...[0m
+2025/12/12 20:17:00 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 39% cpu; 69% memory)...[0m
+2025/12/12 20:18:03 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 18% cpu; 69% memory)...[0m
+2025/12/12 20:19:07 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 32% cpu; 68% memory)...[0m
+2025/12/12 20:20:10 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 25% cpu; 64% memory)...[0m
+2025/12/12 20:21:13 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 12% cpu; 62% memory)...[0m
+2025/12/12 20:22:16 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 22% cpu; 54% memory)...[0m
+2025/12/12 20:23:19 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 50% cpu; 62% memory)...[0m
+2025/12/12 20:24:22 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 6% cpu; 59% memory)...[0m
+2025/12/12 20:25:25 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 1% cpu; 60% memory)...[0m
+2025/12/12 20:26:28 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 1% cpu; 56% memory)...[0m
+2025/12/12 20:27:31 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 1% cpu; 61% memory)...[0m
+2025/12/12 20:28:34 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 0% cpu; 57% memory)...[0m
+2025/12/12 20:29:37 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 1% cpu; 62% memory)...[0m
+2025/12/12 20:30:40 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 35% cpu; 62% memory)...[0m
+2025/12/12 20:31:44 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 18% cpu; 58% memory)...[0m
+2025/12/12 20:32:47 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 2% cpu; 59% memory)...[0m
+2025/12/12 20:33:50 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 1% cpu; 60% memory)...[0m
+2025/12/12 20:34:53 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 16% cpu; 62% memory)...[0m
+2025/12/12 20:35:56 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 1% cpu; 63% memory)...[0m
+2025/12/12 20:36:59 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 100% cpu; 61% memory)...[0m
+2025/12/12 20:38:02 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 19% cpu; 57% memory)...[0m
+2025/12/12 20:39:05 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 12% cpu; 58% memory)...[0m
+2025/12/12 20:40:08 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 2% cpu; 63% memory)...[0m
+2025/12/12 20:41:11 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 4% cpu; 59% memory)...[0m
+2025/12/12 20:42:14 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 12% cpu; 59% memory)...[0m
+2025/12/12 20:43:18 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 16% cpu; 60% memory)...[0m
+2025/12/12 20:44:21 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 1% cpu; 55% memory)...[0m
+2025/12/12 20:45:24 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 5% cpu; 60% memory)...[0m
+2025/12/12 20:46:27 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 4% cpu; 55% memory)...[0m
+2025/12/12 20:47:30 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 0% cpu; 56% memory)...[0m
+2025/12/12 20:48:33 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 0% cpu; 56% memory)...[0m
+2025/12/12 20:49:36 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 58% cpu; 51% memory)...[0m
+2025/12/12 20:50:39 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 25% cpu; 56% memory)...[0m
+2025/12/12 20:51:42 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 1% cpu; 53% memory)...[0m
+2025/12/12 20:52:45 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 7% cpu; 52% memory)...[0m
+2025/12/12 20:53:49 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 1% cpu; 53% memory)...[0m
+2025/12/12 20:54:52 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 5% cpu; 54% memory)...[0m
+2025/12/12 20:55:55 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 3% cpu; 54% memory)...[0m
+2025/12/12 20:56:58 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 2% cpu; 54% memory)...[0m
+2025/12/12 20:58:01 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 4% cpu; 55% memory)...[0m
+2025/12/12 20:58:06 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for the Windows Modules Installer to exit...[0m
+2025/12/12 20:58:27 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 20:58:27 [INFO] command 'PowerShell -ExecutionPolicy Bypass -OutputFormat Text -File C:/Windows/Temp/packer-windows-update-elevated.ps1' exited with code: 101
+2025/12/12 20:58:27 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 20:58:27 [INFO] RPC endpoint: Communicator ended with: 101
+2025/12/12 20:58:27 [INFO] 18111 bytes written for 'stdout'
+2025/12/12 20:58:27 [INFO] 0 bytes written for 'stderr'
+2025/12/12 20:58:27 [INFO] RPC client: Communicator ended with: 101
+2025/12/12 20:58:27 [INFO] RPC endpoint: Communicator ended with: 101
+2025/12/12 20:58:27 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 20:58:27 [INFO] 18111 bytes written for 'stdout'
+2025/12/12 20:58:27 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 20:58:27 [INFO] 0 bytes written for 'stderr'
+2025/12/12 20:58:27 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 20:58:27 [INFO] RPC client: Communicator ended with: 101
+2025/12/12 20:58:27 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Restarting the machine...[0m
+2025/12/12 20:58:29 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 20:58:29 [INFO] starting remote command: shutdown.exe -f -r -t 0 -c "packer restart"
+2025/12/12 20:58:29 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 20:58:29 [INFO] command 'shutdown.exe -f -r -t 0 -c "packer restart"' exited with code: 0
+2025/12/12 20:58:29 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 20:58:29 [INFO] RPC endpoint: Communicator ended with: 0
+2025/12/12 20:58:29 [INFO] 0 bytes written for 'stderr'
+2025/12/12 20:58:29 [INFO] 0 bytes written for 'stdout'
+2025/12/12 20:58:29 [INFO] RPC client: Communicator ended with: 0
+2025/12/12 20:58:29 [INFO] RPC endpoint: Communicator ended with: 0
+2025/12/12 20:58:29 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 20:58:29 [INFO] 0 bytes written for 'stdout'
+2025/12/12 20:58:29 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 20:58:29 [INFO] 0 bytes written for 'stderr'
+2025/12/12 20:58:29 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 20:58:29 [INFO] RPC client: Communicator ended with: 0
+2025/12/12 20:58:29 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for machine to become available...[0m
+2025/12/12 20:58:31 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 20:58:31 [INFO] starting remote command: shutdown.exe -f -r -t 60 -c "packer restart test"
+2025/12/12 20:58:31 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 20:58:31 [INFO] command 'shutdown.exe -f -r -t 60 -c "packer restart test"' exited with code: 1115
+2025/12/12 20:58:31 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 20:58:31 [INFO] RPC endpoint: Communicator ended with: 1115
+2025/12/12 20:58:31 [INFO] 0 bytes written for 'stdout'
+2025/12/12 20:58:31 [INFO] 40 bytes written for 'stderr'
+2025/12/12 20:58:31 ui error: [1;31m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: A system shutdown is in progress.(1115)[0m
+2025/12/12 20:58:31 [INFO] RPC client: Communicator ended with: 1115
+2025/12/12 20:58:31 [INFO] RPC endpoint: Communicator ended with: 1115
+2025/12/12 20:58:31 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 20:58:31 [INFO] 0 bytes written for 'stdout'
+2025/12/12 20:58:31 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 20:58:31 [INFO] 40 bytes written for 'stderr'
+2025/12/12 20:58:31 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 20:58:31 [INFO] RPC client: Communicator ended with: 1115
+2025/12/12 20:58:31 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 20:58:31 Retryable error: Machine not yet available (exit status 1115)
+2025/12/12 20:58:37 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 20:58:37 [INFO] starting remote command: shutdown.exe -f -r -t 60 -c "packer restart test"
+2025/12/12 20:58:38 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 20:58:38 [INFO] command 'shutdown.exe -f -r -t 60 -c "packer restart test"' exited with code: 1115
+2025/12/12 20:58:38 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 20:58:38 [INFO] RPC endpoint: Communicator ended with: 1115
+2025/12/12 20:58:38 [INFO] 0 bytes written for 'stdout'
+2025/12/12 20:58:38 [INFO] 40 bytes written for 'stderr'
+2025/12/12 20:58:38 [INFO] RPC client: Communicator ended with: 1115
+2025/12/12 20:58:38 ui error: [1;31m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: A system shutdown is in progress.(1115)[0m
+2025/12/12 20:58:38 [INFO] RPC endpoint: Communicator ended with: 1115
+2025/12/12 20:58:38 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 20:58:38 [INFO] 40 bytes written for 'stderr'
+2025/12/12 20:58:38 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 20:58:38 [INFO] 0 bytes written for 'stdout'
+2025/12/12 20:58:38 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 20:58:38 [INFO] RPC client: Communicator ended with: 1115
+2025/12/12 20:58:38 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 20:58:38 Retryable error: Machine not yet available (exit status 1115)
+2025/12/12 21:03:40 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:03:40 [INFO] starting remote command: shutdown.exe -f -r -t 60 -c "packer restart test"
+2025/12/12 21:03:40 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:03:40 [INFO] command 'shutdown.exe -f -r -t 60 -c "packer restart test"' exited with code: 1115
+2025/12/12 21:03:40 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:03:40 [INFO] RPC endpoint: Communicator ended with: 1115
+2025/12/12 21:03:40 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:03:40 [INFO] 40 bytes written for 'stderr'
+2025/12/12 21:03:40 [INFO] RPC client: Communicator ended with: 1115
+2025/12/12 21:03:40 [INFO] RPC endpoint: Communicator ended with: 1115
+2025/12/12 21:03:40 ui error: [1;31m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: A system shutdown is in progress.(1115)[0m
+2025/12/12 21:03:40 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:03:40 [INFO] 40 bytes written for 'stderr'
+2025/12/12 21:03:40 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:03:40 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:03:40 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:03:40 [INFO] RPC client: Communicator ended with: 1115
+2025/12/12 21:03:40 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:03:40 Retryable error: Machine not yet available (exit status 1115)
+2025/12/12 21:08:42 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:08:42 [INFO] starting remote command: shutdown.exe -f -r -t 60 -c "packer restart test"
+2025/12/12 21:08:42 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:08:42 [INFO] command 'shutdown.exe -f -r -t 60 -c "packer restart test"' exited with code: 1115
+2025/12/12 21:08:42 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:08:42 [INFO] RPC endpoint: Communicator ended with: 1115
+2025/12/12 21:08:42 [INFO] 40 bytes written for 'stderr'
+2025/12/12 21:08:42 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:08:42 [INFO] RPC client: Communicator ended with: 1115
+2025/12/12 21:08:42 [INFO] RPC endpoint: Communicator ended with: 1115
+2025/12/12 21:08:42 ui error: [1;31m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: A system shutdown is in progress.(1115)[0m
+2025/12/12 21:08:42 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:08:42 [INFO] 40 bytes written for 'stderr'
+2025/12/12 21:08:42 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:08:42 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:08:42 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:08:42 [INFO] RPC client: Communicator ended with: 1115
+2025/12/12 21:08:42 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:08:42 Retryable error: Machine not yet available (exit status 1115)
+2025/12/12 21:12:54 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:12:54 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:12:54 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:12:54 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:12:54 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:12:54 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:12:54 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:12:54 Retryable error: unknown error Post "http://192.168.1.182:5985/wsman": read tcp 192.168.1.171:61506->192.168.1.182:5985: read: connection reset by peer
+2025/12/12 21:12:59 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:12:59 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:12:59 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:12:59 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:12:59 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:12:59 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:12:59 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:12:59 Retryable error: unknown error Post "http://192.168.1.182:5985/wsman": dial tcp 192.168.1.182:5985: connect: connection refused
+2025/12/12 21:13:12 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:13:12 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:13:12 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:13:12 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:13:12 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:13:12 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:13:12 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:13:12 Retryable error: unknown error Post "http://192.168.1.182:5985/wsman": dial tcp 192.168.1.182:5985: connect: operation timed out
+2025/12/12 21:13:26 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:13:26 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:13:26 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:13:26 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:13:26 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:13:26 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:13:26 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:13:26 Retryable error: unknown error Post "http://192.168.1.182:5985/wsman": dial tcp 192.168.1.182:5985: connect: operation timed out
+2025/12/12 21:13:39 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:13:39 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:13:39 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:13:39 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:13:39 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:13:39 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:13:39 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:13:39 Retryable error: unknown error Post "http://192.168.1.182:5985/wsman": dial tcp 192.168.1.182:5985: connect: operation timed out
+2025/12/12 21:13:51 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:13:51 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:13:51 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:13:51 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:13:51 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:13:51 Retryable error: unknown error Post "http://192.168.1.182:5985/wsman": dial tcp 192.168.1.182:5985: connect: connection refused
+2025/12/12 21:13:51 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:13:51 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:13:56 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:13:56 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:13:56 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:13:56 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:13:56 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:13:56 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:13:56 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:13:56 Retryable error: unknown error Post "http://192.168.1.182:5985/wsman": dial tcp 192.168.1.182:5985: connect: connection refused
+2025/12/12 21:14:01 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:14:01 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:14:01 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:14:01 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:14:01 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:14:01 Retryable error: unknown error Post "http://192.168.1.182:5985/wsman": dial tcp 192.168.1.182:5985: connect: connection refused
+2025/12/12 21:14:01 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:14:01 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:14:06 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:14:06 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:14:06 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:14:06 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:14:06 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:14:06 Retryable error: unknown error Post "http://192.168.1.182:5985/wsman": dial tcp 192.168.1.182:5985: connect: connection refused
+2025/12/12 21:14:06 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:14:06 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:14:23 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:14:23 [INFO] starting remote command: shutdown.exe -f -r -t 60 -c "packer restart test"
+2025/12/12 21:14:29 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:14:29 [INFO] command 'shutdown.exe -f -r -t 60 -c "packer restart test"' exited with code: 0
+2025/12/12 21:14:29 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:14:29 [INFO] RPC endpoint: Communicator ended with: 0
+2025/12/12 21:14:29 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:14:29 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:14:29 [INFO] RPC client: Communicator ended with: 0
+2025/12/12 21:14:29 [INFO] RPC endpoint: Communicator ended with: 0
+2025/12/12 21:14:29 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:14:29 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:14:29 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:14:29 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:14:29 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:14:29 [INFO] RPC client: Communicator ended with: 0
+2025/12/12 21:14:34 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:14:34 [INFO] starting remote command: shutdown.exe -a
+2025/12/12 21:14:36 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:14:36 [INFO] command 'shutdown.exe -a' exited with code: 0
+2025/12/12 21:14:36 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:14:36 [INFO] RPC endpoint: Communicator ended with: 0
+2025/12/12 21:14:36 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:14:36 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:14:36 [INFO] RPC client: Communicator ended with: 0
+2025/12/12 21:14:36 [INFO] RPC endpoint: Communicator ended with: 0
+2025/12/12 21:14:36 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:14:36 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:14:36 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:14:36 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:14:36 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:14:36 [INFO] RPC client: Communicator ended with: 0
+2025/12/12 21:14:36 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Checking for pending restart...[0m
+2025/12/12 21:14:37 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:14:37 [INFO] starting remote command: PowerShell -ExecutionPolicy Bypass -OutputFormat Text -File C:/Windows/Temp/packer-windows-update-pending-reboot-elevated.ps1
+2025/12/12 21:16:56 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 58% cpu; 27% memory)...[0m
+2025/12/12 21:17:12 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for the Windows Modules Installer to exit...[0m
+2025/12/12 21:17:55 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 93% cpu; 27% memory)...[0m
+2025/12/12 21:18:59 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 56% cpu; 28% memory)...[0m
+2025/12/12 21:20:02 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 32% cpu; 28% memory)...[0m
+2025/12/12 21:21:05 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 48% cpu; 29% memory)...[0m
+2025/12/12 21:22:08 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 31% cpu; 29% memory)...[0m
+2025/12/12 21:23:11 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 35% cpu; 29% memory)...[0m
+2025/12/12 21:24:14 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 38% cpu; 29% memory)...[0m
+2025/12/12 21:25:17 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 35% cpu; 30% memory)...[0m
+2025/12/12 21:26:20 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 15% cpu; 30% memory)...[0m
+2025/12/12 21:27:23 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for operation to complete (system performance: 25% cpu; 28% memory)...[0m
+2025/12/12 21:27:30 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:27:30 [INFO] command 'PowerShell -ExecutionPolicy Bypass -OutputFormat Text -File C:/Windows/Temp/packer-windows-update-pending-reboot-elevated.ps1' exited with code: 101
+2025/12/12 21:27:30 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:27:30 [INFO] RPC endpoint: Communicator ended with: 101
+2025/12/12 21:27:30 [INFO] 934 bytes written for 'stdout'
+2025/12/12 21:27:30 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:27:30 [INFO] RPC client: Communicator ended with: 101
+2025/12/12 21:27:30 [INFO] RPC endpoint: Communicator ended with: 101
+2025/12/12 21:27:30 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:27:30 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:27:30 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:27:30 [INFO] 934 bytes written for 'stdout'
+2025/12/12 21:27:30 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:27:30 [INFO] RPC client: Communicator ended with: 101
+2025/12/12 21:27:30 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Restart is still pending...[0m
+2025/12/12 21:27:30 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Restarting the machine...[0m
+2025/12/12 21:27:31 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:27:31 [INFO] starting remote command: shutdown.exe -f -r -t 0 -c "packer restart"
+2025/12/12 21:27:32 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:27:32 [INFO] command 'shutdown.exe -f -r -t 0 -c "packer restart"' exited with code: 0
+2025/12/12 21:27:32 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:27:32 [INFO] RPC endpoint: Communicator ended with: 0
+2025/12/12 21:27:32 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:27:32 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:27:32 [INFO] RPC client: Communicator ended with: 0
+2025/12/12 21:27:32 [INFO] RPC endpoint: Communicator ended with: 0
+2025/12/12 21:27:32 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:27:32 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:27:32 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:27:32 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:27:32 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:27:32 [INFO] RPC client: Communicator ended with: 0
+2025/12/12 21:27:32 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Waiting for machine to become available...[0m
+2025/12/12 21:27:32 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:27:32 [INFO] starting remote command: shutdown.exe -f -r -t 60 -c "packer restart test"
+2025/12/12 21:27:33 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:27:33 [INFO] command 'shutdown.exe -f -r -t 60 -c "packer restart test"' exited with code: 1115
+2025/12/12 21:27:33 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:27:33 [INFO] RPC endpoint: Communicator ended with: 1115
+2025/12/12 21:27:33 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:27:33 [INFO] 40 bytes written for 'stderr'
+2025/12/12 21:27:33 [INFO] RPC client: Communicator ended with: 1115
+2025/12/12 21:27:33 [INFO] RPC endpoint: Communicator ended with: 1115
+2025/12/12 21:27:33 ui error: [1;31m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: A system shutdown is in progress.(1115)[0m
+2025/12/12 21:27:33 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:27:33 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:27:33 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:27:33 [INFO] 40 bytes written for 'stderr'
+2025/12/12 21:27:33 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:27:33 [INFO] RPC client: Communicator ended with: 1115
+2025/12/12 21:27:33 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:27:33 Retryable error: Machine not yet available (exit status 1115)
+2025/12/12 21:27:38 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:27:38 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:27:38 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:27:38 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:27:38 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:27:38 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:27:38 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:27:38 Retryable error: unknown error Post "http://192.168.1.182:5985/wsman": dial tcp 192.168.1.182:5985: connect: connection refused
+2025/12/12 21:27:51 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:27:51 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:27:51 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:27:51 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:27:51 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:27:51 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:27:51 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:27:51 Retryable error: unknown error Post "http://192.168.1.182:5985/wsman": dial tcp 192.168.1.182:5985: connect: operation timed out
+2025/12/12 21:28:04 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:28:04 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:28:04 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:04 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:28:04 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:04 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:28:04 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:04 Retryable error: unknown error Post "http://192.168.1.182:5985/wsman": dial tcp 192.168.1.182:5985: connect: operation timed out
+2025/12/12 21:28:18 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:28:18 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:28:18 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:18 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:28:18 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:18 Retryable error: unknown error Post "http://192.168.1.182:5985/wsman": dial tcp 192.168.1.182:5985: connect: operation timed out
+2025/12/12 21:28:18 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:18 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:28:25 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:28:25 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:28:25 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:25 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:28:25 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:25 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:28:25 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:25 Retryable error: unknown error Post "http://192.168.1.182:5985/wsman": dial tcp 192.168.1.182:5985: connect: connection refused
+2025/12/12 21:28:30 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:28:30 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:28:30 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:30 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:28:30 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:30 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:28:30 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:30 Retryable error: unknown error Post "http://192.168.1.182:5985/wsman": dial tcp 192.168.1.182:5985: connect: connection refused
+2025/12/12 21:28:35 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:28:35 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:28:35 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:35 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:28:35 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:35 Retryable error: unknown error Post "http://192.168.1.182:5985/wsman": dial tcp 192.168.1.182:5985: connect: connection refused
+2025/12/12 21:28:35 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:35 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:28:40 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:28:40 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:28:40 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:40 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:28:40 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:40 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:28:40 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:40 Retryable error: unknown error Post "http://192.168.1.182:5985/wsman": dial tcp 192.168.1.182:5985: connect: connection refused
+2025/12/12 21:28:53 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:53 [INFO] starting remote command: shutdown.exe -f -r -t 60 -c "packer restart test"
+2025/12/12 21:28:55 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:55 [INFO] command 'shutdown.exe -f -r -t 60 -c "packer restart test"' exited with code: 0
+2025/12/12 21:28:55 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:55 [INFO] RPC endpoint: Communicator ended with: 0
+2025/12/12 21:28:55 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:28:55 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:28:55 [INFO] RPC client: Communicator ended with: 0
+2025/12/12 21:28:55 [INFO] RPC endpoint: Communicator ended with: 0
+2025/12/12 21:28:55 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:55 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:28:55 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:55 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:28:55 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:55 [INFO] RPC client: Communicator ended with: 0
+2025/12/12 21:28:57 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:57 [INFO] starting remote command: shutdown.exe -a
+2025/12/12 21:28:58 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:58 [INFO] command 'shutdown.exe -a' exited with code: 0
+2025/12/12 21:28:58 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:58 [INFO] RPC endpoint: Communicator ended with: 0
+2025/12/12 21:28:58 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:28:58 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:28:58 [INFO] RPC client: Communicator ended with: 0
+2025/12/12 21:28:58 [INFO] RPC endpoint: Communicator ended with: 0
+2025/12/12 21:28:58 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:58 [INFO] 0 bytes written for 'stdout'
+2025/12/12 21:28:58 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:58 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:28:58 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:58 [INFO] RPC client: Communicator ended with: 0
+2025/12/12 21:28:58 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Checking for pending restart...[0m
+2025/12/12 21:28:59 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:28:59 [INFO] starting remote command: PowerShell -ExecutionPolicy Bypass -OutputFormat Text -File C:/Windows/Temp/packer-windows-update-pending-reboot-elevated.ps1
+2025/12/12 21:30:01 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: WINADMI-DFM80M6 restarted.[0m
+2025/12/12 21:30:02 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:30:02 [INFO] command 'PowerShell -ExecutionPolicy Bypass -OutputFormat Text -File C:/Windows/Temp/packer-windows-update-pending-reboot-elevated.ps1' exited with code: 0
+2025/12/12 21:30:02 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:30:02 [INFO] RPC endpoint: Communicator ended with: 0
+2025/12/12 21:30:02 [INFO] 28 bytes written for 'stdout'
+2025/12/12 21:30:02 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:30:02 [INFO] RPC client: Communicator ended with: 0
+2025/12/12 21:30:02 [INFO] RPC endpoint: Communicator ended with: 0
+2025/12/12 21:30:02 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:30:02 [INFO] 28 bytes written for 'stdout'
+2025/12/12 21:30:02 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:30:02 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:30:02 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:30:02 [INFO] RPC client: Communicator ended with: 0
+2025/12/12 21:30:02 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Restart complete[0m
+2025/12/12 21:30:02 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Running Windows update...[0m
+2025/12/12 21:30:03 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:30:03 [INFO] starting remote command: PowerShell -ExecutionPolicy Bypass -OutputFormat Text -File C:/Windows/Temp/packer-windows-update-elevated.ps1
+2025/12/12 21:30:57 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Searching for Windows updates...[0m
+2025/12/12 21:31:22 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: No Windows updates found[0m
+2025/12/12 21:31:22 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:31:22 [INFO] command 'PowerShell -ExecutionPolicy Bypass -OutputFormat Text -File C:/Windows/Temp/packer-windows-update-elevated.ps1' exited with code: 0
+2025/12/12 21:31:22 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:31:22 [INFO] RPC endpoint: Communicator ended with: 0
+2025/12/12 21:31:22 [INFO] 60 bytes written for 'stdout'
+2025/12/12 21:31:22 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:31:22 [INFO] RPC client: Communicator ended with: 0
+2025/12/12 21:31:22 [INFO] RPC endpoint: Communicator ended with: 0
+2025/12/12 21:31:22 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:31:22 [INFO] 60 bytes written for 'stdout'
+2025/12/12 21:31:22 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:31:22 [INFO] 0 bytes written for 'stderr'
+2025/12/12 21:31:22 packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 plugin: 2025/12/12 21:31:22 [INFO] RPC client: Communicator ended with: 0
+2025/12/12 21:31:22 [INFO] (telemetry) ending windows-update
+2025/12/12 21:31:24 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Stopping VM[0m
+2025/12/12 21:31:36 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Converting VM to template[0m
+2025/12/12 21:31:39 packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/12 21:31:39 template_id: 9011
+2025/12/12 21:31:39 [INFO] (telemetry) ending proxmox-clone.windows_server_2k19_minimal
+2025/12/12 21:31:39 ui: [1;32m==> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: Running post-processor:  (type manifest)[0m
+2025/12/12 21:31:39 [INFO] (telemetry) Starting post-processor manifest
+2025/12/12 21:31:39 packer-post-processor-manifest plugin: [DEBUG] - common: sending ConfigSpec as gob
+2025/12/12 21:31:39 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/12 21:31:39 [INFO] (telemetry) ending manifest
+2025/12/12 21:31:39 Flagging to keep original artifact from post-processor 'manifest'
+2025/12/12 21:31:39 ui: [1;32mBuild 'windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal' finished after 4 hours 41 minutes.[0m
+2025/12/12 21:31:39 ui: 
+==> Wait completed after 4 hours 41 minutes
+2025/12/12 21:31:39 ui: 
+==> Builds finished. The artifacts of successful builds are:
+2025/12/12 21:31:39 machine readable: windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal,artifact-count []string{"2"}
+2025/12/12 21:31:39 machine readable: windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal,artifact []string{"0", "builder-id", "proxmox.clone"}
+2025/12/12 21:31:39 machine readable: windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal,artifact []string{"0", "id", "9011"}
+2025/12/12 21:31:39 machine readable: windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal,artifact []string{"0", "string", "A template was created: 9011"}
+2025/12/12 21:31:39 machine readable: windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal,artifact []string{"0", "files-count", "0"}
+2025/12/12 21:31:39 machine readable: windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal,artifact []string{"0", "end"}
+2025/12/12 21:31:39 ui: --> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: A template was created: 9011
+2025/12/12 21:31:39 machine readable: windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal,artifact []string{"1", "builder-id", "proxmox.clone"}
+2025/12/12 21:31:39 machine readable: windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal,artifact []string{"1", "id", "9011"}
+2025/12/12 21:31:39 machine readable: windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal,artifact []string{"1", "string", "A template was created: 9011"}
+2025/12/12 21:31:39 machine readable: windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal,artifact []string{"1", "files-count", "0"}
+2025/12/12 21:31:39 machine readable: windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal,artifact []string{"1", "end"}
+2025/12/12 21:31:39 ui: --> windows_server_2k19_minimal.proxmox-clone.windows_server_2k19_minimal: A template was created: 9011
+2025/12/12 21:31:39 [INFO] (telemetry) Finalizing.
+2025/12/12 21:31:39 waiting for all plugin processes to complete...
+2025/12/12 21:31:39 /Users/ralph.brynard/.packer.d/plugins/github.com/ethanmdavidson/git/packer-plugin-git_v0.6.4_x5.0_darwin_amd64: plugin process exited
+2025/12/12 21:31:39 /Users/ralph.brynard/.packer.d/plugins/github.com/rgl/windows-update/packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64: plugin process exited
+2025/12/12 21:31:39 /usr/local/bin/packer: plugin process exited
+2025/12/12 21:31:39 [ERR] Error decoding response stream 36: EOF
+2025/12/12 21:31:39 [ERR] Error decoding response stream 45: EOF
+2025/12/12 21:31:39 [ERR] Error decoding response stream 42: EOF
+2025/12/12 21:31:39 [ERR] Error decoding response stream 93: EOF
+2025/12/12 21:31:39 [ERR] Error decoding response stream 54: EOF
+2025/12/12 21:31:39 [ERR] Error decoding response stream 51: EOF
+2025/12/12 21:31:39 [ERR] Error decoding response stream 96: EOF
+2025/12/12 21:31:39 [ERR] Error decoding response stream 57: EOF
+2025/12/12 21:31:39 [ERR] Error decoding response stream 90: EOF
+2025/12/12 21:31:39 [ERR] Error decoding response stream 99: EOF
+2025/12/12 21:31:39 [ERR] Error decoding response stream 60: EOF
+2025/12/12 21:31:39 /Users/ralph.brynard/.packer.d/plugins/github.com/hashicorp/proxmox/packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64: plugin process exited
+2025/12/12 21:31:39 [ERR] Error decoding response stream 81: EOF
+2025/12/12 21:31:39 /usr/local/bin/packer: plugin process exited
+2025/12/12 21:31:39 [ERR] Error decoding response stream 84: EOF
+2025/12/12 21:31:39 [ERR] Error decoding response stream 39: EOF
+2025/12/12 21:31:39 /usr/local/bin/packer: plugin process exited
+2025/12/12 21:31:39 [ERR] Error decoding response stream 87: EOF
+2025/12/12 21:31:39 [ERR] Error decoding response stream 48: EOF

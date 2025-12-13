@@ -43,20 +43,16 @@ build {
     //"source.proxmox-clone.windows_server_2k19_data_center_base",
     "source.proxmox-iso.windows_server_2k19_data_center_base",
   ]
-  // redundant scripts. keeping provisioner for future builds
-  /*
+  
+  // Install ESET Protect Agent
   provisioner "powershell" {
-    environment_vars = [
-      "BUILD_USER=${var.username}"
-    ]
     elevated_user     = var.username
     elevated_password = var.password
     scripts = [
-      "../../../scripts/windows-init.ps1",
-      "../../../scripts/windows-prepare.ps1"
+      "../../../scripts/install-eset-agent.ps1"
     ]
   }
-*/
+
   provisioner "windows-update" {
     pause_before    = "30s"
     search_criteria = "IsInstalled=0"

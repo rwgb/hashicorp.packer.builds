@@ -41,6 +41,12 @@ build {
     "source.proxmox-clone.windows_server_2k19_minimal"
   ]
 
+  // Copy ESET config file to the VM
+  provisioner "file" {
+    source      = "../../../scripts/install_config.ini"
+    destination = "C:\\Windows\\Temp\\install_config.ini"
+  }
+
   provisioner "powershell" {
     environment_vars = [
       "BUILD_USER=${var.username}"
@@ -48,8 +54,7 @@ build {
     elevated_user     = var.username
     elevated_password = var.password
     scripts = [
-      "../../../scripts/windows-init.ps1",
-      "../../../scripts/windows-prepare.ps1"
+      "../../../scripts/install-eset-agent.ps1"
     ]
   }
 

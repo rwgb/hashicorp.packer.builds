@@ -12,7 +12,7 @@ source "proxmox-iso" "windows_server_2k19_data_center_base" {
   task_timeout             = "20m"
 
   // virtual machine settings
-  vm_id                = 9010
+  vm_id                = 9000
   vm_name              = "win-server-2019-base"
   memory               = 8192
   cores                = 2
