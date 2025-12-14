@@ -43,6 +43,21 @@ build {
     "source.proxmox-clone.windows_10_22h2_minimal"
   ]
 
+  // Copy ESET config file to the VM
+  provisioner "file" {
+    source      = "../../../scripts/install_config.ini"
+    destination = "C:\\Windows\\Temp\\install_config.ini"
+  }
+
+  // Install ESET Protect Agent
+  provisioner "powershell" {
+    elevated_user     = "Administrator"
+    elevated_password = var.password
+    scripts = [
+      "../../../scripts/install-eset-agent.ps1"
+    ]
+  }
+
   provisioner "powershell" {
     environment_vars = [
       "BUILD_USER=${var.username}"
