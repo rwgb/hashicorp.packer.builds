@@ -1,0 +1,20 @@
+{
+  "builds": [
+    {
+      "name": "windows_server_2k19_minimal",
+      "builder_type": "proxmox-clone",
+      "files": null,
+      "artifact_id": "9011",
+      "packer_run_uuid": "2994f4d9-b811-54d6-11c9-3d02b8faad43",
+      "custom_data": {
+        "author": "Ralph Brynard \u003cralph.brynard@gmail.com\u003e",
+        "build_date": "2025-12-13 22:00 UTC",
+        "build_username": "Administrator",
+        "build_version": "6c2fbab1b3bb9a29ef615cde94dbbe4b901cc0ef",
+        "committer": "Ralph Brynard \u003cralph.brynard@gmail.com\u003e",
+        "timestamp": "2025-12-13T21:59:10Z"
+      }
+    }
+  ],
+  "last_run_uuid": "2994f4d9-b811-54d6-11c9-3d02b8faad43"
+}
