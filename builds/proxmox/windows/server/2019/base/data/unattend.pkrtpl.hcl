@@ -9,7 +9,6 @@
             </Password>
             <Enabled>true</Enabled>
             <Username>Administrator</Username>
-            <LogonCount>1</LogonCount>
          </AutoLogon>
          <OOBE>
             <HideEULAPage>true</HideEULAPage>
