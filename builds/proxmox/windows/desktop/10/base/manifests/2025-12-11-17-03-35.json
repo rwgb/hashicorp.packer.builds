@@ -1,0 +1,21 @@
+{
+  "builds": [
+    {
+      "name": "windows_10_22h2_base",
+      "builder_type": "proxmox-iso",
+      "files": null,
+      "artifact_id": "9020",
+      "packer_run_uuid": "b7dc1c9a-d71b-43bf-ae26-81207356fa37",
+      "custom_data": {
+        "author": "Ralph Brynard \u003cralph.brynard@gmail.com\u003e",
+        "build_date": "2025-12-11 17:03 UTC",
+        "build_type": "base",
+        "build_username": "Administrator",
+        "build_version": "4d9ac8256196d1aad45ba2ce42679ce31856baa8",
+        "committer": "Ralph Brynard \u003cralph.brynard@gmail.com\u003e",
+        "timestamp": "2025-12-09T17:40:53Z"
+      }
+    }
+  ],
+  "last_run_uuid": "b7dc1c9a-d71b-43bf-ae26-81207356fa37"
+}

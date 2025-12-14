@@ -1,0 +1,138 @@
+name: Build Windows Base Templates
+
+# Manual trigger only - builds Windows Server 2019 and Windows 10 base templates
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PACKER_LOG: "1"
+
+jobs:
+  build-windows-server-2019-base:
+    name: Build Windows Server 2019 Base Template
+    runs-on: self-hosted
+    timeout-minutes: 180
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Packer
+        uses: hashicorp/setup-packer@main
+        with:
+          version: "latest"
+
+      - name: Verify Packer installation
+        run: packer version
+
+      - name: Initialize Packer
+        working-directory: builds/proxmox/windows/server/2019/base
+        run: packer init .
+
+      - name: Validate Packer configuration
+        working-directory: builds/proxmox/windows/server/2019/base
+        env:
+          PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
+          PKR_VAR_token_id: ${{ secrets.PROXMOX_TOKEN_ID }}
+          PKR_VAR_token_secret: ${{ secrets.PROXMOX_TOKEN_SECRET }}
+          PKR_VAR_node: ${{ secrets.PROXMOX_NODE }}
+          PKR_VAR_pool: ${{ secrets.PROXMOX_POOL }}
+          PKR_VAR_iso_storage_pool: ${{ secrets.PROXMOX_ISO_STORAGE }}
+          PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
+        run: packer validate .
+
+      - name: Build Windows Server 2019 Base Template
+        working-directory: builds/proxmox/windows/server/2019/base
+        env:
+          PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
+          PKR_VAR_token_id: ${{ secrets.PROXMOX_TOKEN_ID }}
+          PKR_VAR_token_secret: ${{ secrets.PROXMOX_TOKEN_SECRET }}
+          PKR_VAR_node: ${{ secrets.PROXMOX_NODE }}
+          PKR_VAR_pool: ${{ secrets.PROXMOX_POOL }}
+          PKR_VAR_iso_storage_pool: ${{ secrets.PROXMOX_ISO_STORAGE }}
+          PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
+        run: |
+          echo "Building Windows Server 2019 base template (VM 9010)..."
+          packer build -timestamp-ui .
+
+      - name: Upload Packer logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: packer-logs-windows-server-2019-base
+          path: builds/proxmox/windows/server/2019/base/packer-*.log
+          retention-days: 7
+
+      - name: Upload manifest on success
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: manifest-windows-server-2019-base
+          path: builds/proxmox/windows/server/2019/base/manifests/*.json
+          retention-days: 30
+
+  build-windows-10-base:
+    name: Build Windows 10 Base Template
+    runs-on: self-hosted
+    timeout-minutes: 180
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Packer
+        uses: hashicorp/setup-packer@main
+        with:
+          version: "latest"
+
+      - name: Verify Packer installation
+        run: packer version
+
+      - name: Initialize Packer
+        working-directory: builds/proxmox/windows/desktop/10/base
+        run: packer init .
+
+      - name: Validate Packer configuration
+        working-directory: builds/proxmox/windows/desktop/10/base
+        env:
+          PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
+          PKR_VAR_token_id: ${{ secrets.PROXMOX_TOKEN_ID }}
+          PKR_VAR_token_secret: ${{ secrets.PROXMOX_TOKEN_SECRET }}
+          PKR_VAR_node: ${{ secrets.PROXMOX_NODE }}
+          PKR_VAR_pool: ${{ secrets.PROXMOX_POOL }}
+          PKR_VAR_iso_storage_pool: ${{ secrets.PROXMOX_ISO_STORAGE }}
+          PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
+        run: packer validate .
+
+      - name: Build Windows 10 Base Template
+        working-directory: builds/proxmox/windows/desktop/10/base
+        env:
+          PKR_VAR_proxmox_host: ${{ secrets.PROXMOX_HOST }}
+          PKR_VAR_token_id: ${{ secrets.PROXMOX_TOKEN_ID }}
+          PKR_VAR_token_secret: ${{ secrets.PROXMOX_TOKEN_SECRET }}
+          PKR_VAR_node: ${{ secrets.PROXMOX_NODE }}
+          PKR_VAR_pool: ${{ secrets.PROXMOX_POOL }}
+          PKR_VAR_iso_storage_pool: ${{ secrets.PROXMOX_ISO_STORAGE }}
+          PKR_VAR_disk_storage_pool: ${{ secrets.PROXMOX_DISK_STORAGE }}
+        run: |
+          echo "Building Windows 10 base template (VM 9020)..."
+          packer build -timestamp-ui .
+
+      - name: Upload Packer logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: packer-logs-windows-10-base
+          path: builds/proxmox/windows/desktop/10/base/packer-*.log
+          retention-days: 7
+
+      - name: Upload manifest on success
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: manifest-windows-10-base
+          path: builds/proxmox/windows/desktop/10/base/manifests/*.json
+          retention-days: 30

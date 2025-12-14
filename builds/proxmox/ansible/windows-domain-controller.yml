@@ -1,0 +1,135 @@
+---
+# Ansible playbook for Windows Server 2019 Domain Controller
+- name: Configure Windows Server 2019 as Domain Controller
+  hosts: all
+  gather_facts: yes
+  
+  vars:
+    domain_name: "{{ domain_name | default('lab.local') }}"
+    domain_netbios_name: "{{ domain_netbios_name | default('LAB') }}"
+    safe_mode_password: "{{ safe_mode_password }}"
+    forest_mode: "WinThreshold"
+    domain_mode: "WinThreshold"
+
+  tasks:
+    - name: Set computer name
+      win_hostname:
+        name: DC01
+      register: hostname_result
+
+    - name: Reboot if hostname changed
+      win_reboot:
+        reboot_timeout: 600
+      when: hostname_result.reboot_required
+
+    - name: Install AD DS Windows Feature
+      win_feature:
+        name:
+          - AD-Domain-Services
+          - RSAT-AD-Tools
+          - RSAT-ADDS
+          - RSAT-AD-PowerShell
+          - RSAT-ADDS-Tools
+          - DNS
+          - GPMC
+        state: present
+        include_management_tools: yes
+      register: feature_result
+
+    - name: Reboot after feature installation
+      win_reboot:
+        reboot_timeout: 600
+      when: feature_result.reboot_required
+
+    - name: Promote server to Domain Controller
+      win_domain:
+        dns_domain_name: "{{ domain_name }}"
+        domain_netbios_name: "{{ domain_netbios_name }}"
+        safe_mode_password: "{{ safe_mode_password }}"
+        forest_mode: "{{ forest_mode }}"
+        domain_mode: "{{ domain_mode }}"
+        create_dns_delegation: no
+        database_path: C:\Windows\NTDS
+        sysvol_path: C:\Windows\SYSVOL
+        log_path: C:\Windows\Logs
+      register: domain_result
+
+    - name: Reboot after domain promotion
+      win_reboot:
+        reboot_timeout: 900
+      when: domain_result.reboot_required
+
+    - name: Wait for Active Directory Web Services
+      win_service:
+        name: ADWS
+        state: started
+      retries: 10
+      delay: 30
+      register: adws_service
+      until: adws_service is succeeded
+
+    - name: Configure DNS forwarders
+      win_shell: |
+        Add-DnsServerForwarder -IPAddress 8.8.8.8 -PassThru
+        Add-DnsServerForwarder -IPAddress 1.1.1.1 -PassThru
+      ignore_errors: yes
+
+    - name: Create default organizational units
+      win_shell: |
+        $DomainDN = "DC={{ domain_name.split('.')[0] }},DC={{ domain_name.split('.')[1] }}"
+        $OUs = @("Servers", "Workstations", "Users", "Groups", "Service Accounts")
+        foreach ($OU in $OUs) {
+          try {
+            New-ADOrganizationalUnit -Name $OU -Path $DomainDN -ProtectedFromAccidentalDeletion $true -ErrorAction SilentlyContinue
+            Write-Host "Created OU: $OU"
+          } catch {
+            Write-Host "OU $OU may already exist"
+          }
+        }
+      ignore_errors: yes
+
+    - name: Configure AD Recycle Bin
+      win_shell: |
+        Enable-ADOptionalFeature -Identity 'Recycle Bin Feature' -Scope ForestOrConfigurationSet -Target "{{ domain_name }}" -Confirm:$false
+      ignore_errors: yes
+
+    - name: Set DNS client settings on Domain Controller
+      win_dns_client:
+        adapter_names: '*'
+        dns_servers:
+          - 127.0.0.1
+
+    - name: Configure Windows Firewall for Domain Controller
+      win_firewall_rule:
+        name: "{{ item.name }}"
+        localport: "{{ item.port }}"
+        action: allow
+        direction: in
+        protocol: "{{ item.protocol }}"
+        state: present
+        enabled: yes
+      loop:
+        - { name: 'DNS-TCP', port: '53', protocol: 'tcp' }
+        - { name: 'DNS-UDP', port: '53', protocol: 'udp' }
+        - { name: 'Kerberos-TCP', port: '88', protocol: 'tcp' }
+        - { name: 'Kerberos-UDP', port: '88', protocol: 'udp' }
+        - { name: 'LDAP-TCP', port: '389', protocol: 'tcp' }
+        - { name: 'LDAP-UDP', port: '389', protocol: 'udp' }
+        - { name: 'LDAPS-TCP', port: '636', protocol: 'tcp' }
+        - { name: 'SMB-TCP', port: '445', protocol: 'tcp' }
+        - { name: 'Global-Catalog-TCP', port: '3268', protocol: 'tcp' }
+        - { name: 'Global-Catalog-SSL-TCP', port: '3269', protocol: 'tcp' }
+
+    - name: Display domain information
+      debug:
+        msg: |
+          Domain Controller Configuration Complete
+          Domain Name: {{ domain_name }}
+          NetBIOS Name: {{ domain_netbios_name }}
+          Computer Name: DC01
+          
+          Next Steps:
+          1. Configure DNS records as needed
+          2. Create user accounts and groups
+          3. Configure Group Policy Objects
+          4. Join computers to the domain

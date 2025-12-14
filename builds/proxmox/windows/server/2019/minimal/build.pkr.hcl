@@ -36,13 +36,17 @@ locals {
 
 // build block
 build {
-  name = "windows_server_2k19"
+  name = "windows_server_2k19_minimal"
   sources = [
-    //"source.proxmox-clone.windows_server_2k19_data_center_base",
-    "source.proxmox-iso.windows_server_2k19_data_center_base",
+    "source.proxmox-clone.windows_server_2k19_minimal"
   ]
-  // redundant scripts. keeping provisioner for future builds
-  /*
+
+  // Copy ESET config file to the VM
+  provisioner "file" {
+    source      = "../../../scripts/install_config.ini"
+    destination = "C:\\Windows\\Temp\\install_config.ini"
+  }
+
   provisioner "powershell" {
     environment_vars = [
       "BUILD_USER=${var.username}"
@@ -50,25 +54,10 @@ build {
     elevated_user     = var.username
     elevated_password = var.password
     scripts = [
-      "../../scripts/windows-init.ps1",
-      "../../scripts/windows-prepare.ps1"
+      "../../../scripts/install-eset-agent.ps1"
     ]
   }
-  */
-  // commenting out for base build.
-  /*
-  provisioner "windows-update" {
-    pause_before    = "30s"
-    search_criteria = "IsInstalled=0"
-    filters = [
-      "exclude:$_.Title -like '*VMware*'",
-      "exclude:$_.Title -like '*Preview*'",
-      "exclude:$_.Title -like '*Defender*'",
-      "exclude:$_.InstallationBehavior.CanRequestUserInput",
-      "include:$true"
-    ]
-  }
-*/
+
   post-processor "manifest" {
     output     = local.manifest_output
     strip_path = true

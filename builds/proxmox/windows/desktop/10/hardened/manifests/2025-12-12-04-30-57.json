@@ -1,0 +1,22 @@
+{
+  "builds": [
+    {
+      "name": "windows_10_22h2_hardened",
+      "builder_type": "proxmox-clone",
+      "files": null,
+      "artifact_id": "9022",
+      "packer_run_uuid": "9ade2878-c5c8-54f5-0a2d-2254e1201139",
+      "custom_data": {
+        "author": "Ralph Brynard \u003cralph.brynard@gmail.com\u003e",
+        "build_date": "2025-12-12 04:30 UTC",
+        "build_type": "hardened",
+        "build_username": "Administrator",
+        "build_version": "519c66da6487229751bd195a719071e509321b93",
+        "committer": "Ralph Brynard \u003cralph.brynard@gmail.com\u003e",
+        "security_level": "CIS Benchmarks",
+        "timestamp": "2025-12-12T03:14:35Z"
+      }
+    }
+  ],
+  "last_run_uuid": "9ade2878-c5c8-54f5-0a2d-2254e1201139"
+}
