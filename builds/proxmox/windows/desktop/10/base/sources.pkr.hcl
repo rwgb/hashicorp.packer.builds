@@ -14,8 +14,8 @@ source "proxmox-iso" "windows_10_22h2_base" {
   // virtual machine settings
   vm_id                = 9020
   vm_name              = "win-10-22h2-base"
-  memory               = 8192
-  cores                = 3
+  memory               = 16384
+  cores                = 4
   sockets              = 2
   qemu_agent           = true
   disable_kvm          = true
@@ -60,7 +60,7 @@ source "proxmox-iso" "windows_10_22h2_base" {
   disks {
     type         = "scsi"
     storage_pool = var.disk_storage_pool
-    disk_size    = "60G"
+    disk_size    = "150G"
   }
 
   // network settings

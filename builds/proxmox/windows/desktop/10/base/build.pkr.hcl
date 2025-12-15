@@ -42,16 +42,19 @@ build {
   sources = [
     "source.proxmox-iso.windows_10_22h2_base"
   ]
-
-  provisioner "windows-update" {
-    pause_before    = "30s"
-    search_criteria = "IsInstalled=0"
-    filters = [
-      "exclude:$_.Title -like '*VMware*'",
-      "exclude:$_.Title -like '*Preview*'",
-      "exclude:$_.Title -like '*Defender*'",
-      "exclude:$_.InstallationBehavior.CanRequestUserInput",
-      "include:$true"
+  
+  // Copy ESET configuration file
+  provisioner "file" {
+    source      = "../../../scripts/install_config.ini"
+    destination = "C:\\Windows\\Temp\\install_config.ini"
+  }
+  
+  // Install ESET Protect Agent
+  provisioner "powershell" {
+    elevated_user     = var.username
+    elevated_password = var.password
+    scripts = [
+      "../../../scripts/install-eset-agent.ps1"
     ]
   }
 
