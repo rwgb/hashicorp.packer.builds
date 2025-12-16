@@ -9,7 +9,7 @@
             </Password>
             <Enabled>true</Enabled>
             <Username>Administrator</Username>
-            <LogonCount>1</LogonCount>
+            <LogonCount>999</LogonCount>
          </AutoLogon>
          <OOBE>
             <HideEULAPage>true</HideEULAPage>

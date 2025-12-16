@@ -59,6 +59,15 @@ build {
     ]
   }
 
+  // Install Atomic Red Team
+  provisioner "powershell" {
+    elevated_user     = var.username
+    elevated_password = var.password
+    scripts = [
+      "../../../scripts/install-atomic-redteam.ps1"
+    ]
+  }
+
   // Copy sysprep unattend.xml to skip OOBE prompts on cloned VMs
   provisioner "file" {
     content = templatefile("${path.root}/data/unattend.pkrtpl.hcl", {
