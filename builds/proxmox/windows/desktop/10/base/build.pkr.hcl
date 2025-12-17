@@ -42,28 +42,19 @@ build {
   sources = [
     "source.proxmox-iso.windows_10_22h2_base"
   ]
-  
+
   // Copy ESET configuration file
   provisioner "file" {
     source      = "../../../scripts/install_config.ini"
     destination = "C:\\Windows\\Temp\\install_config.ini"
   }
-  
+
   // Install ESET Protect Agent
   provisioner "powershell" {
     elevated_user     = var.username
     elevated_password = var.password
     scripts = [
       "../../../scripts/install-eset-agent.ps1"
-    ]
-  }
-
-  // Install Atomic Red Team
-  provisioner "powershell" {
-    elevated_user     = var.username
-    elevated_password = var.password
-    scripts = [
-      "../../../scripts/install-atomic-redteam.ps1"
     ]
   }
 

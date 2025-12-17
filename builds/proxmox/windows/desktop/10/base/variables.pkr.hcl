@@ -38,6 +38,12 @@ variable "disk_storage_pool" {
   default     = "local-lvm"
 }
 
+variable "cloudinit_storage_pool" {
+  type        = string
+  description = "The Proxmox storage pool for cloud-init drive"
+  default     = "local-lvm"
+}
+
 variable "insecure_tls" {
   type        = bool
   description = "Whether or not HTTPS certificate of the proxmox server should be validated"
