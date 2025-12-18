@@ -1,0 +1,8 @@
+*.log
+packer_cache/
+*.secret
+local.auto.pkrvars.hcl
+variables.pkrvars.hcl
+.DS_Store
+crash.log
+manifests/*.json

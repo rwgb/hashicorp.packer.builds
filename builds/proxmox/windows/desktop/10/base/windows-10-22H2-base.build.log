@@ -1,0 +1,926 @@
+2025/12/16 14:44:41 [INFO] Packer version: 1.14.2 [go1.23.2 darwin amd64]
+2025/12/16 14:44:41 Old default config directory found: /Users/ralph.brynard/.packer.d
+2025/12/16 14:44:41 [INFO] PACKER_CONFIG env var not set; checking the default config file path
+2025/12/16 14:44:41 [INFO] PACKER_CONFIG env var set; attempting to open config file: /Users/ralph.brynard/.packerconfig
+2025/12/16 14:44:41 [WARN] Config file doesn't exist: /Users/ralph.brynard/.packerconfig
+2025/12/16 14:44:41 Old default config directory found: /Users/ralph.brynard/.packer.d
+2025/12/16 14:44:41 [INFO] Setting cache directory: /Users/ralph.brynard/.cache/packer
+2025/12/16 14:44:41 Old default config directory found: /Users/ralph.brynard/.packer.d
+2025/12/16 14:44:41 [TRACE] listing potential installations for "github.com/rgl/windows-update" that match ">= 0.14.3". plugingetter.ListInstallationsOptions{PluginDirectory:"/Users/ralph.brynard/.packer.d/plugins", BinaryInstallationOptions:plugingetter.BinaryInstallationOptions{APIVersionMajor:"5", APIVersionMinor:"0", OS:"darwin", ARCH:"amd64", Ext:"", Checksummers:[]plugingetter.Checksummer{plugingetter.Checksummer{Type:"sha256", Hash:(*sha256.digest)(0xc0001d8180)}}, ReleasesOnly:false}}
+2025/12/16 14:44:41 [TRACE] Found the following "github.com/rgl/windows-update" installations: [{/Users/ralph.brynard/.packer.d/plugins/github.com/rgl/windows-update/packer-plugin-windows-update_v0.16.8_x5.0_darwin_amd64 v0.16.8 x5.0},{/Users/ralph.brynard/.packer.d/plugins/github.com/rgl/windows-update/packer-plugin-windows-update_v0.16.10_x5.0_darwin_amd64 v0.16.10 x5.0}]
+2025/12/16 14:44:41 found external [-packer-default-plugin-name-] provisioner from windows-update plugin
+2025/12/16 14:44:41 [TRACE] listing potential installations for "github.com/ethanmdavidson/git" that match ">= 0.4.3". plugingetter.ListInstallationsOptions{PluginDirectory:"/Users/ralph.brynard/.packer.d/plugins", BinaryInstallationOptions:plugingetter.BinaryInstallationOptions{APIVersionMajor:"5", APIVersionMinor:"0", OS:"darwin", ARCH:"amd64", Ext:"", Checksummers:[]plugingetter.Checksummer{plugingetter.Checksummer{Type:"sha256", Hash:(*sha256.digest)(0xc0001d8180)}}, ReleasesOnly:false}}
+2025/12/16 14:44:41 [TRACE] Found the following "github.com/ethanmdavidson/git" installations: [{/Users/ralph.brynard/.packer.d/plugins/github.com/ethanmdavidson/git/packer-plugin-git_v0.6.4_x5.0_darwin_amd64 v0.6.4 x5.0}]
+2025/12/16 14:44:41 found external [commit repository tree] datasource from git plugin
+2025/12/16 14:44:41 [TRACE] listing potential installations for "github.com/hashicorp/proxmox" that match ">= 1.1.3". plugingetter.ListInstallationsOptions{PluginDirectory:"/Users/ralph.brynard/.packer.d/plugins", BinaryInstallationOptions:plugingetter.BinaryInstallationOptions{APIVersionMajor:"5", APIVersionMinor:"0", OS:"darwin", ARCH:"amd64", Ext:"", Checksummers:[]plugingetter.Checksummer{plugingetter.Checksummer{Type:"sha256", Hash:(*sha256.digest)(0xc0001d8180)}}, ReleasesOnly:false}}
+2025/12/16 14:44:42 [TRACE] Found the following "github.com/hashicorp/proxmox" installations: [{/Users/ralph.brynard/.packer.d/plugins/github.com/hashicorp/proxmox/packer-plugin-proxmox_v1.1.8_x5.0_darwin_amd64 v1.1.8 x5.0},{/Users/ralph.brynard/.packer.d/plugins/github.com/hashicorp/proxmox/packer-plugin-proxmox_v1.2.2_x5.0_darwin_amd64 v1.2.2 x5.0},{/Users/ralph.brynard/.packer.d/plugins/github.com/hashicorp/proxmox/packer-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 v1.2.3 x5.0}]
+2025/12/16 14:44:42 [INFO] found external [-packer-default-plugin-name- clone iso] builders from proxmox plugin
+2025/12/16 14:44:42 [TRACE] listing potential installations for <nil> that match "". plugingetter.ListInstallationsOptions{PluginDirectory:"/Users/ralph.brynard/.packer.d/plugins", BinaryInstallationOptions:plugingetter.BinaryInstallationOptions{APIVersionMajor:"5", APIVersionMinor:"0", OS:"darwin", ARCH:"amd64", Ext:"", Checksummers:[]plugingetter.Checksummer{plugingetter.Checksummer{Type:"sha256", Hash:(*sha256.digest)(0xc0007b2c80)}}, ReleasesOnly:false}}
+2025/12/16 14:44:43 found external [-packer-default-plugin-name-] provisioner from windows-update plugin
+2025/12/16 14:44:43 [INFO] found external [chroot ebs ebssurrogate ebsvolume instance] builders from amazon plugin
+2025/12/16 14:44:43 [INFO] found external [import] post-processors from amazon plugin
+2025/12/16 14:44:43 found external [ami parameterstore secretsmanager] datasource from amazon plugin
+2025/12/16 14:44:43 found external [-packer-default-plugin-name- local] provisioner from ansible plugin
+2025/12/16 14:44:43 found external [commit repository tree] datasource from git plugin
+2025/12/16 14:44:43 [INFO] found external [-packer-default-plugin-name- clone iso] builders from proxmox plugin
+2025/12/16 14:44:43 found external [-packer-default-plugin-name-] datasource from sshkey plugin
+2025/12/16 14:44:43 plugin "/Users/ralph.brynard/.packer.d/plugins/github.com/ivoronin/sshkey/packer-plugin-sshkey_v1.2.1_x5.0_darwin_amd64" does not support Protobuf, forcing use of Gob
+2025/12/16 14:44:43 [INFO] found external [clone iso supervisor] builders from vsphere plugin
+2025/12/16 14:44:43 [INFO] found external [-packer-default-plugin-name- template] post-processors from vsphere plugin
+2025/12/16 14:44:43 [TRACE] validateValue: not active for guest_os_timezone, so skipping
+2025/12/16 14:44:43 [TRACE] validateValue: not active for proxmox_host, so skipping
+2025/12/16 14:44:43 [TRACE] validateValue: not active for token_secret, so skipping
+2025/12/16 14:44:43 [TRACE] validateValue: not active for node, so skipping
+2025/12/16 14:44:43 [TRACE] validateValue: not active for insecure_tls, so skipping
+2025/12/16 14:44:43 [TRACE] validateValue: not active for guest_os_language, so skipping
+2025/12/16 14:44:43 [TRACE] validateValue: not active for token_id, so skipping
+2025/12/16 14:44:43 [TRACE] validateValue: not active for pool, so skipping
+2025/12/16 14:44:43 [TRACE] validateValue: not active for iso_storage_pool, so skipping
+2025/12/16 14:44:43 [TRACE] validateValue: not active for username, so skipping
+2025/12/16 14:44:43 [TRACE] validateValue: not active for disk_storage_pool, so skipping
+2025/12/16 14:44:43 [TRACE] validateValue: not active for cloudinit_storage_pool, so skipping
+2025/12/16 14:44:43 [TRACE] validateValue: not active for password, so skipping
+2025/12/16 14:44:43 [TRACE] validateValue: not active for guest_os_keyboard, so skipping
+2025/12/16 14:44:43 [INFO] Starting external plugin /Users/ralph.brynard/.packer.d/plugins/github.com/ethanmdavidson/git/packer-plugin-git_v0.6.4_x5.0_darwin_amd64 start datasource commit
+2025/12/16 14:44:43 Starting plugin: /Users/ralph.brynard/.packer.d/plugins/github.com/ethanmdavidson/git/packer-plugin-git_v0.6.4_x5.0_darwin_amd64 []string{"/Users/ralph.brynard/.packer.d/plugins/github.com/ethanmdavidson/git/packer-plugin-git_v0.6.4_x5.0_darwin_amd64", "start", "datasource", "commit"}
+2025/12/16 14:44:43 Waiting for RPC address for: /Users/ralph.brynard/.packer.d/plugins/github.com/ethanmdavidson/git/packer-plugin-git_v0.6.4_x5.0_darwin_amd64
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 Plugin address: unix /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer-plugin3477068372
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 Waiting for connection...
+2025/12/16 14:44:43 Received unix RPC address for /Users/ralph.brynard/.packer.d/plugins/github.com/ethanmdavidson/git/packer-plugin-git_v0.6.4_x5.0_darwin_amd64: addr is /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/packer-plugin3477068372
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 Serving a plugin connection...
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 [TRACE] starting datasource commit
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 [DEBUG] - common: sending ConfigSpec as gob
+2025/12/16 14:44:43 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 [DEBUG] - common: sending ConfigSpec as gob
+2025/12/16 14:44:43 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/16 14:44:43 [INFO] (telemetry) Starting datasource git-commit
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 Starting execution
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 Finding repository from './../../../../' (/Users/ralph.brynard/rwgb.github.projects/hashicorp.packer.builds/builds/proxmox)
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 Repo opened
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 Hash found: '6e33c86df98db150999ea803164a8d2e1171013d'
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 Branches found
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 Commit found: 'commit 6e33c86df98db150999ea803164a8d2e1171013d
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: Author: Ralph Brynard <ralph.brynard@gmail.com>
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: Date:   Mon Dec 15 19:31:31 2025 -0600
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin:     feat(windows-base): Add Atomic Red Team installation to base templates
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin:     Add comprehensive Atomic Red Team security testing framework to Windows
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin:     base templates for purple team exercises and security validation.
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin:     Changes:
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin:     - Create install-atomic-redteam.ps1 script with full installation workflow
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin:     - Add Atomic Red Team provisioner to Windows Server 2019 base build
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin:     - Add Atomic Red Team provisioner to Windows 10 base build
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin:     - Fix Windows 10 autologon count (1 → 999) for extended build processes
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin:     Installation includes:
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin:     - Invoke-AtomicRedTeam PowerShell module from PSGallery
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin:     - Atomic test definitions from Red Canary GitHub (~300+ techniques)
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin:     - Common prerequisites: 7-Zip, PsExec (Sysinternals)
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin:     - Environment variables and desktop shortcut for easy access
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin:     - Detailed logging to C:\Windows\Temp\install-atomic-redteam.log
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin:     Build provisioner order:
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin:     1. Copy ESET config → Install ESET agent
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin:     2. Install Atomic Red Team (new step)
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin:     3. Copy Sysprep unattend.xml → Run Sysprep
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin:     Templates will be ready for MITRE ATT&CK technique testing via:
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin:     - Invoke-AtomicTest T1003.001 -ShowDetailsBrief
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin:     - Invoke-AtomicTest T1059.001 -CheckPrereqs
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin:     - Invoke-AtomicTest ALL -GetPrereqs
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin:     Atomics installed to: C:\AtomicRedTeam\atomics
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin:     Tools installed to: C:\AtomicRedTeam\Tools
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: '
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 output.Hash: '6e33c86df98db150999ea803164a8d2e1171013d'
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 Adding branch 'dev'
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 Adding branch 'feature/windows_10_22H2_base'
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 Not in branch 'feature/windows_11_25H2_base' (8d14f4d1ab51aca16faadf9dcd37c40ec80f0c7e)
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 Not in branch 'feature/windows_11_base' (67cb753589b581b946f7791b7fba36795880459f)
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 Not in branch 'main' (f04480c09b02f75abbad342e07ac3d61ffb4f9f5)
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 len(output.Branches): '2'
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 output.Author: 'Ralph Brynard <ralph.brynard@gmail.com>'
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 output.Committer: 'Ralph Brynard <ralph.brynard@gmail.com>'
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 output.Timestamp: '2025-12-16T01:31:31Z'
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 len(output.PGPSignature): '228'
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 len(output.Message): '1259'
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 output.TreeHash: '66517a7cc06936fe959babf621d44d707adce44d'
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 Adding parent hash: 'f04480c09b02f75abbad342e07ac3d61ffb4f9f5'
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 len(output.ParentHashes): '1'
+2025/12/16 14:44:43 packer-plugin-git_v0.6.4_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 [DEBUG] - datasource: sending Execute as gob
+2025/12/16 14:44:43 [DEBUG] - datasource: receiving Execute as gob
+2025/12/16 14:44:43 [INFO] (telemetry) ending git-commit
+2025/12/16 14:44:43 [INFO] Starting external plugin /Users/ralph.brynard/.<sensitive>.d/plugins/github.com/hashicorp/proxmox/<sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 start builder iso
+2025/12/16 14:44:43 Starting plugin: /Users/ralph.brynard/.<sensitive>.d/plugins/github.com/hashicorp/proxmox/<sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 []string{"/Users/ralph.brynard/.<sensitive>.d/plugins/github.com/hashicorp/proxmox/<sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64", "start", "builder", "iso"}
+2025/12/16 14:44:43 Waiting for RPC address for: /Users/ralph.brynard/.<sensitive>.d/plugins/github.com/hashicorp/proxmox/<sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64
+2025/12/16 14:44:43 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 Plugin address: unix /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>-plugin7830515
+2025/12/16 14:44:43 Received unix RPC address for /Users/ralph.brynard/.<sensitive>.d/plugins/github.com/hashicorp/proxmox/<sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64: addr is /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>-plugin7830515
+2025/12/16 14:44:43 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 Waiting for connection...
+2025/12/16 14:44:43 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 Serving a plugin connection...
+2025/12/16 14:44:43 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 [TRACE] starting builder iso
+2025/12/16 14:44:43 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 [DEBUG] - common: sending ConfigSpec as gob
+2025/12/16 14:44:43 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/16 14:44:43 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 CPU type not set, using default 'kvm64'
+2025/12/16 14:44:43 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 OS not set, using default 'other'
+2025/12/16 14:44:43 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 Disk 0 format not set, using default 'raw'
+2025/12/16 14:44:43 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 Disk 0 cache mode not set, using default 'none'
+2025/12/16 14:44:43 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 Cloud-Init disk type not set, using default 'ide'
+2025/12/16 14:44:43 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:43 [DEBUG] - common: sending ConfigSpec as gob
+2025/12/16 14:44:43 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/16 14:44:43 [INFO] Starting external plugin /usr/local/bin/<sensitive> execute <sensitive>-provisioner-file
+2025/12/16 14:44:43 Starting plugin: /usr/local/bin/<sensitive> []string{"/usr/local/bin/<sensitive>", "execute", "<sensitive>-provisioner-file"}
+2025/12/16 14:44:43 Waiting for RPC address for: /usr/local/bin/<sensitive>
+2025/12/16 14:44:44 <sensitive>-provisioner-file plugin: [INFO] Packer version: 1.14.2 [go1.23.2 darwin amd64]
+2025/12/16 14:44:44 <sensitive>-provisioner-file plugin: Old default config directory found: /Users/ralph.brynard/.<sensitive>.d
+2025/12/16 14:44:44 <sensitive>-provisioner-file plugin: [INFO] PACKER_CONFIG env var not set; checking the default config file path
+2025/12/16 14:44:44 <sensitive>-provisioner-file plugin: [INFO] PACKER_CONFIG env var set; attempting to open config file: /Users/ralph.brynard/.<sensitive>config
+2025/12/16 14:44:44 <sensitive>-provisioner-file plugin: [WARN] Config file doesn't exist: /Users/ralph.brynard/.<sensitive>config
+2025/12/16 14:44:44 <sensitive>-provisioner-file plugin: Old default config directory found: /Users/ralph.brynard/.<sensitive>.d
+2025/12/16 14:44:44 <sensitive>-provisioner-file plugin: [INFO] Setting cache directory: /Users/ralph.brynard/.cache/<sensitive>
+2025/12/16 14:44:44 <sensitive>-provisioner-file plugin: Old default config directory found: /Users/ralph.brynard/.<sensitive>.d
+2025/12/16 14:44:44 Received unix RPC address for /usr/local/bin/<sensitive>: addr is /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>-plugin3092610698
+2025/12/16 14:44:44 <sensitive>-provisioner-file plugin: Plugin address: unix /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>-plugin3092610698
+2025/12/16 14:44:44 <sensitive>-provisioner-file plugin: Waiting for connection...
+2025/12/16 14:44:44 <sensitive>-provisioner-file plugin: Serving a plugin connection...
+2025/12/16 14:44:44 <sensitive>-provisioner-file plugin: [DEBUG] - common: sending ConfigSpec as gob
+2025/12/16 14:44:44 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/16 14:44:44 <sensitive>-provisioner-file plugin: [DEBUG] - common: sending ConfigSpec as gob
+2025/12/16 14:44:44 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/16 14:44:44 [INFO] Starting external plugin /usr/local/bin/<sensitive> execute <sensitive>-provisioner-powershell
+2025/12/16 14:44:44 Starting plugin: /usr/local/bin/<sensitive> []string{"/usr/local/bin/<sensitive>", "execute", "<sensitive>-provisioner-powershell"}
+2025/12/16 14:44:44 Waiting for RPC address for: /usr/local/bin/<sensitive>
+2025/12/16 14:44:44 <sensitive>-provisioner-powershell plugin: [INFO] Packer version: 1.14.2 [go1.23.2 darwin amd64]
+2025/12/16 14:44:44 <sensitive>-provisioner-powershell plugin: Old default config directory found: /Users/ralph.brynard/.<sensitive>.d
+2025/12/16 14:44:44 <sensitive>-provisioner-powershell plugin: [INFO] PACKER_CONFIG env var not set; checking the default config file path
+2025/12/16 14:44:44 <sensitive>-provisioner-powershell plugin: [INFO] PACKER_CONFIG env var set; attempting to open config file: /Users/ralph.brynard/.<sensitive>config
+2025/12/16 14:44:44 <sensitive>-provisioner-powershell plugin: [WARN] Config file doesn't exist: /Users/ralph.brynard/.<sensitive>config
+2025/12/16 14:44:44 <sensitive>-provisioner-powershell plugin: Old default config directory found: /Users/ralph.brynard/.<sensitive>.d
+2025/12/16 14:44:44 <sensitive>-provisioner-powershell plugin: [INFO] Setting cache directory: /Users/ralph.brynard/.cache/<sensitive>
+2025/12/16 14:44:44 <sensitive>-provisioner-powershell plugin: Old default config directory found: /Users/ralph.brynard/.<sensitive>.d
+2025/12/16 14:44:44 <sensitive>-provisioner-powershell plugin: Plugin address: unix /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>-plugin983069072
+2025/12/16 14:44:44 <sensitive>-provisioner-powershell plugin: Waiting for connection...
+2025/12/16 14:44:44 Received unix RPC address for /usr/local/bin/<sensitive>: addr is /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>-plugin983069072
+2025/12/16 14:44:44 <sensitive>-provisioner-powershell plugin: Serving a plugin connection...
+2025/12/16 14:44:44 <sensitive>-provisioner-powershell plugin: [DEBUG] - common: sending ConfigSpec as gob
+2025/12/16 14:44:44 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/16 14:44:44 <sensitive>-provisioner-powershell plugin: Using script default execute command powershell -executionpolicy bypass "& { if (Test-Path variable:global:ProgressPreference){set-variable -name variable:global:ProgressPreference -value 'SilentlyContinue'};. {{.Vars}}; &'{{.Path}}'; exit $LastExitCode }"
+2025/12/16 14:44:44 <sensitive>-provisioner-powershell plugin: Using script default elevated execute command powershell -executionpolicy bypass "& { if (Test-Path variable:global:ProgressPreference){set-variable -name variable:global:ProgressPreference -value 'SilentlyContinue'};. {{.Vars}}; &'{{.Path}}'; exit $LastExitCode }"
+2025/12/16 14:44:44 <sensitive>-provisioner-powershell plugin: [DEBUG] - common: sending ConfigSpec as gob
+2025/12/16 14:44:44 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/16 14:44:44 [INFO] Starting external plugin /usr/local/bin/<sensitive> execute <sensitive>-provisioner-file
+2025/12/16 14:44:44 Starting plugin: /usr/local/bin/<sensitive> []string{"/usr/local/bin/<sensitive>", "execute", "<sensitive>-provisioner-file"}
+2025/12/16 14:44:44 Waiting for RPC address for: /usr/local/bin/<sensitive>
+2025/12/16 14:44:44 <sensitive>-provisioner-file plugin: [INFO] Packer version: 1.14.2 [go1.23.2 darwin amd64]
+2025/12/16 14:44:44 <sensitive>-provisioner-file plugin: Old default config directory found: /Users/ralph.brynard/.<sensitive>.d
+2025/12/16 14:44:44 <sensitive>-provisioner-file plugin: [INFO] PACKER_CONFIG env var not set; checking the default config file path
+2025/12/16 14:44:44 <sensitive>-provisioner-file plugin: [INFO] PACKER_CONFIG env var set; attempting to open config file: /Users/ralph.brynard/.<sensitive>config
+2025/12/16 14:44:44 <sensitive>-provisioner-file plugin: [WARN] Config file doesn't exist: /Users/ralph.brynard/.<sensitive>config
+2025/12/16 14:44:44 <sensitive>-provisioner-file plugin: Old default config directory found: /Users/ralph.brynard/.<sensitive>.d
+2025/12/16 14:44:44 <sensitive>-provisioner-file plugin: [INFO] Setting cache directory: /Users/ralph.brynard/.cache/<sensitive>
+2025/12/16 14:44:44 <sensitive>-provisioner-file plugin: Old default config directory found: /Users/ralph.brynard/.<sensitive>.d
+2025/12/16 14:44:44 <sensitive>-provisioner-file plugin: Plugin address: unix /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>-plugin102046856
+2025/12/16 14:44:44 <sensitive>-provisioner-file plugin: Waiting for connection...
+2025/12/16 14:44:44 Received unix RPC address for /usr/local/bin/<sensitive>: addr is /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>-plugin102046856
+2025/12/16 14:44:44 <sensitive>-provisioner-file plugin: Serving a plugin connection...
+2025/12/16 14:44:44 <sensitive>-provisioner-file plugin: [DEBUG] - common: sending ConfigSpec as gob
+2025/12/16 14:44:44 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/16 14:44:44 <sensitive>-provisioner-file plugin: [DEBUG] - common: sending ConfigSpec as gob
+2025/12/16 14:44:44 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/16 14:44:44 [INFO] Starting external plugin /usr/local/bin/<sensitive> execute <sensitive>-provisioner-powershell
+2025/12/16 14:44:44 Starting plugin: /usr/local/bin/<sensitive> []string{"/usr/local/bin/<sensitive>", "execute", "<sensitive>-provisioner-powershell"}
+2025/12/16 14:44:44 Waiting for RPC address for: /usr/local/bin/<sensitive>
+2025/12/16 14:44:44 <sensitive>-provisioner-powershell plugin: [INFO] Packer version: 1.14.2 [go1.23.2 darwin amd64]
+2025/12/16 14:44:44 <sensitive>-provisioner-powershell plugin: Old default config directory found: /Users/ralph.brynard/.<sensitive>.d
+2025/12/16 14:44:44 <sensitive>-provisioner-powershell plugin: [INFO] PACKER_CONFIG env var not set; checking the default config file path
+2025/12/16 14:44:44 <sensitive>-provisioner-powershell plugin: [INFO] PACKER_CONFIG env var set; attempting to open config file: /Users/ralph.brynard/.<sensitive>config
+2025/12/16 14:44:44 <sensitive>-provisioner-powershell plugin: [WARN] Config file doesn't exist: /Users/ralph.brynard/.<sensitive>config
+2025/12/16 14:44:44 <sensitive>-provisioner-powershell plugin: Old default config directory found: /Users/ralph.brynard/.<sensitive>.d
+2025/12/16 14:44:44 <sensitive>-provisioner-powershell plugin: [INFO] Setting cache directory: /Users/ralph.brynard/.cache/<sensitive>
+2025/12/16 14:44:44 <sensitive>-provisioner-powershell plugin: Old default config directory found: /Users/ralph.brynard/.<sensitive>.d
+2025/12/16 14:44:44 <sensitive>-provisioner-powershell plugin: Plugin address: unix /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>-plugin3839248798
+2025/12/16 14:44:44 <sensitive>-provisioner-powershell plugin: Waiting for connection...
+2025/12/16 14:44:44 Received unix RPC address for /usr/local/bin/<sensitive>: addr is /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>-plugin3839248798
+2025/12/16 14:44:44 <sensitive>-provisioner-powershell plugin: Serving a plugin connection...
+2025/12/16 14:44:44 <sensitive>-provisioner-powershell plugin: [DEBUG] - common: sending ConfigSpec as gob
+2025/12/16 14:44:44 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/16 14:44:44 <sensitive>-provisioner-powershell plugin: Using inline default execute command powershell -executionpolicy bypass -file {{.Path}}
+2025/12/16 14:44:44 <sensitive>-provisioner-powershell plugin: Using inline default elevated execute command powershell -executionpolicy bypass -file {{.Path}}
+2025/12/16 14:44:44 <sensitive>-provisioner-powershell plugin: [DEBUG] - common: sending ConfigSpec as gob
+2025/12/16 14:44:44 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/16 14:44:44 [INFO] Starting external plugin /usr/local/bin/<sensitive> execute <sensitive>-post-processor-manifest
+2025/12/16 14:44:44 Starting plugin: /usr/local/bin/<sensitive> []string{"/usr/local/bin/<sensitive>", "execute", "<sensitive>-post-processor-manifest"}
+2025/12/16 14:44:44 Waiting for RPC address for: /usr/local/bin/<sensitive>
+2025/12/16 14:44:44 <sensitive>-post-processor-manifest plugin: [INFO] Packer version: 1.14.2 [go1.23.2 darwin amd64]
+2025/12/16 14:44:44 <sensitive>-post-processor-manifest plugin: Old default config directory found: /Users/ralph.brynard/.<sensitive>.d
+2025/12/16 14:44:44 <sensitive>-post-processor-manifest plugin: [INFO] PACKER_CONFIG env var not set; checking the default config file path
+2025/12/16 14:44:44 <sensitive>-post-processor-manifest plugin: [INFO] PACKER_CONFIG env var set; attempting to open config file: /Users/ralph.brynard/.<sensitive>config
+2025/12/16 14:44:44 <sensitive>-post-processor-manifest plugin: [WARN] Config file doesn't exist: /Users/ralph.brynard/.<sensitive>config
+2025/12/16 14:44:44 <sensitive>-post-processor-manifest plugin: Old default config directory found: /Users/ralph.brynard/.<sensitive>.d
+2025/12/16 14:44:44 <sensitive>-post-processor-manifest plugin: [INFO] Setting cache directory: /Users/ralph.brynard/.cache/<sensitive>
+2025/12/16 14:44:44 <sensitive>-post-processor-manifest plugin: Old default config directory found: /Users/ralph.brynard/.<sensitive>.d
+2025/12/16 14:44:44 <sensitive>-post-processor-manifest plugin: Plugin address: unix /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>-plugin508029999
+2025/12/16 14:44:44 <sensitive>-post-processor-manifest plugin: Waiting for connection...
+2025/12/16 14:44:44 Received unix RPC address for /usr/local/bin/<sensitive>: addr is /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>-plugin508029999
+2025/12/16 14:44:44 <sensitive>-post-processor-manifest plugin: Serving a plugin connection...
+2025/12/16 14:44:44 <sensitive>-post-processor-manifest plugin: [DEBUG] - common: sending ConfigSpec as gob
+2025/12/16 14:44:44 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/16 14:44:44 <sensitive>-post-processor-manifest plugin: [DEBUG] - common: sending ConfigSpec as gob
+2025/12/16 14:44:44 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/16 14:44:44 ui: [1;32mwindows_10_22h2.proxmox-iso.windows_10_22h2_base: output will be in this color.[0m
+2025/12/16 14:44:44 ui: 
+2025/12/16 14:44:44 Build debug mode: false
+2025/12/16 14:44:44 Force build: false
+2025/12/16 14:44:44 On error: 
+2025/12/16 14:44:44 Waiting on builds to complete...
+2025/12/16 14:44:44 Starting build run: windows_10_22h2.proxmox-iso.windows_10_22h2_base
+2025/12/16 14:44:44 Running builder: proxmox-iso
+2025/12/16 14:44:44 [INFO] (telemetry) Starting builder proxmox-iso.windows_10_22h2_base
+2025/12/16 14:44:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:44 using token auth
+2025/12/16 14:44:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:44 No CD files specified. CD disk will not be made.
+2025/12/16 14:44:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:44 No URLs were provided to Step Download. Continuing...
+2025/12/16 14:44:44 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Creating CD disk...[0m
+2025/12/16 14:44:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:44 CD label is set to win10_drivers
+2025/12/16 14:44:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:44 CD path: /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>4078251529.iso
+2025/12/16 14:44:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:44 Wrote 12307 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>_to_cdrom3927140854/drivers/vioscsi.cat
+2025/12/16 14:44:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:44 Wrote 3187 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>_to_cdrom3927140854/drivers/vioscsi.inf
+2025/12/16 14:44:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:44 Wrote 765952 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>_to_cdrom3927140854/drivers/vioscsi.pdb
+2025/12/16 14:44:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:44 Wrote 78016 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>_to_cdrom3927140854/drivers/vioscsi.sys
+2025/12/16 14:44:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:44 Wrote 12298 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>_to_cdrom3927140854/drivers/vioser.cat
+2025/12/16 14:44:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:44 Wrote 2607 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>_to_cdrom3927140854/drivers/vioser.inf
+2025/12/16 14:44:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:44 Wrote 1142784 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>_to_cdrom3927140854/drivers/vioser.pdb
+2025/12/16 14:44:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:44 Wrote 92352 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>_to_cdrom3927140854/drivers/vioser.sys
+2025/12/16 14:44:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:44 Wrote 12304 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>_to_cdrom3927140854/drivers/viostor.cat
+2025/12/16 14:44:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:44 Wrote 2981 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>_to_cdrom3927140854/drivers/viostor.inf
+2025/12/16 14:44:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:44 Wrote 684032 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>_to_cdrom3927140854/drivers/viostor.pdb
+2025/12/16 14:44:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:44 Wrote 64704 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>_to_cdrom3927140854/drivers/viostor.sys
+2025/12/16 14:44:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:44 Wrote 10948 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>_to_cdrom3927140854/scripts/install-atomic-redteam.ps1
+2025/12/16 14:44:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:44 Wrote 4049 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>_to_cdrom3927140854/scripts/install-eset-agent.ps1
+2025/12/16 14:44:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:44 Wrote 16301 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>_to_cdrom3927140854/scripts/install_config.ini
+2025/12/16 14:44:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:44 Wrote 15271 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>_to_cdrom3927140854/scripts/windows-init.ps1
+2025/12/16 14:44:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:44 Wrote 11543 bytes to /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>_to_cdrom3927140854/scripts/windows-prepare.ps1
+2025/12/16 14:44:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:44 Executing: /usr/bin/hdiutil [makehybrid -o /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>4078251529.iso -hfs -joliet -iso -default-volume-name win10_drivers /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>_to_cdrom3927140854]
+2025/12/16 14:44:44 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Creating hybrid image...[0m
+2025/12/16 14:44:44 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Done copying paths from CD_dirs[0m
+2025/12/16 14:44:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:44 No URLs were provided to Step Download. Continuing...
+2025/12/16 14:44:46 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Uploaded ISO to local:iso/<sensitive>4078251529.iso[0m
+2025/12/16 14:44:46 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:46 Mapping Disk to scsi0
+2025/12/16 14:44:46 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:46 Mapping ISO to scsi1
+2025/12/16 14:44:46 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:46 Mapping ISO to sata0
+2025/12/16 14:44:46 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Creating VM[0m
+2025/12/16 14:44:48 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Starting VM[0m
+2025/12/16 14:44:50 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Waiting 5s for boot[0m
+2025/12/16 14:44:55 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Typing the boot command[0m
+2025/12/16 14:44:56 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:44:56 [INFO] Waiting 10s
+2025/12/16 14:45:06 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:45:06 [INFO] Waiting 10s
+2025/12/16 14:45:16 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:45:16 [INFO] Waiting 10s
+2025/12/16 14:45:26 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:45:26 [INFO] Waiting 1s
+2025/12/16 14:45:27 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:45:27 [INFO] Waiting 1s
+2025/12/16 14:45:28 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:45:28 [INFO] Waiting 1s
+2025/12/16 14:45:32 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:45:32 [DEBUG] Unable to get address during connection step: 500 QEMU guest agent is not running
+2025/12/16 14:45:32 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:45:32 Waiting for WinRM, up to timeout: 2h0m0s
+2025/12/16 14:45:32 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Waiting for WinRM to become available...[0m
+2025/12/16 14:45:35 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:45:35 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:45:43 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:45:43 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:45:51 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:45:51 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:45:59 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:45:59 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:46:07 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:46:07 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:46:15 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:46:15 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:46:23 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:46:23 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:46:31 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:46:31 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:46:40 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:46:40 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:46:48 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:46:48 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:46:56 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:46:56 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:47:04 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:47:04 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:47:12 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:47:12 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:47:20 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:47:20 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:47:28 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:47:28 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:47:36 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:47:36 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:47:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:47:44 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:47:52 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:47:52 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:48:00 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:48:00 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:48:09 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:48:09 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:48:17 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:48:17 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:48:25 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:48:25 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:48:33 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:48:33 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:48:41 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:48:41 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:48:49 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:48:49 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:48:57 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:48:57 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:49:05 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:49:05 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:49:13 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:49:13 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:49:21 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:49:21 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:49:29 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:49:29 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:49:37 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:49:37 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:49:45 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:49:45 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:49:54 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:49:54 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:50:02 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:50:02 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:50:10 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:50:10 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:50:18 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:50:18 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:50:26 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:50:26 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:50:34 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:50:34 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:50:42 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:50:42 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:50:50 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:50:50 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:50:58 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:50:58 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:51:06 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:51:06 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:51:14 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:51:14 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:51:22 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:51:22 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:51:30 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:51:30 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:51:39 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:51:39 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:51:47 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:51:47 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:51:55 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:51:55 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:52:03 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:52:03 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:52:11 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:52:11 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:52:19 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:52:19 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:52:27 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:52:27 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:52:35 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:52:35 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:52:43 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:52:43 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:52:51 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:52:51 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:52:59 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:52:59 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:53:07 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:53:07 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:53:16 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:53:16 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:53:24 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:53:24 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:53:32 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:53:32 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:53:40 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:53:40 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:53:48 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:53:48 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:53:56 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:53:56 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:54:04 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:54:04 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:54:12 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:54:12 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:54:20 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:54:20 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:54:28 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:54:28 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:54:36 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:54:36 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:54:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:54:44 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:54:52 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:54:52 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:55:01 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:55:01 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:55:09 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:55:09 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:55:17 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:55:17 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:55:25 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:55:25 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:55:33 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:55:33 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:55:41 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:55:41 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:55:49 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:55:49 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:55:57 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:55:57 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:56:05 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:56:05 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:56:13 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:56:13 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:56:21 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:56:21 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:56:29 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:56:29 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:56:38 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:56:38 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:56:46 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:56:46 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:56:54 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:56:54 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:57:02 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:57:02 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:57:10 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:57:10 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:57:18 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:57:18 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:57:26 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:57:26 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:57:34 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:57:34 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:57:42 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:57:42 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:57:50 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:57:50 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:57:58 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:57:58 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:58:07 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:58:07 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:58:15 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:58:15 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:58:23 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:58:23 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:58:31 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:58:31 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:58:39 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:58:39 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:58:47 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:58:47 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:58:55 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:58:55 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:59:03 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:59:03 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:59:11 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:59:11 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:59:19 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:59:19 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:59:27 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:59:27 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:59:35 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:59:35 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:59:43 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:59:43 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 14:59:52 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 14:59:52 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:00:00 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:00:00 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:00:08 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:00:08 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:00:16 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:00:16 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:00:24 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:00:24 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:00:32 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:00:32 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:00:40 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:00:40 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:00:48 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:00:48 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:00:56 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:00:56 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:01:04 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:01:04 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:01:12 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:01:12 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:01:20 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:01:20 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:01:28 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:01:28 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:01:36 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:01:36 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:01:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:01:44 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:01:53 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:01:53 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:02:01 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:02:01 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:02:09 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:02:09 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:02:17 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:02:17 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:02:25 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:02:25 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:02:33 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:02:33 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:02:41 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:02:41 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:02:49 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:02:49 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:02:57 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:02:57 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:03:05 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:03:05 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:03:13 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:03:13 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:03:21 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:03:21 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:03:30 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:03:30 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:03:38 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:03:38 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:03:46 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:03:46 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:03:54 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:03:54 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:04:02 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:04:02 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:04:10 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:04:10 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:04:18 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:04:18 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:04:26 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:04:26 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:04:34 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:04:34 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:04:42 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:04:42 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:04:50 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:04:50 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:04:59 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:04:59 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:05:07 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:05:07 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:05:15 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:05:15 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:05:23 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:05:23 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:05:31 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:05:31 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:05:39 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:05:39 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:05:47 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:05:47 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:05:55 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:05:55 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:06:03 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:06:03 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:06:11 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:06:11 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:06:19 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:06:19 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:06:28 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:06:28 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:06:36 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:06:36 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:06:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:06:44 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:06:52 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:06:52 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:07:00 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:07:00 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:07:08 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:07:08 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:07:16 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:07:16 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:07:24 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:07:24 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:07:32 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:07:32 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:07:40 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:07:40 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:07:48 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:07:48 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:07:56 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:07:56 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:08:05 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:08:05 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:08:13 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:08:13 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:08:21 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:08:21 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:08:29 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:08:29 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:08:37 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:08:37 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:08:45 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:08:45 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:08:53 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:08:53 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:09:01 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:09:01 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:09:09 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:09:09 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:09:17 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:09:17 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:09:25 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:09:25 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:09:33 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:09:33 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:09:41 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:09:41 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:09:50 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:09:50 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:09:58 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:09:58 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:10:06 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:10:06 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:10:14 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:10:14 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:10:22 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:10:22 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:10:30 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:10:30 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:10:38 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:10:38 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:10:46 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:10:46 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:10:54 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:10:54 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:11:02 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:11:02 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:11:10 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:11:10 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:11:18 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:11:18 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:11:27 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:11:27 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:11:35 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:11:35 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:11:43 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:11:43 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:11:51 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:11:51 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:11:59 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:11:59 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:12:07 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:12:07 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:12:15 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:12:15 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:12:23 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:12:23 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:12:31 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:12:31 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:12:39 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:12:39 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:12:47 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:12:47 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:12:55 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:12:55 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:13:04 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:13:04 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:13:12 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:13:12 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:13:20 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:13:20 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:13:28 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:13:28 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:13:36 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:13:36 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:13:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:13:44 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:13:52 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:13:52 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:14:00 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:14:00 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:14:08 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:14:08 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:14:16 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:14:16 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:14:24 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:14:24 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:14:33 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:14:33 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:14:41 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:14:41 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:14:49 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:14:49 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:14:57 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:14:57 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:15:05 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:15:05 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:15:13 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:15:13 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:15:21 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:15:21 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:15:29 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:15:29 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:15:37 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:15:37 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:15:45 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:15:45 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:15:53 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:15:53 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:16:01 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:16:01 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:16:09 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:16:09 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:16:17 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:16:17 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:16:26 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:16:26 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:16:34 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:16:34 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:16:42 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:16:42 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:16:50 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:16:50 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:16:58 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:16:58 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:17:06 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:17:06 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:17:14 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:17:14 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:17:22 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:17:22 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:17:30 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:17:30 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:17:38 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:17:38 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:17:46 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:17:46 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:17:54 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:17:54 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:18:02 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:18:02 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:18:11 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:18:11 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:18:19 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:18:19 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:18:27 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:18:27 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:18:35 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:18:35 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:18:43 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:18:43 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:18:51 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:18:51 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:18:59 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:18:59 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:19:07 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:19:07 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:19:15 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:19:15 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:19:23 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:19:23 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:19:31 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:19:31 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:19:39 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:19:39 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:19:47 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:19:47 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:19:56 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:19:56 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:20:04 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:20:04 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:20:12 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:20:12 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:20:20 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:20:20 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:20:28 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:20:28 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:20:36 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:20:36 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:20:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:20:44 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:20:52 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:20:52 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:21:00 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:21:00 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:21:08 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:21:08 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:21:16 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:21:16 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:21:24 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:21:24 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:21:33 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:21:33 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:21:41 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:21:41 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:21:49 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:21:49 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:21:57 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:21:57 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:22:05 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:22:05 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:22:13 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:22:13 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:22:21 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:22:21 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:22:29 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:22:29 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:22:37 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:22:37 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:22:45 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:22:45 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:22:53 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:22:53 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:23:02 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:23:02 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:23:10 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:23:10 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:23:18 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:23:18 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:23:26 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:23:26 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:23:34 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:23:34 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:23:42 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:23:42 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:23:50 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:23:50 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:23:58 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:23:58 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:24:06 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:24:06 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:24:14 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:24:14 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:24:22 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:24:22 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:24:30 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:24:30 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:24:39 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:24:39 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:24:47 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:24:47 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:24:55 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:24:55 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:25:03 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:25:03 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:25:11 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:25:11 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:25:19 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:25:19 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:25:27 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:25:27 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:25:35 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:25:35 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:25:43 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:25:43 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:25:51 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:25:51 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:25:59 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:25:59 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:26:08 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:26:08 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:26:16 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:26:16 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:26:24 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:26:24 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:26:32 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:26:32 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:26:40 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:26:40 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:26:48 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:26:48 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:26:56 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:26:56 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:27:04 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:27:04 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:27:12 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:27:12 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:27:20 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:27:20 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:27:28 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:27:28 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:27:37 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:27:37 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:27:45 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:27:45 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:27:53 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:27:53 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:28:01 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:28:01 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:28:09 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:28:09 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:28:17 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:28:17 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:28:25 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:28:25 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:28:33 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:28:33 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:28:41 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:28:41 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:28:49 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:28:49 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:28:57 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:28:57 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:29:05 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:29:05 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:29:14 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:29:14 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:29:22 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:29:22 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:29:30 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:29:30 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:29:38 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:29:38 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:29:46 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:29:46 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:29:54 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:29:54 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:30:02 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:30:02 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:30:10 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:30:10 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:30:18 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:30:18 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:30:26 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:30:26 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:30:34 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:30:34 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:30:43 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:30:43 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:30:51 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:30:51 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:30:59 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:30:59 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:31:07 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:31:07 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:31:15 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:31:15 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:31:23 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:31:23 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:31:31 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:31:31 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:31:39 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:31:39 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:31:47 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:31:47 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:31:55 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:31:55 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:32:03 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:32:03 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:32:12 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:32:12 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:32:20 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:32:20 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:32:28 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:32:28 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:32:36 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:32:36 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:32:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:32:44 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:32:52 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:32:52 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:33:00 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:33:00 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:33:08 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:33:08 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:33:16 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:33:16 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:33:24 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:33:24 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:33:32 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:33:32 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:33:40 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:33:40 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:33:49 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:33:49 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:33:57 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:33:57 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:34:05 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:34:05 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:34:13 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:34:13 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:34:21 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:34:21 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:34:29 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:34:29 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:34:37 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:34:37 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:34:45 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:34:45 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:34:53 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:34:53 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:35:01 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:35:01 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:35:09 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:35:09 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:35:18 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:35:18 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:35:26 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:35:26 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:35:34 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:35:34 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:35:42 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:35:42 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:35:50 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:35:50 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:35:58 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:35:58 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:36:06 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:36:06 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:36:14 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:36:14 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:36:22 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:36:22 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:36:30 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:36:30 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:36:38 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:36:38 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:36:46 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:36:46 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:36:54 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:36:54 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:37:03 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:37:03 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:37:11 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:37:11 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:37:19 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:37:19 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:37:27 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:37:27 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:37:35 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:37:35 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:37:43 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:37:43 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:37:51 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:37:51 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:37:59 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:37:59 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:38:07 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:38:07 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:38:15 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:38:15 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:38:23 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:38:23 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:38:31 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:38:31 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:38:39 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:38:39 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:38:48 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:38:48 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:38:56 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:38:56 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:39:04 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:39:04 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:39:12 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:39:12 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:39:20 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:39:20 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:39:28 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:39:28 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:39:36 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:39:36 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:39:44 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:39:44 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:39:52 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:39:52 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:40:00 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:40:00 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:40:08 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:40:08 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:40:17 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:40:17 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:40:25 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:40:25 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:40:33 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:40:33 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:40:41 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:40:41 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:40:49 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:40:49 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:40:57 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:40:57 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:41:05 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:41:05 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:41:13 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:41:13 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:41:21 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:41:21 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:41:29 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:41:29 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:41:37 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:41:37 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:41:46 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:41:46 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:41:54 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:41:54 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:42:02 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:42:02 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:42:10 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:42:10 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:42:18 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:42:18 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:42:26 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:42:26 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:42:34 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:42:34 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:42:42 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:42:42 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:42:50 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:42:50 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:42:58 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:42:58 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:43:06 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:43:06 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:43:14 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:43:14 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:43:23 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:43:23 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:43:31 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:43:31 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:43:39 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:43:39 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:43:47 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:43:47 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:43:55 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:43:55 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:44:03 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:44:03 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:44:11 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:44:11 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:44:19 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:44:19 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:44:27 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:44:27 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:44:35 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:44:35 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:44:43 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:44:43 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:44:51 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:44:51 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:45:00 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:45:00 [DEBUG] Error getting WinRM host: 500 QEMU guest agent is not running
+2025/12/16 15:45:05 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:45:05 [INFO] Attempting WinRM connection...
+2025/12/16 15:45:05 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:45:05 [DEBUG] connecting to remote shell using WinRM
+2025/12/16 15:45:20 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:45:20 Checking that WinRM is connected with: 'powershell.exe -EncodedCommand JABQAHIAbwBnAHIAZQBzAHMAUAByAGUAZgBlAHIAZQBuAGMAZQAgAD0AIAAnAFMAaQBsAGUAbgB0AGwAeQBDAG8AbgB0AGkAbgB1AGUAJwA7AGkAZgAgACgAVABlAHMAdAAtAFAAYQB0AGgAIAB2AGEAcgBpAGEAYgBsAGUAOgBnAGwAbwBiAGEAbAA6AFAAcgBvAGcAcgBlAHMAcwBQAHIAZQBmAGUAcgBlAG4AYwBlACkAewAkAFAAcgBvAGcAcgBlAHMAcwBQAHIAZQBmAGUAcgBlAG4AYwBlAD0AJwBTAGkAbABlAG4AdABsAHkAQwBvAG4AdABpAG4AdQBlACcAfQA7ACAAZQBjAGgAbwAgACIAVwBpAG4AUgBNACAAYwBvAG4AbgBlAGMAdABlAGQALgAiAA=='
+2025/12/16 15:45:25 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:45:25 [INFO] starting remote command: powershell.exe -EncodedCommand JABQAHIAbwBnAHIAZQBzAHMAUAByAGUAZgBlAHIAZQBuAGMAZQAgAD0AIAAnAFMAaQBsAGUAbgB0AGwAeQBDAG8AbgB0AGkAbgB1AGUAJwA7AGkAZgAgACgAVABlAHMAdAAtAFAAYQB0AGgAIAB2AGEAcgBpAGEAYgBsAGUAOgBnAGwAbwBiAGEAbAA6AFAAcgBvAGcAcgBlAHMAcwBQAHIAZQBmAGUAcgBlAG4AYwBlACkAewAkAFAAcgBvAGcAcgBlAHMAcwBQAHIAZQBmAGUAcgBlAG4AYwBlAD0AJwBTAGkAbABlAG4AdABsAHkAQwBvAG4AdABpAG4AdQBlACcAfQA7ACAAZQBjAGgAbwAgACIAVwBpAG4AUgBNACAAYwBvAG4AbgBlAGMAdABlAGQALgAiAA==
+2025/12/16 15:46:28 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: WinRM connected.[0m
+2025/12/16 15:46:30 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:46:30 [INFO] command 'powershell.exe -EncodedCommand JABQAHIAbwBnAHIAZQBzAHMAUAByAGUAZgBlAHIAZQBuAGMAZQAgAD0AIAAnAFMAaQBsAGUAbgB0AGwAeQBDAG8AbgB0AGkAbgB1AGUAJwA7AGkAZgAgACgAVABlAHMAdAAtAFAAYQB0AGgAIAB2AGEAcgBpAGEAYgBsAGUAOgBnAGwAbwBiAGEAbAA6AFAAcgBvAGcAcgBlAHMAcwBQAHIAZQBmAGUAcgBlAG4AYwBlACkAewAkAFAAcgBvAGcAcgBlAHMAcwBQAHIAZQBmAGUAcgBlAG4AYwBlAD0AJwBTAGkAbABlAG4AdABsAHkAQwBvAG4AdABpAG4AdQBlACcAfQA7ACAAZQBjAGgAbwAgACIAVwBpAG4AUgBNACAAYwBvAG4AbgBlAGMAdABlAGQALgAiAA==' exited with code: 0
+2025/12/16 15:46:30 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:46:30 Connected to machine
+2025/12/16 15:46:30 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Connected to WinRM![0m
+2025/12/16 15:46:30 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:46:30 Running the provision hook
+2025/12/16 15:46:30 [INFO] (telemetry) Starting provisioner file
+2025/12/16 15:46:30 <sensitive>-provisioner-file plugin: [DEBUG] - common: sending ConfigSpec as gob
+2025/12/16 15:46:30 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/16 15:46:30 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Uploading ../../../scripts/install_config.ini => C:\Windows\Temp\install_config.ini[0m
+2025/12/16 15:46:30 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:46:30 Uploading file to 'C:\Windows\Temp\install_config.ini'
+2025/12/16 15:46:30 <sensitive>-provisioner-file plugin: [INFO] 16301 bytes written for 'uploadData'
+2025/12/16 15:46:30 [INFO] 16301 bytes written for 'uploadData'
+2025/12/16 15:49:08 <sensitive>-provisioner-file plugin: closing
+2025/12/16 15:49:08 closing
+2025/12/16 15:49:08 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:49:08 closing
+2025/12/16 15:49:08 [INFO] (telemetry) ending file
+2025/12/16 15:49:08 [INFO] (telemetry) Starting provisioner powershell
+2025/12/16 15:49:08 <sensitive>-provisioner-powershell plugin: [DEBUG] - common: sending ConfigSpec as gob
+2025/12/16 15:49:08 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/16 15:49:08 <sensitive>-provisioner-powershell plugin: Using script default execute command powershell -executionpolicy bypass "& { if (Test-Path variable:global:ProgressPreference){set-variable -name variable:global:ProgressPreference -value 'SilentlyContinue'};. {{.Vars}}; &'{{.Path}}'; exit $LastExitCode }"
+2025/12/16 15:49:08 <sensitive>-provisioner-powershell plugin: Using script default elevated execute command powershell -executionpolicy bypass "& { if (Test-Path variable:global:ProgressPreference){set-variable -name variable:global:ProgressPreference -value 'SilentlyContinue'};. {{.Vars}}; &'{{.Path}}'; exit $LastExitCode }"
+2025/12/16 15:49:08 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Provisioning with Powershell...[0m
+2025/12/16 15:49:08 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Provisioning with powershell script: ../../../scripts/install-eset-agent.ps1[0m
+2025/12/16 15:49:08 <sensitive>-provisioner-powershell plugin: Opening ../../../scripts/install-eset-agent.ps1 for reading
+2025/12/16 15:49:08 <sensitive>-provisioner-powershell plugin: Uploading env vars to c:/Windows/Temp/<sensitive>-ps-env-vars-6941d3d4-1f15-9c14-45c5-4c0015088231.ps1
+2025/12/16 15:49:08 <sensitive>-provisioner-powershell plugin: [INFO] 192 bytes written for 'uploadData'
+2025/12/16 15:49:08 [INFO] 192 bytes written for 'uploadData'
+2025/12/16 15:49:08 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:49:08 Uploading file to 'c:/Windows/Temp/<sensitive>-ps-env-vars-6941d3d4-1f15-9c14-45c5-4c0015088231.ps1'
+2025/12/16 15:50:55 <sensitive>-provisioner-powershell plugin: Building elevated command wrapper for: powershell -executionpolicy bypass "& { if (Test-Path variable:global:ProgressPreference){set-variable -name variable:global:ProgressPreference -value 'SilentlyContinue'};. c:/Windows/Temp/<sensitive>-ps-env-vars-6941d3d4-1f15-9c14-45c5-4c0015088231.ps1; &'c:/Windows/Temp/script-6941d3d4-7550-abad-bdb2-43c43a0f7364.ps1'; exit $LastExitCode }"
+2025/12/16 15:50:55 <sensitive>-provisioner-powershell plugin: Command [powershell -executionpolicy bypass "& { if (Test-Path variable:global:ProgressPreference){set-variable -name variable:global:ProgressPreference -value 'SilentlyContinue'};. c:/Windows/Temp/<sensitive>-ps-env-vars-6941d3d4-1f15-9c14-45c5-4c0015088231.ps1; &'c:/Windows/Temp/script-6941d3d4-7550-abad-bdb2-43c43a0f7364.ps1'; exit $LastExitCode }" > %SYSTEMROOT%/Temp/<sensitive>-6941d43f-fcd0-b2e7-7408-3e6fcba75325.out 2>&1] converted to [powershell -executionpolicy bypass &#34;&amp; { if (Test-Path variable:global:ProgressPreference){set-variable -name variable:global:ProgressPreference -value &#39;SilentlyContinue&#39;};. c:/Windows/Temp/<sensitive>-ps-env-vars-6941d3d4-1f15-9c14-45c5-4c0015088231.ps1; &amp;&#39;c:/Windows/Temp/script-6941d3d4-7550-abad-bdb2-43c43a0f7364.ps1&#39;; exit $LastExitCode }&#34; &gt; %SYSTEMROOT%/Temp/<sensitive>-6941d43f-fcd0-b2e7-7408-3e6fcba75325.out 2&gt;&amp;1] for use in XML string
+2025/12/16 15:50:55 <sensitive>-provisioner-powershell plugin: Uploading elevated shell wrapper for command [powershell -executionpolicy bypass "& { if (Test-Path variable:global:ProgressPreference){set-variable -name variable:global:ProgressPreference -value 'SilentlyContinue'};. c:/Windows/Temp/<sensitive>-ps-env-vars-6941d3d4-1f15-9c14-45c5-4c0015088231.ps1; &'c:/Windows/Temp/script-6941d3d4-7550-abad-bdb2-43c43a0f7364.ps1'; exit $LastExitCode }" > %SYSTEMROOT%/Temp/<sensitive>-6941d43f-fcd0-b2e7-7408-3e6fcba75325.out 2>&1] to [C:/Windows/Temp/<sensitive>-elevated-shell-6941d43f-9d1b-9aa9-5a4c-6278bdeb252b.ps1]
+2025/12/16 15:50:55 <sensitive>-provisioner-powershell plugin: [INFO] 3510 bytes written for 'uploadData'
+2025/12/16 15:50:55 [INFO] 3510 bytes written for 'uploadData'
+2025/12/16 15:50:55 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:50:55 Uploading file to 'C:/Windows/Temp/<sensitive>-elevated-shell-6941d43f-9d1b-9aa9-5a4c-6278bdeb252b.ps1'
+2025/12/16 15:52:59 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:52:59 Uploading file to 'c:/Windows/Temp/script-6941d3d4-7550-abad-bdb2-43c43a0f7364.ps1'
+2025/12/16 15:52:59 <sensitive>-provisioner-powershell plugin: [INFO] 4049 bytes written for 'uploadData'
+2025/12/16 15:52:59 [INFO] 4049 bytes written for 'uploadData'
+2025/12/16 15:55:31 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 15:55:31 [INFO] starting remote command: powershell -executionpolicy bypass -file "C:/Windows/Temp/<sensitive>-elevated-shell-6941d43f-9d1b-9aa9-5a4c-6278bdeb252b.ps1"
+2025/12/16 15:57:48 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: =======================================[0m
+2025/12/16 15:57:48 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: ESET Protect Agent Installation[0m
+2025/12/16 15:57:48 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: =======================================[0m
+2025/12/16 15:57:48 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base:[0m
+2025/12/16 15:57:48 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Found configuration file: C:\Windows\Temp\install_config.ini[0m
+2025/12/16 15:57:48 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base:[0m
+2025/12/16 15:57:48 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Downloading ESET Protect Agent from: https://download.eset.com/com/eset/apps/business/era/agent/latest/agent_x64.msi[0m
+2025/12/16 15:58:12 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Download completed successfully[0m
+2025/12/16 15:58:12 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Installer saved to: C:\Windows\Temp\agent_x64.msi[0m
+2025/12/16 15:58:15 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Installer file size: 49.66 MB[0m
+2025/12/16 15:58:15 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base:[0m
+2025/12/16 15:58:15 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Installing ESET Protect Agent...[0m
+2025/12/16 15:58:15 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Installation log will be saved to: C:\Users\ADMINI~1\AppData\Local\Temp\era-agent-install.log[0m
+2025/12/16 15:58:15 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Starting silent installation...[0m
+2025/12/16 16:02:13 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base:[0m
+2025/12/16 16:02:13 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: =======================================[0m
+2025/12/16 16:02:13 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: ESET Protect Agent installed successfully[0m
+2025/12/16 16:02:13 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: =======================================[0m
+2025/12/16 16:02:13 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base:[0m
+2025/12/16 16:02:13 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Cleaning up installer file...[0m
+2025/12/16 16:02:13 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Installer file removed successfully[0m
+2025/12/16 16:02:13 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base:[0m
+2025/12/16 16:02:13 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: ESET Protect Agent installation completed[0m
+2025/12/16 16:02:13 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Installation log: C:\Users\ADMINI~1\AppData\Local\Temp\era-agent-install.log[0m
+2025/12/16 16:02:17 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 16:02:17 [INFO] command 'powershell -executionpolicy bypass -file "C:/Windows/Temp/<sensitive>-elevated-shell-6941d43f-9d1b-9aa9-5a4c-6278bdeb252b.ps1"' exited with code: 0
+2025/12/16 16:02:17 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 16:02:17 [INFO] RPC endpoint: Communicator ended with: 0
+2025/12/16 16:02:17 [INFO] 898 bytes written for 'stdout'
+2025/12/16 16:02:17 [INFO] 0 bytes written for 'stderr'
+2025/12/16 16:02:17 [INFO] RPC client: Communicator ended with: 0
+2025/12/16 16:02:17 [INFO] RPC endpoint: Communicator ended with: 0
+2025/12/16 16:02:17 <sensitive>-provisioner-powershell plugin: [INFO] 898 bytes written for 'stdout'
+2025/12/16 16:02:17 <sensitive>-provisioner-powershell plugin: [INFO] 0 bytes written for 'stderr'
+2025/12/16 16:02:17 <sensitive>-provisioner-powershell plugin: [INFO] RPC client: Communicator ended with: 0
+2025/12/16 16:02:17 <sensitive>-provisioner-powershell plugin: c:/Windows/Temp/script-6941d3d4-7550-abad-bdb2-43c43a0f7364.ps1 returned with exit code 0
+2025/12/16 16:02:17 <sensitive>-provisioner-powershell plugin: [INFO] 511 bytes written for 'uploadData'
+2025/12/16 16:02:17 [INFO] 511 bytes written for 'uploadData'
+2025/12/16 16:02:17 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 16:02:17 Uploading file to 'c:/Windows/Temp/<sensitive>-cleanup-6941d3d4-b464-32fe-7a14-a7cae5214dad.ps1'
+2025/12/16 16:04:27 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 16:04:27 [INFO] starting remote command: powershell -executionpolicy bypass "& { if (Test-Path variable:global:ProgressPreference){set-variable -name variable:global:ProgressPreference -value 'SilentlyContinue'};. c:/Windows/Temp/<sensitive>-ps-env-vars-6941d3d4-1f15-9c14-45c5-4c0015088231.ps1; &'c:/Windows/Temp/<sensitive>-cleanup-6941d3d4-b464-32fe-7a14-a7cae5214dad.ps1'; exit $LastExitCode }"
+2025/12/16 16:05:15 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 16:05:15 [INFO] command 'powershell -executionpolicy bypass "& { if (Test-Path variable:global:ProgressPreference){set-variable -name variable:global:ProgressPreference -value 'SilentlyContinue'};. c:/Windows/Temp/<sensitive>-ps-env-vars-6941d3d4-1f15-9c14-45c5-4c0015088231.ps1; &'c:/Windows/Temp/<sensitive>-cleanup-6941d3d4-b464-32fe-7a14-a7cae5214dad.ps1'; exit $LastExitCode }"' exited with code: 0
+2025/12/16 16:05:15 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 16:05:15 [INFO] RPC endpoint: Communicator ended with: 0
+2025/12/16 16:05:15 [INFO] 0 bytes written for 'stdout'
+2025/12/16 16:05:15 [INFO] 0 bytes written for 'stderr'
+2025/12/16 16:05:15 [INFO] RPC client: Communicator ended with: 0
+2025/12/16 16:05:15 [INFO] RPC endpoint: Communicator ended with: 0
+2025/12/16 16:05:15 <sensitive>-provisioner-powershell plugin: [INFO] 0 bytes written for 'stdout'
+2025/12/16 16:05:15 <sensitive>-provisioner-powershell plugin: [INFO] 0 bytes written for 'stderr'
+2025/12/16 16:05:15 <sensitive>-provisioner-powershell plugin: [INFO] RPC client: Communicator ended with: 0
+2025/12/16 16:05:15 [INFO] (telemetry) ending powershell
+2025/12/16 16:05:15 [INFO] (telemetry) Starting provisioner file
+2025/12/16 16:05:15 <sensitive>-provisioner-file plugin: [DEBUG] - common: sending ConfigSpec as gob
+2025/12/16 16:05:15 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/16 16:05:15 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Uploading /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/pkr-file-content2199489250 => C:\Windows\System32\Sysprep\unattend.xml[0m
+2025/12/16 16:05:15 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 16:05:15 Uploading file to 'C:\Windows\System32\Sysprep\unattend.xml'
+2025/12/16 16:05:15 <sensitive>-provisioner-file plugin: [INFO] 2167 bytes written for 'uploadData'
+2025/12/16 16:05:15 [INFO] 2167 bytes written for 'uploadData'
+2025/12/16 16:07:24 <sensitive>-provisioner-file plugin: closing
+2025/12/16 16:07:24 closing
+2025/12/16 16:07:24 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 16:07:24 closing
+2025/12/16 16:07:24 [INFO] (telemetry) ending file
+2025/12/16 16:07:24 [INFO] (telemetry) Starting provisioner powershell
+2025/12/16 16:07:24 <sensitive>-provisioner-powershell plugin: [DEBUG] - common: sending ConfigSpec as gob
+2025/12/16 16:07:24 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/16 16:07:24 <sensitive>-provisioner-powershell plugin: Using inline default execute command powershell -executionpolicy bypass -file {{.Path}}
+2025/12/16 16:07:24 <sensitive>-provisioner-powershell plugin: Using inline default elevated execute command powershell -executionpolicy bypass -file {{.Path}}
+2025/12/16 16:07:24 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Provisioning with Powershell...[0m
+2025/12/16 16:07:24 <sensitive>-provisioner-powershell plugin: Found command: Write-Host 'Running Sysprep to generalize the image...'
+2025/12/16 16:07:24 <sensitive>-provisioner-powershell plugin: Found command: & $env:SystemRoot\System32\Sysprep\Sysprep.exe /generalize /oobe /shutdown /unattend:C:\Windows\System32\Sysprep\unattend.xml /mode:vm
+2025/12/16 16:07:24 <sensitive>-provisioner-powershell plugin: Found command: Write-Host 'Sysprep command executed. VM will shutdown automatically.'
+2025/12/16 16:07:24 <sensitive>-provisioner-powershell plugin: Writing PowerShell script to file: /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/powershell-provisioner3047546640
+2025/12/16 16:07:24 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Provisioning with powershell script: /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/powershell-provisioner3047546640[0m
+2025/12/16 16:07:24 <sensitive>-provisioner-powershell plugin: Opening /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/powershell-provisioner3047546640 for reading
+2025/12/16 16:07:24 <sensitive>-provisioner-powershell plugin: Uploading env vars to c:/Windows/Temp/<sensitive>-ps-env-vars-6941d81c-90e0-4e6b-094b-058b3be5e585.ps1
+2025/12/16 16:07:24 <sensitive>-provisioner-powershell plugin: [INFO] 192 bytes written for 'uploadData'
+2025/12/16 16:07:24 [INFO] 192 bytes written for 'uploadData'
+2025/12/16 16:07:24 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 16:07:24 Uploading file to 'c:/Windows/Temp/<sensitive>-ps-env-vars-6941d81c-90e0-4e6b-094b-058b3be5e585.ps1'
+2025/12/16 16:09:17 <sensitive>-provisioner-powershell plugin: [INFO] 813 bytes written for 'uploadData'
+2025/12/16 16:09:17 [INFO] 813 bytes written for 'uploadData'
+2025/12/16 16:09:17 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 16:09:17 Uploading file to 'c:/Windows/Temp/script-6941d81c-6780-3ea5-4669-e058db8fabcb.ps1'
+2025/12/16 16:11:07 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 16:11:07 [INFO] starting remote command: powershell -executionpolicy bypass -file c:/Windows/Temp/script-6941d81c-6780-3ea5-4669-e058db8fabcb.ps1
+2025/12/16 16:11:48 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Running Sysprep to generalize the image...[0m
+2025/12/16 16:11:51 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Sysprep command executed. VM will shutdown automatically.[0m
+2025/12/16 16:18:22 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 16:18:22 [INFO] command 'powershell -executionpolicy bypass -file c:/Windows/Temp/script-6941d81c-6780-3ea5-4669-e058db8fabcb.ps1' exited with code: 0
+2025/12/16 16:18:22 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 16:18:22 [INFO] RPC endpoint: Communicator ended with: 0
+2025/12/16 16:18:22 [INFO] 101 bytes written for 'stdout'
+2025/12/16 16:18:22 [INFO] 0 bytes written for 'stderr'
+2025/12/16 16:18:22 [INFO] RPC client: Communicator ended with: 0
+2025/12/16 16:18:22 [INFO] RPC endpoint: Communicator ended with: 0
+2025/12/16 16:18:22 <sensitive>-provisioner-powershell plugin: [INFO] 101 bytes written for 'stdout'
+2025/12/16 16:18:22 <sensitive>-provisioner-powershell plugin: [INFO] 0 bytes written for 'stderr'
+2025/12/16 16:18:22 <sensitive>-provisioner-powershell plugin: [INFO] RPC client: Communicator ended with: 0
+2025/12/16 16:18:22 <sensitive>-provisioner-powershell plugin: c:/Windows/Temp/script-6941d81c-6780-3ea5-4669-e058db8fabcb.ps1 returned with exit code 0
+2025/12/16 16:18:22 <sensitive>-provisioner-powershell plugin: [INFO] 511 bytes written for 'uploadData'
+2025/12/16 16:18:22 [INFO] 511 bytes written for 'uploadData'
+2025/12/16 16:18:22 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 16:18:22 Uploading file to 'c:/Windows/Temp/<sensitive>-cleanup-6941d81c-3cdf-a11b-ac93-b2d2ee0d1c86.ps1'
+2025/12/16 16:18:22 <sensitive>-provisioner-powershell plugin: failed to upload the remote cleanup script: "clean up script \"c:/Windows/Temp/<sensitive>-cleanup-6941d81c-3cdf-a11b-ac93-b2d2ee0d1c86.ps1\" failed to upload: Error uploading file to $env:TEMP\\winrmcp-e705c505-80b1-43da-4497-b630cc8fa3e0.tmp: Couldn't create shell: http response error: 401 - invalid content type"
+2025/12/16 16:18:22 <sensitive>-provisioner-powershell plugin: Retryable error: clean up script "c:/Windows/Temp/<sensitive>-cleanup-6941d81c-3cdf-a11b-ac93-b2d2ee0d1c86.ps1" failed to upload: Error uploading file to $env:TEMP\winrmcp-e705c505-80b1-43da-4497-b630cc8fa3e0.tmp: Couldn't create shell: http response error: 401 - invalid content type
+2025/12/16 16:18:32 <sensitive>-provisioner-powershell plugin: [INFO] 511 bytes written for 'uploadData'
+2025/12/16 16:18:32 [INFO] 511 bytes written for 'uploadData'
+2025/12/16 16:18:32 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 16:18:32 Uploading file to 'c:/Windows/Temp/<sensitive>-cleanup-6941d81c-3cdf-a11b-ac93-b2d2ee0d1c86.ps1'
+2025/12/16 16:18:32 <sensitive>-provisioner-powershell plugin: failed to upload the remote cleanup script: "clean up script \"c:/Windows/Temp/<sensitive>-cleanup-6941d81c-3cdf-a11b-ac93-b2d2ee0d1c86.ps1\" failed to upload: Error uploading file to $env:TEMP\\winrmcp-f6a4ea78-fa8d-456c-5fdf-4e82c15ea4f2.tmp: Couldn't create shell: http response error: 401 - invalid content type"
+2025/12/16 16:18:32 <sensitive>-provisioner-powershell plugin: Retryable error: clean up script "c:/Windows/Temp/<sensitive>-cleanup-6941d81c-3cdf-a11b-ac93-b2d2ee0d1c86.ps1" failed to upload: Error uploading file to $env:TEMP\winrmcp-f6a4ea78-fa8d-456c-5fdf-4e82c15ea4f2.tmp: Couldn't create shell: http response error: 401 - invalid content type
+2025/12/16 16:18:42 <sensitive>-provisioner-powershell plugin: [INFO] 511 bytes written for 'uploadData'
+2025/12/16 16:18:42 [INFO] 511 bytes written for 'uploadData'
+2025/12/16 16:18:42 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 16:18:42 Uploading file to 'c:/Windows/Temp/<sensitive>-cleanup-6941d81c-3cdf-a11b-ac93-b2d2ee0d1c86.ps1'
+2025/12/16 16:18:42 <sensitive>-provisioner-powershell plugin: failed to upload the remote cleanup script: "clean up script \"c:/Windows/Temp/<sensitive>-cleanup-6941d81c-3cdf-a11b-ac93-b2d2ee0d1c86.ps1\" failed to upload: Error uploading file to $env:TEMP\\winrmcp-814f3ffb-acfa-488c-7004-e74d12579a58.tmp: Couldn't create shell: unknown error Post \"http://192.168.1.223:5985/wsman\": dial tcp 192.168.1.223:5985: connect: connection refused"
+2025/12/16 16:18:42 <sensitive>-provisioner-powershell plugin: Retryable error: clean up script "c:/Windows/Temp/<sensitive>-cleanup-6941d81c-3cdf-a11b-ac93-b2d2ee0d1c86.ps1" failed to upload: Error uploading file to $env:TEMP\winrmcp-814f3ffb-acfa-488c-7004-e74d12579a58.tmp: Couldn't create shell: unknown error Post "http://192.168.1.223:5985/wsman": dial tcp 192.168.1.223:5985: connect: connection refused
+2025/12/16 16:18:52 <sensitive>-provisioner-powershell plugin: [INFO] 511 bytes written for 'uploadData'
+2025/12/16 16:18:52 [INFO] 511 bytes written for 'uploadData'
+2025/12/16 16:18:52 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 16:18:52 Uploading file to 'c:/Windows/Temp/<sensitive>-cleanup-6941d81c-3cdf-a11b-ac93-b2d2ee0d1c86.ps1'
+2025/12/16 16:19:14 <sensitive>-provisioner-powershell plugin: failed to upload the remote cleanup script: "clean up script \"c:/Windows/Temp/<sensitive>-cleanup-6941d81c-3cdf-a11b-ac93-b2d2ee0d1c86.ps1\" failed to upload: Error uploading file to $env:TEMP\\winrmcp-69f133ab-5fc3-4ff2-62a5-4a078a392ecc.tmp: Couldn't create shell: unknown error Post \"http://192.168.1.223:5985/wsman\": dial tcp 192.168.1.223:5985: connect: operation timed out"
+2025/12/16 16:19:14 <sensitive>-provisioner-powershell plugin: Retryable error: clean up script "c:/Windows/Temp/<sensitive>-cleanup-6941d81c-3cdf-a11b-ac93-b2d2ee0d1c86.ps1" failed to upload: Error uploading file to $env:TEMP\winrmcp-69f133ab-5fc3-4ff2-62a5-4a078a392ecc.tmp: Couldn't create shell: unknown error Post "http://192.168.1.223:5985/wsman": dial tcp 192.168.1.223:5985: connect: operation timed out
+2025/12/16 16:19:24 <sensitive>-provisioner-powershell plugin: [INFO] 511 bytes written for 'uploadData'
+2025/12/16 16:19:24 [INFO] 511 bytes written for 'uploadData'
+2025/12/16 16:19:24 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 16:19:24 Uploading file to 'c:/Windows/Temp/<sensitive>-cleanup-6941d81c-3cdf-a11b-ac93-b2d2ee0d1c86.ps1'
+2025/12/16 16:19:46 <sensitive>-provisioner-powershell plugin: failed to upload the remote cleanup script: "clean up script \"c:/Windows/Temp/<sensitive>-cleanup-6941d81c-3cdf-a11b-ac93-b2d2ee0d1c86.ps1\" failed to upload: Error uploading file to $env:TEMP\\winrmcp-efc66c2e-a568-4b87-7eec-39a85b4ffadc.tmp: Couldn't create shell: unknown error Post \"http://192.168.1.223:5985/wsman\": dial tcp 192.168.1.223:5985: connect: operation timed out"
+2025/12/16 16:19:46 <sensitive>-provisioner-powershell plugin: Retryable error: clean up script "c:/Windows/Temp/<sensitive>-cleanup-6941d81c-3cdf-a11b-ac93-b2d2ee0d1c86.ps1" failed to upload: Error uploading file to $env:TEMP\winrmcp-efc66c2e-a568-4b87-7eec-39a85b4ffadc.tmp: Couldn't create shell: unknown error Post "http://192.168.1.223:5985/wsman": dial tcp 192.168.1.223:5985: connect: operation timed out
+2025/12/16 16:19:46 <sensitive>-provisioner-powershell plugin: remote cleanup script failed to upload; skipping the removal of temporary files: c:/Windows/Temp/<sensitive>-ps-env-vars-6941d81c-90e0-4e6b-094b-058b3be5e585.ps1,c:/Windows/Temp/script-6941d81c-6780-3ea5-4669-e058db8fabcb.ps1;
+2025/12/16 16:19:46 [INFO] (telemetry) ending powershell
+2025/12/16 16:19:46 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Stopping VM[0m
+2025/12/16 16:19:46 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Converting VM to template[0m
+2025/12/16 16:19:48 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 16:19:48 template_id: 9020
+2025/12/16 16:19:48 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Adding a cloud-init cdrom in storage pool local-lvm[0m
+2025/12/16 16:19:50 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Deleted generated ISO from local:iso/<sensitive>4078251529.iso[0m
+2025/12/16 16:19:51 <sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64 plugin: 2025/12/16 16:19:51 Deleting CD disk: /var/folders/fw/5v2gpv3x0gscd1mbj8tgc2m00000gr/T/<sensitive>4078251529.iso
+2025/12/16 16:19:51 [INFO] (telemetry) ending proxmox-iso.windows_10_22h2_base
+2025/12/16 16:19:51 ui: [1;32m==> windows_10_22h2.proxmox-iso.windows_10_22h2_base: Running post-processor:  (type manifest)[0m
+2025/12/16 16:19:51 [INFO] (telemetry) Starting post-processor manifest
+2025/12/16 16:19:51 <sensitive>-post-processor-manifest plugin: [DEBUG] - common: sending ConfigSpec as gob
+2025/12/16 16:19:51 [DEBUG] - common: receiving ConfigSpec as gob
+2025/12/16 16:19:51 [INFO] (telemetry) ending manifest
+2025/12/16 16:19:51 Flagging to keep original artifact from post-processor 'manifest'
+2025/12/16 16:19:51 ui: [1;32mBuild 'windows_10_22h2.proxmox-iso.windows_10_22h2_base' finished after 1 hour 35 minutes.[0m
+2025/12/16 16:19:51 ui: 
+==> Wait completed after 1 hour 35 minutes
+2025/12/16 16:19:51 ui: 
+==> Builds finished. The artifacts of successful builds are:
+2025/12/16 16:19:51 machine readable: windows_10_22h2.proxmox-iso.windows_10_22h2_base,artifact-count []string{"2"}
+2025/12/16 16:19:51 machine readable: windows_10_22h2.proxmox-iso.windows_10_22h2_base,artifact []string{"0", "builder-id", "proxmox.iso"}
+2025/12/16 16:19:51 machine readable: windows_10_22h2.proxmox-iso.windows_10_22h2_base,artifact []string{"0", "id", "9020"}
+2025/12/16 16:19:51 machine readable: windows_10_22h2.proxmox-iso.windows_10_22h2_base,artifact []string{"0", "string", "A template was created: 9020"}
+2025/12/16 16:19:51 machine readable: windows_10_22h2.proxmox-iso.windows_10_22h2_base,artifact []string{"0", "files-count", "0"}
+2025/12/16 16:19:51 machine readable: windows_10_22h2.proxmox-iso.windows_10_22h2_base,artifact []string{"0", "end"}
+2025/12/16 16:19:51 ui: --> windows_10_22h2.proxmox-iso.windows_10_22h2_base: A template was created: 9020
+2025/12/16 16:19:51 machine readable: windows_10_22h2.proxmox-iso.windows_10_22h2_base,artifact []string{"1", "builder-id", "proxmox.iso"}
+2025/12/16 16:19:51 machine readable: windows_10_22h2.proxmox-iso.windows_10_22h2_base,artifact []string{"1", "id", "9020"}
+2025/12/16 16:19:51 machine readable: windows_10_22h2.proxmox-iso.windows_10_22h2_base,artifact []string{"1", "string", "A template was created: 9020"}
+2025/12/16 16:19:51 machine readable: windows_10_22h2.proxmox-iso.windows_10_22h2_base,artifact []string{"1", "files-count", "0"}
+2025/12/16 16:19:51 machine readable: windows_10_22h2.proxmox-iso.windows_10_22h2_base,artifact []string{"1", "end"}
+2025/12/16 16:19:51 ui: --> windows_10_22h2.proxmox-iso.windows_10_22h2_base: A template was created: 9020
+2025/12/16 16:19:51 [INFO] (telemetry) Finalizing.
+2025/12/16 16:19:51 waiting for all plugin processes to complete...
+2025/12/16 16:19:51 /Users/ralph.brynard/.<sensitive>.d/plugins/github.com/ethanmdavidson/git/<sensitive>-plugin-git_v0.6.4_x5.0_darwin_amd64: plugin process exited
+2025/12/16 16:19:51 /usr/local/bin/<sensitive>: plugin process exited
+2025/12/16 16:19:51 /Users/ralph.brynard/.<sensitive>.d/plugins/github.com/hashicorp/proxmox/<sensitive>-plugin-proxmox_v1.2.3_x5.0_darwin_amd64: plugin process exited
+2025/12/16 16:19:51 /usr/local/bin/<sensitive>: plugin process exited
+2025/12/16 16:19:51 /usr/local/bin/<sensitive>: plugin process exited
+2025/12/16 16:19:51 /usr/local/bin/<sensitive>: plugin process exited
+2025/12/16 16:19:51 /usr/local/bin/<sensitive>: plugin process exited

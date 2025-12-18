@@ -36,25 +36,30 @@ source "proxmox-iso" "windows_10_22h2_base" {
     type             = "sata"
     cd_label         = "win10_drivers"
     iso_storage_pool = var.iso_storage_pool
+    unmount          = true
     cd_files = [
       "${path.cwd}/drivers",
       "../../../scripts"
     ]
     cd_content = {
       "autounattend.xml" = templatefile("${abspath(path.root)}/data/autounattend.pkrtpl.hcl", {
-        is_efi           = false
-        username         = var.username
-        password         = var.password
-        inst_os_language = var.guest_os_language
-        inst_os_keyboard = var.guest_os_keyboard
-        inst_os_image    = "Windows 10 Pro N for Workstations"
-        kms_key          = "9FNHH-K3HBT-3W4TD-6383H-6XYWF"
+        is_efi            = false
+        username          = var.username
+        password          = var.password
+        inst_os_language  = var.guest_os_language
+        inst_os_keyboard  = var.guest_os_keyboard
+        inst_os_image     = "Windows 10 Pro N for Workstations"
+        kms_key           = "9FNHH-K3HBT-3W4TD-6383H-6XYWF"
         guest_os_language = var.guest_os_language
         guest_os_keyboard = var.guest_os_keyboard
         guest_os_timezone = var.guest_os_timezone
       })
     }
   }
+
+  // cloud init settings
+  cloud_init              = true
+  cloud_init_storage_pool = var.cloudinit_storage_pool
 
   // disk settings
   disks {
@@ -71,7 +76,7 @@ source "proxmox-iso" "windows_10_22h2_base" {
   }
 
   // boot settings
-  boot_wait    = "5s"
+  boot_wait = "5s"
   boot_command = [
     "<spacebar><spacebar>",
     "<wait10><wait10><wait10>",
@@ -81,13 +86,13 @@ source "proxmox-iso" "windows_10_22h2_base" {
   ]
 
   // communicator settings
-  communicator     = "winrm"
-  winrm_username   = "Administrator"
-  winrm_password   = var.password
-  winrm_port       = 5985
-  winrm_timeout    = "120m"
-  winrm_insecure   = true
-  winrm_use_ssl    = false
-  winrm_use_ntlm   = false
-  winrm_no_proxy   = true
+  communicator   = "winrm"
+  winrm_username = "Administrator"
+  winrm_password = var.password
+  winrm_port     = 5985
+  winrm_timeout  = "120m"
+  winrm_insecure = true
+  winrm_use_ssl  = false
+  winrm_use_ntlm = false
+  winrm_no_proxy = true
 }

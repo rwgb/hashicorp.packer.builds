@@ -1,4 +1,4 @@
-// Variable definitions for Windows 10 Base Build
+// Variable definitions
 variable "proxmox_host" {
   type        = string
   description = "IP address or resolvable hostname of the proxmox host"
@@ -23,13 +23,6 @@ variable "node" {
 variable "pool" {
   type        = string
   description = "The name of the resource pool in which to create the virtual machine"
-  default     = ""
-}
-
-variable "iso_storage_pool" {
-  type        = string
-  description = "The Proxmox storage pool where ISO files are stored"
-  default     = "local"
 }
 
 variable "disk_storage_pool" {
@@ -38,44 +31,26 @@ variable "disk_storage_pool" {
   default     = "local-lvm"
 }
 
-variable "cloudinit_storage_pool" {
+variable "cloud_init_storage_pool" {
   type        = string
-  description = "The Proxmox storage pool for cloud-init drive"
+  description = "The Proxmox storage pool for cloud-init drives"
   default     = "local-lvm"
 }
 
 variable "insecure_tls" {
   type        = bool
-  description = "Whether or not HTTPS certificate of the proxmox server should be validated"
+  description = "Defaults to true. Whether or not HTTPS certificate of the proxmox server should be validated"
   default     = true
 }
 
 variable "username" {
   type        = string
   description = "The build username to use for WinRM connections"
-  default     = "Administrator"
+  default     = "packer"
 }
 
 variable "password" {
   type        = string
   description = "The password to use for the build user"
-  sensitive   = true
-}
-
-variable "guest_os_language" {
-  type        = string
-  description = "The operating system language that should be installed"
-  default     = "en-US"
-}
-
-variable "guest_os_keyboard" {
-  type        = string
-  description = "The keyboard language that should be installed"
-  default     = "en-US"
-}
-
-variable "guest_os_timezone" {
-  type        = string
-  description = "The timezone that the virtual machine should be set with"
-  default     = "UTC"
+  default     = "packer"
 }
